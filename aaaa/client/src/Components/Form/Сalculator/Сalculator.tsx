@@ -90,14 +90,13 @@ const Сalculator: React.FC<СalculatorProps> = ({
     getValues,
     setValue
   } = useForm<formInputs>()
-  
 
   const changeHandler = useCallback(
     (e: any) => {
-        setGoo((prev: any) => ({
-          ...prev,
-          [e.target.name]: Number(e.target.value)
-        }))
+      setGoo((prev: any) => ({
+        ...prev,
+        [e.target.name]: Number(e.target.value)
+      }))
     },
     [goo]
   )
@@ -192,43 +191,47 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 required: 'Обязательное поле'
               })}
               type='text'
-              autoComplete="off"
+              autoComplete='off'
               placeholder='Укажите город отправления'
               onChange={handleChange}
               value={city}
               // styles.inpEl_mod нужен когда есть поиск
-              className={clsx({ [styles.inpEl_mod]: view === true && city.length > 0})}
+              className={clsx({
+                [styles.inpEl_mod]: view === true && city.length > 0
+              })}
               onClick={() => setView(true)}
             />
             <div
               id='dropdown'
               // styles.dropDown_mod нужен если нет поиска
-              className={clsx(styles.dropDown, {[styles.dropDown_mod]: view === false})}
+              className={clsx(styles.dropDown, {
+                [styles.dropDown_mod]: view === false
+              })}
             >
               <div className={styles.dropDown__wrap}>
                 {data?.pages?.at(0).length > 0 ? (
                   <>
-                  {data?.pages?.at(0)?.map((el: any) => (
-                    <p
-                      onClick={() => {
-                        setIndex(el.index)
-                        setCity(el.address)
-                        setView(false)
-                        setValue("cityFrom", el.address)
-                        setValue("cityFromIndex", el.index)
-                      }}
-                    >
-                      {el.address}
-                    </p>
-                  ))}
+                    {data?.pages?.at(0)?.map((el: any) => (
+                      <p
+                        onClick={() => {
+                          setIndex(el.index)
+                          setCity(el.address)
+                          setView(false)
+                          setValue('cityFrom', el.address)
+                          setValue('cityFromIndex', el.index)
+                        }}
+                      >
+                        {el.address}
+                      </p>
+                    ))}
                   </>
-                ):(
+                ) : (
                   <>
-                  {city.length > 0 ? (
-                    <p>Такого города нет в списке</p>
-                  ) : (
-                    <p>Начните вводить название города</p>
-                  )}
+                    {city.length > 0 ? (
+                      <p>Такого города нет в списке</p>
+                    ) : (
+                      <p>Начните вводить название города</p>
+                    )}
                   </>
                 )}
               </div>
@@ -249,40 +252,42 @@ const Сalculator: React.FC<СalculatorProps> = ({
               })}
               onChange={handleChange2}
               value={city2}
-              autoComplete="off"
+              autoComplete='off'
               // styles.inpEl_mod нужен когда есть поиск
               className={clsx({ [styles.inpEl_mod]: view1 === true })}
               onClick={() => setView1(true)}
             />
-           <div
+            <div
               id='dropdown'
               // styles.dropDown_mod нужен если нет поиска
-              className={clsx(styles.dropDown, {[styles.dropDown_mod]: view1 === false})}
+              className={clsx(styles.dropDown, {
+                [styles.dropDown_mod]: view1 === false
+              })}
             >
               <div className={styles.dropDown__wrap}>
                 {data2?.pages?.at(0).length > 0 ? (
                   <>
-                  {data2?.pages?.at(0)?.map((el: any) => (
-                    <p
-                      onClick={() => {
-                        setIndex2(el.index)
-                        setCity2(el.address)
-                        setView1(false)
-                        setValue("cityTo", el.address)
-                        setValue("cityToIndex", el.index)
-                      }}
-                    >
-                      {el.address}
-                    </p>
-                  ))}
+                    {data2?.pages?.at(0)?.map((el: any) => (
+                      <p
+                        onClick={() => {
+                          setIndex2(el.index)
+                          setCity2(el.address)
+                          setView1(false)
+                          setValue('cityTo', el.address)
+                          setValue('cityToIndex', el.index)
+                        }}
+                      >
+                        {el.address}
+                      </p>
+                    ))}
                   </>
-                ):(
+                ) : (
                   <>
-                  {city2.length > 0 ? (
-                    <p>Такого города нет в списке</p>
-                  ) : (
-                    <p>Начните вводить название города</p>
-                  )}
+                    {city2.length > 0 ? (
+                      <p>Такого города нет в списке</p>
+                    ) : (
+                      <p>Начните вводить название города</p>
+                    )}
                   </>
                 )}
               </div>
@@ -301,7 +306,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
               {...register('cityFromIndex', {
                 onChange: (e) => changeInd(e, 'cityFromIndex')
               })}
-              autoComplete="off"
+              autoComplete='off'
               onChange={handleChange3}
             />
           </div>
@@ -315,81 +320,82 @@ const Сalculator: React.FC<СalculatorProps> = ({
               {...register('cityToIndex', {
                 onChange: (e) => changeInd(e, 'cityToIndex')
               })}
-              autoComplete="off"
+              autoComplete='off'
               value={index2}
               onChange={handleChange4}
             />
           </div>
         </div>
-        <div className={styles.line}>
-          <div className={styles.inpEl}>
-            <p>
-              Страховка, руб.<span>*</span>
-            </p>
-            <input
-              type='number'
-              placeholder='Укажите Страховку (руб.)'
-              {...register('insurance')}
-              autoComplete="off"
-            />
+        {
+          //
+        }
+        <div className={styles.lineRev}>
+          <div className={styles.lineRev__el}>
+            <div className={styles.inpEl}>
+              <p>
+                Страховка, руб.<span>*</span>
+              </p>
+              <input
+                type='number'
+                placeholder='Укажите Страховку (руб.)'
+                {...register('insurance')}
+                autoComplete='off'
+              />
+            </div>
+            <div className={styles.inpEl}>
+              <p>
+                Вес, гр.<span>*</span>
+              </p>
+              <input
+                type='text'
+                placeholder='Укажите вес(гр.)'
+                {...register('Bsize')}
+                name='weight'
+                onChange={changeHandler}
+                autoComplete='off'
+              />
+            </div>
           </div>
-          <div></div>
-        </div>
-        <div className={styles.secondLine}>
-          <div className={styles.inpEl}>
-            <p>
-              Вес, гр.<span>*</span>
-            </p>
-            <input
-              type='text'
-              placeholder='Укажите вес(гр.)'
-              {...register('Bsize')}
-              name='weight'
-              onChange={changeHandler}
-              autoComplete="off"
-            />
-          </div>
-          <div className={styles.inpEl}>
-            <p>Длина, см.</p>
-            <input
-              type='text'
-              placeholder='Укажите длину(см)'
-              {...register('Blenght')}
-              name='length'
-              onChange={changeHandler}
-              autoComplete="off"
-            />
-          </div>
-        </div>
-        <div className={styles.line}>
-          <div className={styles.inpEl}></div>
-          <div className={styles.inpEl}>
-            <p>Ширина, см.</p>
-            <input
-              type='text'
-              placeholder='Укажите ширину(см)'
-              {...register('Bwidth')}
-              name='width'
-              onChange={changeHandler}
-              autoComplete="off"
-            />
+          <div className={styles.lineRev__el}>
+            <div className={styles.inpEl}>
+              <p>Длина, см.</p>
+              <input
+                type='text'
+                placeholder='Укажите длину(см)'
+                {...register('Blenght')}
+                name='length'
+                onChange={changeHandler}
+                autoComplete='off'
+              />
+            </div>
+            <div className={styles.inpEl}>
+              <p>Ширина, см.</p>
+              <input
+                type='text'
+                placeholder='Укажите ширину(см)'
+                {...register('Bwidth')}
+                name='width'
+                onChange={changeHandler}
+                autoComplete='off'
+              />
+            </div>
+            <div className={styles.inpEl}>
+              <p>Высота, см.</p>
+              <input
+                type='text'
+                placeholder='Укажите высоту(см)'
+                {...register('Bheight')}
+                name='height'
+                onChange={changeHandler}
+                autoComplete='off'
+              />
+            </div>
           </div>
         </div>
         <div className={styles.lastLine}>
           <div className={styles.buttons}>
             <button type='button'>Оформить</button>
             <button type='submit'>Рассчитать</button>
-          </div>
-          <div className={styles.inpEl}>
-            <p>Высота, см.</p>
-            <input
-              type='text'
-              placeholder='Укажите высоту(см)'
-              {...register('Bheight')}
-              name='height'
-              onChange={changeHandler}
-              autoComplete="off"
-            />
           </div>
         </div>
       </form>

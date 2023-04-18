@@ -9,8 +9,8 @@
   max-width: 908px;
 
   &__el {
-    @apply text-lg max-md:text-base w-full flex justify-between;
-    max-width: 308px;
+    @apply text-lg w-full flex justify-between gap-x-2;
+    max-width: 50%;
     p:first-child {
       @apply font-normal;
     }
@@ -20,11 +20,38 @@
   }
 }
 
+.city {
+  @apply text-lg w-full flex justify-between gap-x-2;
+  max-width: 50%;
+}
+
 .text {
   @apply text-base font-medium max-md:text-xs;
   white-space: break-spaces;
 }
 
-.city {
-  @apply w-full text-lg;
+@media screen and (max-width: 888px) {
+  .info {
+    &__el {
+      max-width: 70%;
+      @apply text-base;
+    }
+  }
+  .city {
+    max-width: 70%;
+    @apply text-base;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .info {
+    &__el {
+      max-width: 100%;
+      @apply text-sm;
+    }
+  }
+  .city {
+    max-width: 100%;
+    @apply text-sm;
+  }
 }

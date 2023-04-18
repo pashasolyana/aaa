@@ -1,33 +1,33 @@
-import React, { FC } from "react";
-import styles from "./Account.module.scss";
-import Loader from "@/Components/Loader/Loader";
+import React, { FC } from 'react'
+import styles from './Account.module.scss'
+import Loader from '@/Components/Loader/Loader'
 
 export interface handleFormProps {
-  rap: any;
-  goo: any;
-  cities: string;
-  cities2: string;
+  rap: any
+  goo: any
+  cities: string
+  cities2: string
 }
 
 const Account: FC<handleFormProps> = ({ rap, goo, cities, cities2 }) => {
-
   const zzz = () => {
     const timeDiff =
-      new Date(rap?.at(0)?.deliveryDateMin).getTime() - new Date().getTime();
-    const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    return diffDays;
-  };
+      new Date(rap?.at(0)?.deliveryDateMin).getTime() - new Date().getTime()
+    const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24))
+    return diffDays
+  }
 
-  console.log(zzz());
+  console.log(rap)
 
   return (
     <>
       {rap?.at(0)?.priceByCurrency ? (
         <div className={styles.cont}>
           <div className={styles.info}>
-          <div className={styles.city}>
-              <p>Маршрут: <span className="font-semibold">{cities} – {cities2}</span></p>
-              <p></p>
+            <div className={styles.city}>
+              <p>{cities}</p>
+              <p>–</p>
+              <p>{cities2}</p>
             </div>
             <div className={styles.info__el}>
               <p>Вес: </p>
@@ -59,7 +59,7 @@ const Account: FC<handleFormProps> = ({ rap, goo, cities, cities2 }) => {
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default Account;
+export default Account
