@@ -1,0 +1,30 @@
+.cont {
+  @apply py-8 px-10 w-full flex flex-col gap-y-8 max-xl:gap-y-6 max-lg:pl-5 max-sm:px-4 max-sm:pb-5;
+  background: #ededed;
+  border-radius: 0px 0px 8px 8px;
+}
+
+.info {
+  @apply flex flex-col w-full gap-y-5;
+  max-width: 908px;
+
+  &__el {
+    @apply text-lg max-md:text-base w-full flex justify-between;
+    max-width: 308px;
+    p:first-child {
+      @apply font-normal;
+    }
+    p:last-child {
+      @apply font-semibold;
+    }
+  }
+}
+
+.text {
+  @apply text-base font-medium max-md:text-xs;
+  white-space: break-spaces;
+}
+
+.city {
+  @apply w-full text-lg;
+}

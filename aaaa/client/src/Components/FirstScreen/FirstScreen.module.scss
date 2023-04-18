@@ -1,0 +1,104 @@
+.container {
+  @apply h-[691px] max-xl:h-[498px] px-[175px] max-3xl:px-11 max-2xl:px-9 max-xl:px-10 flex items-center w-full;
+  background-color: #d9d9d9;
+}
+
+.blockLeft {
+  @apply w-full;
+}
+
+.title {
+  @apply font-semibold text-3xl max-xl:text-2xl;
+}
+
+.track {
+  @apply font-semibold text-3xl max-xl:text-2xl;
+}
+.subtitle {
+  @apply mb-[65px] text-xl font-medium mt-4 max-xl:mb-10;
+}
+
+.btn {
+  @apply font-bold text-base text-white px-8 py-3 rounded-lg border-0 ;
+  background-color: #3622f5;
+}
+
+.block {
+  @apply flex justify-between w-full;
+}
+
+.blockRight {
+  @apply flex flex-col justify-start w-full;
+}
+
+.trackInput {
+  @apply my-6;
+
+  input {
+    @apply h-[56px] text-lg font-normal w-full rounded-lg pl-5 outline-none;
+    color: #a7a7a7;
+    max-width: 628px;
+  }
+}
+
+@media screen and (max-width: 822px) {
+  .container {
+    @apply h-[377px] px-7;
+  }
+  .title {
+    @apply text-xl;
+  }
+
+  .track {
+    @apply text-xl;
+  }
+  .subtitle {
+    @apply text-base;
+  }
+  .trackInput {
+    @apply my-7;
+    input{
+      @apply h-11 text-base;
+    }
+  }
+}
+
+@media screen and (max-width: 662px) {
+  .block{
+    @apply flex-col gap-y-6 items-center;
+  }
+  .blockRight{
+    @apply flex flex-col items-center;
+  }
+  .blockLeft{
+    @apply flex flex-col items-center;
+  }
+  .container {
+    @apply h-fit py-5;
+  }
+  .title {
+    @apply text-tiny;
+  }
+  .btn{
+    @apply text-sm;
+  }
+
+  .track {
+    @apply text-tiny;
+  }
+  .subtitle {
+    @apply text-base mt-4 mb-3;
+  }
+  .trackInput {
+    @apply my-3 w-full;
+    input{
+      @apply w-full h-10 text-base;
+    }
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .container {
+    @apply px-3.5;
+  }
+}

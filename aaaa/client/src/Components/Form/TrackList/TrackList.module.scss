@@ -1,0 +1,16 @@
+.cont {
+  @apply py-[58px] px-[106px] gap-y-[18px] max-xl:py-10 max-xl:px-12 max-lg:py-6 max-lg:px-2.5
+  w-full flex flex-col;
+  background: #ededed;
+  border-radius: 0px 0px 8px 8px;
+
+  p {
+    @apply max-md:text-[10px] max-md:leading-[12px] text-base font-medium max-lg:text-xs;
+    overflow-wrap: anywhere;
+  }
+}
+
+.el {
+  @apply pb-[18px] pl-[26px] max-xl:pl-2.5 max-lg:pb-2.5 w-full grid max-lg:gap-x-2 grid-cols-3 grid-rows-1 items-center;
+  border-bottom: 1px solid #c2c2c2;
+}
