@@ -6,11 +6,13 @@ import { ChangeEvent, useState } from 'react'
 import getStatusGET from '../Components/FirstScreen/getStatusGET'
 import {Form} from '../Components/Form/Form'
 import Loader from '@/Components/Loader/Loader'
+import getAllCities from '@/Components/FirstScreen/getAllCities'
 
 export default function Home() {
   const [path, setPath] = useState(0)
   const [number, setNumber] = useState('')
   const [some, setSome] = useState()
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length < 18) {
       setNumber(e.target.value)
@@ -25,13 +27,17 @@ export default function Home() {
     })
   }
 
-  console.log(path)
+  const { data } = getAllCities()
+
+  const allCities = data?.pages?.at(0);
+
+  console.log(allCities)
   return (
     <div>
       <Header setPath={setPath}/>
-      <FirstScreen vvv={vvv} handleChange={handleChange} number={number} setPath={setPath}/>
+      <FirstScreen vvv={vvv} some={some} handleChange={handleChange} number={number} setPath={setPath}/>
       <div id='form'></div>
-      <Form vvv={vvv} handleChange={handleChange} some={some} number={number} path={path} setPath={setPath}/>
+      <Form allCities={allCities} vvv={vvv} handleChange={handleChange} some={some} number={number} path={path} setPath={setPath}/>
       <MapScreen />
       <Footer />
     </div>

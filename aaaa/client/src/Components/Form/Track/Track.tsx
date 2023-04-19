@@ -33,17 +33,17 @@ const Track: FC<Tracker> = ({ vvv, handleChange, isSearch, some, number, setPath
             onClick={() =>
               //@ts-ignore
               number && number.length > 0 ? vvv() : null}
-          >
+              >
             Отследить
           </button>
         </form>
-      </div>
-    {some?.join('')?.length > 0 && (
-      <TrackList some={some}/>
+            {some?.join('')?.length < 1 && (
+            <div>Ошибка при введении номера заказа</div>
     )}
-      {/* {some?.join('')?.length > 0 && (
-        <DileveryList some={some} />
-      )} */}
+      </div>
+      {some?.join('')?.length > 0 && (
+        <TrackList some={some} />
+      )}
     </div>
   )
 }

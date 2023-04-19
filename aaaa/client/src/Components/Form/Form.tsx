@@ -16,9 +16,10 @@ export interface handleFormProps {
   some?: any
   path: number
   setPath: (x: number) => void
+  allCities: any
 }
 
-export const Form: FC<handleFormProps> = ({ vvv, handleChange, some, number, path, setPath }) => {
+export const Form: FC<handleFormProps> = ({ allCities, vvv, handleChange, some, number, path, setPath }) => {
   const [isAccount, setIsAccount] = useState(true)
   const [isSearch, setIsSearch] = useState(false)
   const [rap, setRap] = useState()
@@ -54,7 +55,7 @@ export const Form: FC<handleFormProps> = ({ vvv, handleChange, some, number, pat
     <div className={styles.cont}>
       <Tabs setPath={setPath} path={path} />
       {path === 0 ? (
-        <Сalculator handleForm={handleForm} isAccount={isAccount} setRap={setRap} goo={goo} setGoo={setGoo} setCities={setCities} setCities2={setCities2}/>
+        <Сalculator allCities={allCities} handleForm={handleForm} isAccount={isAccount} setRap={setRap} goo={goo} setGoo={setGoo} setCities={setCities} setCities2={setCities2}/>
       ) : (
         <Track vvv={vvv} handleChange={handleChange} isSearch={isSearch} some={some} number={number} setPath={setPath}/>
       )}

@@ -122,4 +122,9 @@ export const OtherService = {
 
     return response.data
   },
+  async getAllCities() {
+    const response = await instance.get('http://localhost:5000/api/base/city')
+
+    return response.data
+  },
 }
