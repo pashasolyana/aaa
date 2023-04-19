@@ -41,7 +41,7 @@ const Account: FC<handleFormProps> = ({ rap, goo, cities, cities2 }) => {
             </div>
             <div className={styles.info__el}>
               <p>Стоимость*:</p>
-              <p>{rap?.at(0)?.priceByCurrency} руб.</p>
+              <p>{rap?.at(0)?.priceByCurrency.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} руб.</p>
             </div>
             <div className={styles.info__el}>
               <p>Срок доставки:</p>
