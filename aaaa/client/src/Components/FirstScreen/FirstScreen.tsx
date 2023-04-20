@@ -11,51 +11,63 @@ interface Tracker {
   setPath: (a: number) => void
 }
 
-export const FirstScreen: FC<Tracker> = ({ vvv, handleChange, number, setPath }) => {
+export const FirstScreen: FC<Tracker> = ({
+  vvv,
+  handleChange,
+  number,
+  setPath
+}) => {
   return (
     <div className={styles.container}>
       <div className={styles.block}>
         <div className={styles.blockLeft}>
-          <div className='flex flex-col items-start'>
-            <div className={styles.title}>Курьерская служба</div>
-            <div className={styles.title}>доставки</div>
-            <div className={styles.title}>Люблино экспресс</div>
+          <div className={styles.titleCont}>
+            <div className={styles.title}>Курьерская служба доставки</div>
+            <div className={styles.title}>Люблино Экспресс</div>
           </div>
           <div className={styles.subtitle}>Отправляй и получай!</div>
           <div>
-          <Link
-          activeClass='active'
-          to='form'
-          spy={true}
-          smooth={true}
-          offset={50}
-          duration={500}
-          onClick={() => setPath(0)}
-          className={styles.lowHeaderText}
-        >
-            <button className={styles.btn}>Заказать</button>
+            <Link
+              activeClass='active'
+              to='form'
+              spy={true}
+              smooth={true}
+              offset={50}
+              duration={500}
+              onClick={() => setPath(0)}
+              className={styles.lowHeaderText}
+            >
+              <button className={styles.btn}>Заказать</button>
             </Link>
           </div>
         </div>
         <div className={styles.blockRight}>
           <div className={styles.track}>Номер заказа</div>
           <div className={styles.trackInput}>
-          <input type='text' value={number} placeholder='Введите номер заказа' onChange={handleChange} />
+            <input
+              type='text'
+              value={number}
+              placeholder='Введите номер заказа'
+              onChange={handleChange}
+            />
           </div>
           <div>
-          <Link
-          activeClass='active'
-          to='form'
-          spy={true}
-          smooth={true}
-          offset={50}
-          duration={500}
-          onClick={() => setPath(1)}
-          className={styles.lowHeaderText}
-        >
-            <button className={styles.btn} onClick={() => number.length > 0 ? vvv() : null}>
-              Отследить
-            </button>
+            <Link
+              activeClass='active'
+              to='form'
+              spy={true}
+              smooth={true}
+              offset={50}
+              duration={500}
+              onClick={() => setPath(1)}
+              className={styles.lowHeaderText}
+            >
+              <button
+                className={styles.btn}
+                onClick={() => (number.length > 0 ? vvv() : null)}
+              >
+                Отследить
+              </button>
             </Link>
           </div>
         </div>

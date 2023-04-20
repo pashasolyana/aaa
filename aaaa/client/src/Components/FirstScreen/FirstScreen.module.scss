@@ -9,6 +9,11 @@
 
 .title {
   @apply font-semibold text-3xl max-xl:text-2xl;
+  white-space: nowrap;
+}
+
+.titleCont{
+  @apply flex flex-col gap-y-3;
 }
 
 .track {
@@ -24,7 +29,7 @@
 }
 
 .block {
-  @apply flex justify-between w-full;
+  @apply flex justify-between w-full gap-x-10;
 }
 
 .blockRight {
@@ -40,6 +45,13 @@
     max-width: 628px;
   }
 }
+
+@media screen and (max-width: 1120px) {
+  .title{
+    white-space: normal;
+  }
+}
+
 
 @media screen and (max-width: 822px) {
   .container {
@@ -65,7 +77,7 @@
 
 @media screen and (max-width: 662px) {
   .block{
-    @apply flex-col gap-y-6 items-center;
+    @apply flex-col gap-y-8 items-center;
   }
   .blockRight{
     @apply flex flex-col items-center;
@@ -77,7 +89,10 @@
     @apply h-fit py-5;
   }
   .title {
-    @apply text-tiny;
+    font-size: 16px;
+    line-height: 23px;
+    white-space: nowrap;
+    text-align: center;
   }
   .btn{
     @apply text-sm;
@@ -94,6 +109,9 @@
     input{
       @apply w-full h-10 text-base;
     }
+  }
+  .titleCont{
+    @apply gap-y-0;
   }
 }
 
