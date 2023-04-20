@@ -162,11 +162,11 @@ const Сalculator: React.FC<СalculatorProps> = ({
   }
 
   const changeSize = (size: any) => {
-    if (size.target.value < 500) {
+    if (size.target.value < 100) {
       setValue('Bsize', size.target.value)
       changeHandler(size)
     } else {
-      setValue('Bsize', 500)
+      setValue('Bsize', 100)
       changeHandler(size)
     }
   }
@@ -178,6 +178,16 @@ const Сalculator: React.FC<СalculatorProps> = ({
     } else {
       setValue(name, 200)
       changeHandler(ind)
+    }
+  }
+
+  const changePrice = (price: any) => {
+    if (price.target.value < 1000000) {
+      setValue('insurance', price.target.value)
+      changeHandler(price)
+    } else {
+      setValue('insurance', '1000000')
+      changeHandler(price)
     }
   }
 
@@ -346,6 +356,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 placeholder='Укажите Страховку (руб.)'
                 {...register('insurance')}
                 autoComplete='off'
+                onChange={changePrice}
               />
             </div>
             <div className={styles.inpEl}>
