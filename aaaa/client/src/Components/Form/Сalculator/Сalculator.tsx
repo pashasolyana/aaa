@@ -60,14 +60,6 @@ const Сalculator: React.FC<СalculatorProps> = ({
     setCity2(e.target.value)
   }
 
-  const handleChange3 = (e: ChangeEvent<HTMLInputElement>) => {
-    setIndex(e.target.value)
-  }
-
-  const handleChange4 = (e: ChangeEvent<HTMLInputElement>) => {
-    setIndex2(e.target.value)
-  }
-
   const viewFirst = () => {
     return setView(true)
   }
@@ -154,24 +146,38 @@ const Сalculator: React.FC<СalculatorProps> = ({
   const changeInd = (ind: any, name: 'cityFromIndex' | 'cityToIndex') => {
     if (ind.target.value.length < 6) {
       setValue(name, ind.target.value)
+      if (name == 'cityFromIndex') {
+        setIndex(ind.target.value)
+      } else {
+        setIndex2(ind.target.value)
+      }
     } else {
       setValue(name, ind.target.value.slice(0, 6))
+      if (name == 'cityFromIndex') {
+        setIndex(ind.target.value.slice(0, 6))
+      } else {
+        setIndex2(ind.target.value.slice(0, 6))
+      }
     }
   }
 
   const changeSize = (size: any) => {
     if (size.target.value < 500) {
       setValue('Bsize', size.target.value)
+      changeHandler(size)
     } else {
       setValue('Bsize', 500)
+      changeHandler(size)
     }
   }
 
   const changeLinght = (ind: any, name: 'Bheight' | 'Bwidth' | 'Blenght') => {
     if (ind.target.value < 200) {
       setValue(name, ind.target.value)
+      changeHandler(ind)
     } else {
       setValue(name, 200)
+      changeHandler(ind)
     }
   }
 
@@ -197,9 +203,10 @@ const Сalculator: React.FC<СalculatorProps> = ({
               value={city}
               // styles.inpEl_mod нужен когда есть поиск
               className={clsx({
-                [styles.inpEl_mod]: view === true && city.length > 0
+                [styles.inpEl_mod]: view === true
               })}
-              onClick={() => setView(true)}
+              onFocus={() => setView(true)}
+              onBlur={() => setView(false)}
             />
             <div
               id='dropdown'
@@ -255,7 +262,8 @@ const Сalculator: React.FC<СalculatorProps> = ({
               autoComplete='off'
               // styles.inpEl_mod нужен когда есть поиск
               className={clsx({ [styles.inpEl_mod]: view1 === true })}
-              onClick={() => setView1(true)}
+              onFocus={() => setView1(true)}
+              onBlur={() => setView1(false)}
             />
             <div
               id='dropdown'
@@ -301,13 +309,12 @@ const Сalculator: React.FC<СalculatorProps> = ({
             </p>
             <input
               value={index}
-              type='text'
+              type='number'
               placeholder='Укажите индекс отправления'
               {...register('cityFromIndex', {
                 onChange: (e) => changeInd(e, 'cityFromIndex')
               })}
               autoComplete='off'
-              onChange={handleChange3}
             />
           </div>
           <div className={styles.inpEl}>
@@ -322,7 +329,6 @@ const Сalculator: React.FC<СalculatorProps> = ({
               })}
               autoComplete='off'
               value={index2}
-              onChange={handleChange4}
             />
           </div>
         </div>
@@ -351,7 +357,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 placeholder='Укажите вес(гр.)'
                 {...register('Bsize')}
                 name='weight'
-                onChange={changeHandler}
+                onChange={changeSize}
                 autoComplete='off'
               />
             </div>
@@ -364,7 +370,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 placeholder='Укажите длину(см)'
                 {...register('Blenght')}
                 name='length'
-                onChange={changeHandler}
+                onChange={(e) => changeLinght(e, 'Blenght')}
                 autoComplete='off'
               />
             </div>
@@ -375,7 +381,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 placeholder='Укажите ширину(см)'
                 {...register('Bwidth')}
                 name='width'
-                onChange={changeHandler}
+                onChange={(e) => changeLinght(e, 'Bwidth')}
                 autoComplete='off'
               />
             </div>
@@ -386,7 +392,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 placeholder='Укажите высоту(см)'
                 {...register('Bheight')}
                 name='height'
-                onChange={changeHandler}
+                onChange={(e) => changeLinght(e, 'Bheight')}
                 autoComplete='off'
               />
             </div>

@@ -114,7 +114,7 @@
 }
 
 .lineRev{
-  @apply gap-x-[109px] max-xl:gap-x-[102px] max-lg:gap-x-[55px] mb-5.5 max-lg:mb-2.5 grid grid-rows-1 grid-cols-2 w-full z-0;
+  @apply gap-x-[109px] max-xl:gap-x-[102px] max-lg:gap-x-[55px] mb-5.5 max-lg:mb-2.5 grid grid-rows-1 grid-cols-2 w-full -z-10;
 
   &__el{
     @apply flex flex-col gap-y-8;
