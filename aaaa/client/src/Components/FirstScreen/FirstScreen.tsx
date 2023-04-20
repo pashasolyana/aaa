@@ -6,12 +6,13 @@ import { Link } from 'react-scroll'
 
 interface Tracker {
   vvv: () => void
+  some: any
   handleChange: any
   number: string
   setPath: (a: number) => void
 }
 
-export const FirstScreen: FC<Tracker> = ({ vvv, handleChange, number, setPath }) => {
+export const FirstScreen: FC<Tracker> = ({ vvv, some, handleChange, number, setPath }) => {
   return (
     <div className={styles.container}>
       <div className={styles.block}>
@@ -23,39 +24,42 @@ export const FirstScreen: FC<Tracker> = ({ vvv, handleChange, number, setPath })
           </div>
           <div className={styles.subtitle}>Отправляй и получай!</div>
           <div>
-          <Link
-          activeClass='active'
-          to='form'
-          spy={true}
-          smooth={true}
-          offset={50}
-          duration={500}
-          onClick={() => setPath(0)}
-          className={styles.lowHeaderText}
-        >
-            <button className={styles.btn}>Заказать</button>
+            <Link
+              activeClass='active'
+              to='form'
+              spy={true}
+              smooth={true}
+              offset={50}
+              duration={500}
+              onClick={() => setPath(0)}
+              className={styles.lowHeaderText}
+            >
+              <button className={styles.btn}>Заказать</button>
             </Link>
           </div>
         </div>
         <div className={styles.blockRight}>
           <div className={styles.track}>Номер заказа</div>
           <div className={styles.trackInput}>
-          <input type='text' value={number} placeholder='Введите номер заказа' onChange={handleChange} />
+            <input type='text' value={number} placeholder='Введите номер заказа' onChange={handleChange} />
           </div>
           <div>
-          <Link
-          activeClass='active'
-          to='form'
-          spy={true}
-          smooth={true}
-          offset={50}
-          duration={500}
-          onClick={() => setPath(1)}
-          className={styles.lowHeaderText}
-        >
-            <button className={styles.btn} onClick={() => number.length > 0 ? vvv() : null}>
-              Отследить
-            </button>
+            <Link
+              activeClass='active'
+              to='form'
+              spy={true}
+              smooth={true}
+              offset={50}
+              duration={500}
+              onClick={() => setPath(1)}
+              className={styles.lowHeaderText}
+            >
+              {some?.join('')?.length < 1 && (
+                <div className='pb-4'>Ошибка при введении номера заказа</div>
+              )}
+              <button className={styles.btn} onClick={() => number.length > 0 ? vvv() : null}>
+                Отследить
+              </button>
             </Link>
           </div>
         </div>

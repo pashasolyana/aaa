@@ -7,7 +7,7 @@ interface СalculatorProps {
 
 const TrackList: React.FC<СalculatorProps> = ({ some }) => {
   return (
-    <div className={styles.cont}>
+    <div className={styles.cont} id='mather'>
       <div className={styles.el}>
         <p>Дата</p>
         <p>Статус</p>
