@@ -463,7 +463,8 @@ module.exports = {
         if(!req.query.search){
           return res.status(400).send({message : "search is required"})
         }
-        let search = (req.query.search).toLowerCase()
+        let str = (req.query.search).toLowerCase()
+        let search = str.replaceAll('ё', 'е')
         let data = []
         fs.createReadStream("./city.csv")
         .pipe(parse({columns: true}))
