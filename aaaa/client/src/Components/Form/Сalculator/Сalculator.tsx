@@ -227,19 +227,24 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 [styles.inpEl_mod]: view && city.length !== 0
               })}
               onFocus={() => setView(true)}
-              onBlur={() => setView(false)}
+              onBlur={() =>
+                setTimeout(() => {
+                  setView(false)
+                }, 10)
+              }
             />
             {wronger && <p>Города введены неверно</p>}
             <div
               id='dropdown'
               // styles.dropDown_mod нужен если нет поиска
               className={clsx(styles.dropDown, {
-                [styles.dropDown_mod]: !view || city.length <1
+                [styles.dropDown_mod]: !view || city.length < 1
               })}
             >
               <div className={styles.dropDown__wrap}>
                 {data?.pages?.at(0)?.map((el: any) => (
                   <p
+                    onMouseDown={(event) => event.preventDefault()}
                     onClick={(e) => {
                       e.stopPropagation()
                       setIndex(el.index)
@@ -283,12 +288,13 @@ const Сalculator: React.FC<СalculatorProps> = ({
               id='dropdown'
               // styles.dropDown_mod нужен если нет поиска
               className={clsx(styles.dropDown, {
-                [styles.dropDown_mod]: !view1 || city2.length <1
+                [styles.dropDown_mod]: !view1 || city2.length < 1
               })}
             >
               <div className={styles.dropDown__wrap}>
                 {data2?.pages?.at(0)?.map((el: any) => (
                   <p
+                    onMouseDown={(event) => event.preventDefault()}
                     onClick={(e) => {
                       e.stopPropagation()
                       setIndex2(el.index)
