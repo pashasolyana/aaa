@@ -465,12 +465,13 @@ module.exports = {
         }
         let str = (req.query.search).toLowerCase()
         let search = str.replaceAll('ё', 'е')
+        let search1 = str.replaceAll('е', 'ё')
         let data = []
         fs.createReadStream("./city.csv")
         .pipe(parse({columns: true}))
         .on("data", function (row) {
          let address = (row.address).toLowerCase()
-         if(address.match(search) || address.match(str)){
+         if(address.match(search) || address.match(str) || address.match(search1)){
            data.push({address : row.address, index : row.postal_code})
          }
       })
