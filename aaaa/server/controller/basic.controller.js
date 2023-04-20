@@ -473,6 +473,9 @@ module.exports = {
          if(address.match(search)){
            data.push({address : row.address, index : row.postal_code})
          }
+         if(address.match(str)){
+          data.push({address : row.address, index : row.postal_code})
+         }
       })
         .on('end', function (){
           return res.status(200).send(data)
