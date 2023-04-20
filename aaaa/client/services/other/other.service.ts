@@ -24,7 +24,7 @@ export const OtherService = {
   },
   async postCalcone(DataQuery = {}) {
     const response = await instance.post(
-      'http://localhost:5000/api/base/calcone', DataQuery
+      'http://81.200.152.89/api/base/calcone', DataQuery
     )
 
     return response.data
@@ -35,7 +35,7 @@ export const OtherService = {
       search: nullify(search)
     })
     const response = await instance.get(
-      'http://localhost:5000/api/base/findCities' + query
+      'http://81.200.152.89/api/base/findCities' + query
     )
 
     return response.data
@@ -118,12 +118,12 @@ export const OtherService = {
     return response.data
   },
   async getStatus(number: any) {
-    const response = await instance.get(`http://localhost:5000/api/base/getstatusforparcelsimple/${number}`)
+    const response = await instance.get(`http://81.200.152.89/api/base/getstatusforparcelsimple/${number}`)
 
     return response.data
   },
   async getAllCities() {
-    const response = await instance.get('http://localhost:5000/api/base/city')
+    const response = await instance.get('http://81.200.152.89/api/base/city')
 
     return response.data
   },
