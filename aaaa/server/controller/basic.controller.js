@@ -470,11 +470,8 @@ module.exports = {
         .pipe(parse({columns: true}))
         .on("data", function (row) {
          let address = (row.address).toLowerCase()
-         if(address.match(search)){
+         if(address.match(search) || address.match(str)){
            data.push({address : row.address, index : row.postal_code})
-         }
-         if(address.match(str)){
-          data.push({address : row.address, index : row.postal_code})
          }
       })
         .on('end', function (){
