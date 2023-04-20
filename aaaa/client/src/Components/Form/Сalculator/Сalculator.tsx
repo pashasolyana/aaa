@@ -64,14 +64,6 @@ const Сalculator: React.FC<СalculatorProps> = ({
     setCity2(e.target.value)
   }
 
-  const handleChange3 = (e: ChangeEvent<HTMLInputElement>) => {
-    setIndex(e.target.value)
-  }
-
-  const handleChange4 = (e: ChangeEvent<HTMLInputElement>) => {
-    setIndex2(e.target.value)
-  }
-
   const viewFirst = () => {
     return setView(true)
   }
@@ -166,24 +158,48 @@ const Сalculator: React.FC<СalculatorProps> = ({
   const changeInd = (ind: any, name: 'cityFromIndex' | 'cityToIndex') => {
     if (ind.target.value.length < 6) {
       setValue(name, ind.target.value)
+      if (name == 'cityFromIndex') {
+        setIndex(ind.target.value)
+      } else {
+        setIndex2(ind.target.value)
+      }
     } else {
       setValue(name, ind.target.value.slice(0, 6))
+      if (name == 'cityFromIndex') {
+        setIndex(ind.target.value.slice(0, 6))
+      } else {
+        setIndex2(ind.target.value.slice(0, 6))
+      }
     }
   }
 
   const changeSize = (size: any) => {
-    if (size.target.value < 500) {
+    if (size.target.value < 100) {
       setValue('Bsize', size.target.value)
+      changeHandler(size)
     } else {
-      setValue('Bsize', 500)
+      setValue('Bsize', 100)
+      changeHandler(size)
     }
   }
 
   const changeLinght = (ind: any, name: 'Bheight' | 'Bwidth' | 'Blenght') => {
     if (ind.target.value < 200) {
       setValue(name, ind.target.value)
+      changeHandler(ind)
     } else {
       setValue(name, 200)
+      changeHandler(ind)
+    }
+  }
+
+  const changePrice = (price: any) => {
+    if (price.target.value < 1000000) {
+      setValue('insurance', price.target.value)
+      changeHandler(price)
+    } else {
+      setValue('insurance', '1000000')
+      changeHandler(price)
     }
   }
 
@@ -214,13 +230,10 @@ const Сalculator: React.FC<СalculatorProps> = ({
               value={city}
               // styles.inpEl_mod нужен когда есть поиск
               className={clsx({
-                [styles.inpEl_mod]: view === city.length > 1
+                [styles.inpEl_mod]: view === true
               })}
-              onClick={(e) => {
-                e.stopPropagation();
-                setView(true)
-                setView1(false)
-              }}
+              onFocus={() => setView(true)}
+              onBlur={() => setView(false)}
             />
             {wronger && (
               <p>Города введены неверно</p>
@@ -270,11 +283,8 @@ const Сalculator: React.FC<СalculatorProps> = ({
               autoComplete='off'
               // styles.inpEl_mod нужен когда есть поиск
               className={clsx({ [styles.inpEl_mod]: view1 === true })}
-              onClick={(e) => {
-                e.stopPropagation();
-                setView(false)
-                setView1(true)
-              }}
+              onFocus={() => setView1(true)}
+              onBlur={() => setView1(false)}
             />
             {wronger && (
               <p>Города введены неверно</p>
@@ -314,13 +324,12 @@ const Сalculator: React.FC<СalculatorProps> = ({
             </p>
             <input
               value={index}
-              type='text'
+              type='number'
               placeholder='Укажите индекс отправления'
               {...register('cityFromIndex', {
                 onChange: (e) => changeInd(e, 'cityFromIndex')
               })}
               autoComplete='off'
-              onChange={handleChange3}
             />
           </div>
           <div className={styles.inpEl}>
@@ -335,7 +344,6 @@ const Сalculator: React.FC<СalculatorProps> = ({
               })}
               autoComplete='off'
               value={index2}
-              onChange={handleChange4}
             />
           </div>
         </div>
@@ -353,6 +361,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 placeholder='Укажите Страховку (руб.)'
                 {...register('insurance')}
                 autoComplete='off'
+                onChange={changePrice}
               />
             </div>
             <div className={styles.inpEl}>
@@ -366,7 +375,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                   onChange: (e) => changeSize(e)
                 })}
                 name='weight'
-                onChange={changeHandler}
+                onChange={changeSize}
                 autoComplete='off'
               />
             </div>
@@ -381,7 +390,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                   onChange: (e) => changeLinght(e, 'Blenght')
                 })}
                 name='length'
-                onChange={changeHandler}
+                onChange={(e) => changeLinght(e, 'Blenght')}
                 autoComplete='off'
               />
             </div>
@@ -394,7 +403,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                   onChange: (e) => changeLinght(e, 'Bwidth')
                 })}
                 name='width'
-                onChange={changeHandler}
+                onChange={(e) => changeLinght(e, 'Bwidth')}
                 autoComplete='off'
               />
             </div>
@@ -407,7 +416,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                   onChange: (e) => changeLinght(e, 'Bheight')
                 })}
                 name='height'
-                onChange={changeHandler}
+                onChange={(e) => changeLinght(e, 'Bheight')}
                 autoComplete='off'
               />
             </div>

@@ -12,15 +12,19 @@ interface Tracker {
   setPath: (a: number) => void
 }
 
-export const FirstScreen: FC<Tracker> = ({ vvv, some, handleChange, number, setPath }) => {
+export const FirstScreen: FC<Tracker> = ({
+  vvv,
+  handleChange,
+  number,
+  setPath
+}) => {
   return (
     <div className={styles.container}>
       <div className={styles.block}>
         <div className={styles.blockLeft}>
-          <div className='flex flex-col items-start'>
-            <div className={styles.title}>Курьерская служба</div>
-            <div className={styles.title}>доставки</div>
-            <div className={styles.title}>Люблино экспресс</div>
+          <div className={styles.titleCont}>
+            <div className={styles.title}>Курьерская служба доставки</div>
+            <div className={styles.title}>Люблино Экспресс</div>
           </div>
           <div className={styles.subtitle}>Отправляй и получай!</div>
           <div>
@@ -41,7 +45,12 @@ export const FirstScreen: FC<Tracker> = ({ vvv, some, handleChange, number, setP
         <div className={styles.blockRight}>
           <div className={styles.track}>Номер заказа</div>
           <div className={styles.trackInput}>
-            <input type='text' value={number} placeholder='Введите номер заказа' onChange={handleChange} />
+            <input
+              type='text'
+              value={number}
+              placeholder='Введите номер заказа'
+              onChange={handleChange}
+            />
           </div>
           <div>
             <Link
@@ -54,10 +63,10 @@ export const FirstScreen: FC<Tracker> = ({ vvv, some, handleChange, number, setP
               onClick={() => setPath(1)}
               className={styles.lowHeaderText}
             >
-              {some?.join('')?.length < 1 && (
-                <div className='pb-4'>Ошибка при введении номера заказа</div>
-              )}
-              <button className={styles.btn} onClick={() => number.length > 0 ? vvv() : null}>
+              <button
+                className={styles.btn}
+                onClick={() => (number.length > 0 ? vvv() : null)}
+              >
                 Отследить
               </button>
             </Link>
