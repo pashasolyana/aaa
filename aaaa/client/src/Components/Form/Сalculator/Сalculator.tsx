@@ -362,7 +362,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
               </p>
               <input
                 type='number'
-                placeholder='Укажите вес(гр.)'
+                placeholder='Укажите вес(кг.)'
                 {...register('Bsize')}
                 name='weight'
                 onChange={changeSize}
