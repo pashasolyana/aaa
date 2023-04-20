@@ -127,8 +127,8 @@ const Сalculator: React.FC<СalculatorProps> = ({
     }
   )
 
-  const cityFinder = allCities?.filter((el) => el.address === city)
-  const cityFinder2 = allCities?.filter((el) => el.address === city2)
+  const cityFinder = allCities?.filter((el: any) => el.address === city)
+  const cityFinder2 = allCities?.filter((el: any) => el.address === city2)
 
   console.log(cityFinder, cityFinder2, 'cityFinder')
 
@@ -146,7 +146,6 @@ const Сalculator: React.FC<СalculatorProps> = ({
     let to = getValues('cityTo')
     let indFrom = getValues('cityFromIndex')
     let indTo = getValues('cityToIndex')
-    console.log(from, to, indFrom, indTo, '555555555555')
     reset({
       cityFrom: to,
       cityTo: from,
@@ -208,11 +207,6 @@ const Сalculator: React.FC<СalculatorProps> = ({
       <form
         className={clsx(styles.cont, { [styles.cont_mod]: isAccount })}
         onSubmit={handleSubmit(Submit)}
-        onClick={() => {
-          setView(false);
-          setView1(false)
-        }
-        }
       >
         <div className={styles.firstLine}>
           <div className={styles.inpEl}>
@@ -230,40 +224,36 @@ const Сalculator: React.FC<СalculatorProps> = ({
               value={city}
               // styles.inpEl_mod нужен когда есть поиск
               className={clsx({
-                [styles.inpEl_mod]: view === true
+                [styles.inpEl_mod]: view && city.length !== 0
               })}
               onFocus={() => setView(true)}
               onBlur={() => setView(false)}
             />
-            {wronger && (
-              <p>Города введены неверно</p>
-            )}
-            {city.length > 0 && (
-              <div
-                id='dropdown'
-                // styles.dropDown_mod нужен если нет поиска
-                className={clsx(styles.dropDown, {
-                  [styles.dropDown_mod]: view === false
-                })}
-              >
-                <div className={styles.dropDown__wrap}>
-                  {data?.pages?.at(0)?.map((el: any) => (
-                    <p
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setIndex(el.index)
-                        setCity(el.address)
-                        setView(false)
-                        setValue('cityFrom', el.address)
-                        setValue('cityFromIndex', el.index)
-                      }}
-                    >
-                      {el.address}
-                    </p>
-                  ))}
-                </div>
+            {wronger && <p>Города введены неверно</p>}
+            <div
+              id='dropdown'
+              // styles.dropDown_mod нужен если нет поиска
+              className={clsx(styles.dropDown, {
+                [styles.dropDown_mod]: !view || city.length <1
+              })}
+            >
+              <div className={styles.dropDown__wrap}>
+                {data?.pages?.at(0)?.map((el: any) => (
+                  <p
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setIndex(el.index)
+                      setCity(el.address)
+                      setView(false)
+                      setValue('cityFrom', el.address)
+                      setValue('cityFromIndex', el.index)
+                    }}
+                  >
+                    {el.address}
+                  </p>
+                ))}
               </div>
-            )}
+            </div>
           </div>
           <div className={styles.swap} onClick={swapFun}>
             <Image width={40} height={40} src={swap.src} alt='swap' />
@@ -282,38 +272,36 @@ const Сalculator: React.FC<СalculatorProps> = ({
               value={city2}
               autoComplete='off'
               // styles.inpEl_mod нужен когда есть поиск
-              className={clsx({ [styles.inpEl_mod]: view1 === true })}
+              className={clsx({
+                [styles.inpEl_mod]: view1 && city2.length !== 0
+              })}
               onFocus={() => setView1(true)}
               onBlur={() => setView1(false)}
             />
-            {wronger && (
-              <p>Города введены неверно</p>
-            )}
+            {wronger && <p>Города введены неверно</p>}
             <div
               id='dropdown'
               // styles.dropDown_mod нужен если нет поиска
               className={clsx(styles.dropDown, {
-                [styles.dropDown_mod]: view1 === false
+                [styles.dropDown_mod]: !view1 || city2.length <1
               })}
             >
-              {city2.length > 0 && (
-                <div className={styles.dropDown__wrap}>
-                  {data2?.pages?.at(0)?.map((el: any) => (
-                    <p
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setIndex2(el.index)
-                        setCity2(el.address)
-                        setView1(false)
-                        setValue('cityTo', el.address)
-                        setValue('cityToIndex', el.index)
-                      }}
-                    >
-                      {el.address}
-                    </p>
-                  ))}
-                </div>
-              )}
+              <div className={styles.dropDown__wrap}>
+                {data2?.pages?.at(0)?.map((el: any) => (
+                  <p
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setIndex2(el.index)
+                      setCity2(el.address)
+                      setView1(false)
+                      setValue('cityTo', el.address)
+                      setValue('cityToIndex', el.index)
+                    }}
+                  >
+                    {el.address}
+                  </p>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -326,10 +314,9 @@ const Сalculator: React.FC<СalculatorProps> = ({
               value={index}
               type='number'
               placeholder='Укажите индекс отправления'
-              {...register('cityFromIndex', {
-                onChange: (e) => changeInd(e, 'cityFromIndex')
-              })}
+              {...register('cityFromIndex')}
               autoComplete='off'
+              onChange={(e) => changeInd(e, 'cityFromIndex')}
             />
           </div>
           <div className={styles.inpEl}>
@@ -339,11 +326,10 @@ const Сalculator: React.FC<СalculatorProps> = ({
             <input
               type='number'
               placeholder='Укажите индекс назначения'
-              {...register('cityToIndex', {
-                onChange: (e) => changeInd(e, 'cityToIndex')
-              })}
+              {...register('cityToIndex')}
               autoComplete='off'
               value={index2}
+              onChange={(e) => changeInd(e, 'cityToIndex')}
             />
           </div>
         </div>
@@ -369,11 +355,9 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 Вес, гр.<span>*</span>
               </p>
               <input
-                type='text'
+                type='number'
                 placeholder='Укажите вес(гр.)'
-                {...register('Bsize', {
-                  onChange: (e) => changeSize(e)
-                })}
+                {...register('Bsize')}
                 name='weight'
                 onChange={changeSize}
                 autoComplete='off'
@@ -384,11 +368,9 @@ const Сalculator: React.FC<СalculatorProps> = ({
             <div className={styles.inpEl}>
               <p>Длина, см.</p>
               <input
-                type='text'
+                type='number'
                 placeholder='Укажите длину(см)'
-                {...register('Blenght', {
-                  onChange: (e) => changeLinght(e, 'Blenght')
-                })}
+                {...register('Blenght')}
                 name='length'
                 onChange={(e) => changeLinght(e, 'Blenght')}
                 autoComplete='off'
@@ -397,11 +379,9 @@ const Сalculator: React.FC<СalculatorProps> = ({
             <div className={styles.inpEl}>
               <p>Ширина, см.</p>
               <input
-                type='text'
+                type='number'
                 placeholder='Укажите ширину(см)'
-                {...register('Bwidth', {
-                  onChange: (e) => changeLinght(e, 'Bwidth')
-                })}
+                {...register('Bwidth')}
                 name='width'
                 onChange={(e) => changeLinght(e, 'Bwidth')}
                 autoComplete='off'
@@ -410,11 +390,9 @@ const Сalculator: React.FC<СalculatorProps> = ({
             <div className={styles.inpEl}>
               <p>Высота, см.</p>
               <input
-                type='text'
+                type='number'
                 placeholder='Укажите высоту(см)'
-                {...register('Bheight', {
-                  onChange: (e) => changeLinght(e, 'Bheight')
-                })}
+                {...register('Bheight')}
                 name='height'
                 onChange={(e) => changeLinght(e, 'Bheight')}
                 autoComplete='off'
