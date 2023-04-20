@@ -358,7 +358,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
             </div>
             <div className={styles.inpEl}>
               <p>
-                Вес, гр.<span>*</span>
+                Вес, кг.<span>*</span>
               </p>
               <input
                 type='number'

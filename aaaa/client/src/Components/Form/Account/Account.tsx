@@ -31,12 +31,12 @@ const Account: FC<handleFormProps> = ({ rap, goo, cities, cities2 }) => {
             </div>
             <div className={styles.info__el}>
               <p>Вес: </p>
-              <p>{goo?.weight}г.</p>
+              <p>{goo?.weight}кг.</p>
             </div>
             <div className={styles.info__el}>
               <p>Размер:</p>
               <p>
-                {goo?.height} см х {goo?.width} см х {goo?.length} см
+                {goo?.height} х {goo?.width} х {goo?.length} см
               </p>
             </div>
             <div className={styles.info__el}>
