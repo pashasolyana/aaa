@@ -125,6 +125,10 @@ module.exports = {
             data : req.body
           };
         const result = await axios(config)
+        result.data.goods = req.body.goods
+        result.data.estimatedCost =  req.body.estimatedCost
+        result.data.receiverAddress =  req.body.receiverAddress
+        result.data.senderAddress = req.body.senderAddress
         return res.status(200).send(result.data)
         }catch(e){
             console.log(e)
@@ -445,10 +449,12 @@ module.exports = {
     getCities : async(req,res) => {
       try{
         let data = []
+        let i = 0
         fs.createReadStream("./city.csv")
         .pipe(parse({columns: true}))
         .on("data", function (row) {
-          data.push({address : row.address, index : row.postal_code})
+          data.push({a : i, address : row.address, index : row.postal_code})
+          i += 1
       })
         .on('end', function (){
           return res.status(200).send(data)
@@ -467,12 +473,15 @@ module.exports = {
         let search = str.replaceAll('ё', 'е')
         let search1 = str.replaceAll('е', 'ё')
         let data = []
+        let i = 0
+        console.log(str,search,search1 )
         fs.createReadStream("./city.csv")
         .pipe(parse({columns: true}))
         .on("data", function (row) {
          let address = (row.address).toLowerCase()
          if(address.match(search) || address.match(str) || address.match(search1)){
-           data.push({address : row.address, index : row.postal_code})
+           data.push({a : i,address : row.address, index : row.postal_code})
+           i += 1
          }
       })
         .on('end', function (){
