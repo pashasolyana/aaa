@@ -173,11 +173,11 @@ const Сalculator: React.FC<СalculatorProps> = ({
   }
 
   const changeSize = (size: any) => {
-    if (size.target.value < 100) {
+    if (size.target.value < 100000) {
       setValue('Bsize', size.target.value)
       changeHandler(size)
     } else {
-      setValue('Bsize', 100)
+      setValue('Bsize', 100000)
       changeHandler(size)
     }
   }
@@ -358,11 +358,11 @@ const Сalculator: React.FC<СalculatorProps> = ({
             </div>
             <div className={styles.inpEl}>
               <p>
-                Вес, кг.<span>*</span>
+                Вес, г.<span>*</span>
               </p>
               <input
                 type='number'
-                placeholder='Укажите вес(кг.)'
+                placeholder='Укажите вес(г.)'
                 {...register('Bsize')}
                 name='weight'
                 onChange={changeSize}
