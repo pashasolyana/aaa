@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useState } from 'react'
+import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { useForm } from 'react-hook-form'
 //css
@@ -52,9 +52,31 @@ const Сalculator: React.FC<СalculatorProps> = ({
   const [view, setView] = useState(false)
   const [view1, setView1] = useState(false)
   const [wronger, setWronger] = useState(false)
-  const queryClient = useQueryClient()
+  const [focused, setFocused] = useState(-1)
+  const focusCont = useRef<HTMLDivElement>(null)
 
-  console.log(city2)
+  const queryClient = useQueryClient()
+  
+  const { data } = useCities({
+    search: city
+  })
+  
+  const { data: data2 } = useCities({
+    search: city2
+  })
+  console.log(data)
+
+  const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
+    const { key } = e
+    let nextIndexCount = 0;
+    if(key === 'ArrowDown'){
+      nextIndexCount = (focused + 1) % data?.pages?.at(0).length
+    }
+    if(key === 'ArrowUp'){
+      nextIndexCount = (focused + data?.pages?.at(0).length - 1) % data?.pages?.at(0)
+    }
+    setFocused(nextIndexCount)
+  }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCity(e.target.value)
@@ -68,13 +90,13 @@ const Сalculator: React.FC<СalculatorProps> = ({
     return setView(true)
   }
 
-  const { data } = useCities({
-    search: city
-  })
+  // useEffect(() => {
+  //   if(focusCont.current) return;
+  //   focusCont.current.scrollintoView({
+  //     block: "center",
+  //   })
+  // }, [focusCont])
 
-  const { data: data2 } = useCities({
-    search: city2
-  })
 
   const {
     register,
@@ -241,9 +263,12 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 [styles.dropDown_mod]: !view || city.length < 1
               })}
             >
-              <div className={styles.dropDown__wrap}>
-                {data?.pages?.at(0)?.map((el: any) => (
+              <div tabIndex={1} onKeyDown={handleKeyDown} className={styles.dropDown__wrap}>
+                {data?.pages?.at(0)?.map((el: any, index: number) => (
                   <p
+                    className='cursor-pointer hover:bg-black hover:bg-opacity-10'
+                    key={index}
+                    // ref={index === focused  ? focusCont : null}
                     onMouseDown={(event) => event.preventDefault()}
                     onClick={(e) => {
                       e.stopPropagation()
@@ -283,7 +308,6 @@ const Сalculator: React.FC<СalculatorProps> = ({
               onFocus={() => setView1(true)}
               onBlur={() => setView1(false)}
             />
-            {wronger && <p>Города введены неверно</p>}
             <div
               id='dropdown'
               // styles.dropDown_mod нужен если нет поиска
@@ -292,8 +316,10 @@ const Сalculator: React.FC<СalculatorProps> = ({
               })}
             >
               <div className={styles.dropDown__wrap}>
-                {data2?.pages?.at(0)?.map((el: any) => (
+                {data2?.pages?.at(0)?.map((el: any, index: number) => (
                   <p
+                    className='cursor-pointer hover:bg-black hover:bg-opacity-10'
+                    key={index}
                     onMouseDown={(event) => event.preventDefault()}
                     onClick={(e) => {
                       e.stopPropagation()

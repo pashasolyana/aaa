@@ -15,9 +15,9 @@ export default function Home() {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length < 18) {
-      setNumber(e.target.value)
+      setNumber(e.target.value.replace(/[\W_]/g, ''))
     } else {
-      setNumber(e.target.value.slice(0, 18))
+      setNumber(e.target.value.slice(0, 18).replace(/[\W_]/g, ''))
     }
   }
 
