@@ -173,11 +173,11 @@ const Сalculator: React.FC<СalculatorProps> = ({
   }
 
   const changeSize = (size: any) => {
-    if (size.target.value < 100000) {
+    if (size.target.value < 500000) {
       setValue('Bsize', size.target.value)
       changeHandler(size)
     } else {
-      setValue('Bsize', 100000)
+      setValue('Bsize', 500000)
       changeHandler(size)
     }
   }
