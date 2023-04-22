@@ -125,10 +125,10 @@ module.exports = {
             data : req.body
           };
         const result = await axios(config)
-        result.data.goods = req.body.goods
-        result.data.estimatedCost =  req.body.estimatedCost
-        result.data.receiverAddress =  req.body.receiverAddress
-        result.data.senderAddress = req.body.senderAddress
+        result.data[0].goods = req.body.goods
+        result.data[0].estimatedCost =  req.body.estimatedCost
+        result.data[0].receiverAddress =  req.body.receiverAddress
+        result.data[0].senderAddress = req.body.senderAddress
         return res.status(200).send(result.data)
         }catch(e){
             console.log(e)
