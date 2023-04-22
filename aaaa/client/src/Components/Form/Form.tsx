@@ -42,6 +42,8 @@ export const Form: FC<handleFormProps> = ({ allCities, vvv, handleChange, some, 
     }
   }
 
+  console.log(rap)
+
   const getSubContent = () => {
     if (isAccount && path === 0 && rap) {
         console.log(goo)

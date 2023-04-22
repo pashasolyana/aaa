@@ -51,32 +51,55 @@ const Сalculator: React.FC<СalculatorProps> = ({
   const [index2, setIndex2] = useState('')
   const [view, setView] = useState(false)
   const [view1, setView1] = useState(false)
-  const [wronger, setWronger] = useState(false)
-  const [focused, setFocused] = useState(-1)
-  const focusCont = useRef<HTMLDivElement>(null)
+  const [focusedIndex, setFocusedIndex] = useState(-1);
+  const resultContainer = useRef<HTMLDivElement>(null);
+
+  console.log(focusedIndex)
 
   const queryClient = useQueryClient()
-  
+
+  const numberInputOnWheelPreventChange = (e: any) => {
+    e.target.blur()
+    e.stopPropagation()
+    setTimeout(() => {
+      e.target.focus()
+    }, 0)
+  }
+
   const { data } = useCities({
     search: city
   })
-  
+
   const { data: data2 } = useCities({
     search: city2
   })
   console.log(data)
 
-  const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
-    const { key } = e
+  const handleKeyDown: React.KeyboardEventHandler<HTMLElement> = (e) => {
+    const { key } = e;
     let nextIndexCount = 0;
-    if(key === 'ArrowDown'){
-      nextIndexCount = (focused + 1) % data?.pages?.at(0).length
+
+    // move down
+    if (key === "ArrowDown")
+      nextIndexCount = (focusedIndex + 1) % data?.pages?.at(0)?.length;
+
+    // move up
+    if (key === "ArrowUp")
+      nextIndexCount = (focusedIndex + data?.pages?.at(0)?.length - 1) % data?.pages?.at(0)?.length;
+
+    // hide search results
+    if (key === "Escape") {
+      // resetSearchComplete();
     }
-    if(key === 'ArrowUp'){
-      nextIndexCount = (focused + data?.pages?.at(0).length - 1) % data?.pages?.at(0)
+
+    // select the current item
+    if (key === "Enter") {
+      e.preventDefault();
+      // handleSelection(focusedIndex);
     }
-    setFocused(nextIndexCount)
-  }
+
+    setFocusedIndex(nextIndexCount);
+  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCity(e.target.value)
@@ -90,12 +113,15 @@ const Сalculator: React.FC<СalculatorProps> = ({
     return setView(true)
   }
 
-  // useEffect(() => {
-  //   if(focusCont.current) return;
-  //   focusCont.current.scrollintoView({
-  //     block: "center",
-  //   })
-  // }, [focusCont])
+  useEffect(() => {
+    if (!resultContainer.current) return;
+
+    resultContainer.current.scrollIntoView({
+      block: "center",
+    });
+  }, [focusedIndex]);
+
+  console.log(data, data2)
 
 
   const {
@@ -149,18 +175,8 @@ const Сalculator: React.FC<СalculatorProps> = ({
     }
   )
 
-  const cityFinder = allCities?.filter((el: any) => el.address === city)
-  const cityFinder2 = allCities?.filter((el: any) => el.address === city2)
-
-  console.log(cityFinder, cityFinder2, 'cityFinder')
-
   const Submit = (data: any) => {
-    if (cityFinder.length > 0 && cityFinder2.length > 0) {
       mutate(data)
-      setWronger(false)
-    } else {
-      setWronger(true)
-    }
   }
 
   const swapFun = () => {
@@ -241,6 +257,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
               })}
               type='text'
               autoComplete='off'
+              required
               placeholder='Укажите город отправления'
               onChange={handleChange}
               value={city}
@@ -255,7 +272,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 }, 10)
               }
             />
-            {wronger && <p>Города введены неверно</p>}
+            {data?.pages?.at(0)?.length < 1 && view === false && <p className='text-xs absolute top-20' style={{color: 'red'}}>Город введен неверно</p>}
             <div
               id='dropdown'
               // styles.dropDown_mod нужен если нет поиска
@@ -264,23 +281,24 @@ const Сalculator: React.FC<СalculatorProps> = ({
               })}
             >
               <div tabIndex={1} onKeyDown={handleKeyDown} className={styles.dropDown__wrap}>
-                {data?.pages?.at(0)?.map((el: any, index: number) => (
-                  <p
-                    className='cursor-pointer hover:bg-black hover:bg-opacity-10'
-                    key={index}
-                    // ref={index === focused  ? focusCont : null}
-                    onMouseDown={(event) => event.preventDefault()}
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      setIndex(el.index)
-                      setCity(el.address)
-                      setView(false)
-                      setValue('cityFrom', el.address)
-                      setValue('cityFromIndex', el.index)
-                    }}
-                  >
-                    {el.address}
-                  </p>
+                {data?.pages?.at(0)?.map((el: any) => (
+                  <div key={el.a}
+                    ref={el.a === focusedIndex ? resultContainer : null}>
+                    <p
+                      className='cursor-pointer hover:bg-black hover:bg-opacity-10'
+                      onMouseDown={(event) => event.preventDefault()}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setIndex(el.index)
+                        setCity(el.address)
+                        setView(false)
+                        setValue('cityFrom', el.address)
+                        setValue('cityFromIndex', el.index)
+                      }}
+                    >
+                      {el.address}
+                    </p>
+                  </div>
                 ))}
               </div>
             </div>
@@ -299,6 +317,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 required: 'Обязательное поле'
               })}
               onChange={handleChange2}
+              required
               value={city2}
               autoComplete='off'
               // styles.inpEl_mod нужен когда есть поиск
@@ -308,6 +327,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
               onFocus={() => setView1(true)}
               onBlur={() => setView1(false)}
             />
+            {data2?.pages?.at(0)?.length < 1 && view1 === false && <p className='text-xs absolute top-20' style={{color: 'red'}}>Город введен неверно</p>}
             <div
               id='dropdown'
               // styles.dropDown_mod нужен если нет поиска
@@ -316,7 +336,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
               })}
             >
               <div className={styles.dropDown__wrap}>
-                {data2?.pages?.at(0)?.map((el: any, index: number) => (
+                {data2?.pages?.at(0)?.map((el: any) => (
                   <p
                     className='cursor-pointer hover:bg-black hover:bg-opacity-10'
                     key={index}
@@ -349,6 +369,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
               {...register('cityFromIndex')}
               autoComplete='off'
               onChange={(e) => changeInd(e, 'cityFromIndex')}
+              onWheel={numberInputOnWheelPreventChange}
             />
           </div>
           <div className={styles.inpEl}>
@@ -362,6 +383,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
               autoComplete='off'
               value={index2}
               onChange={(e) => changeInd(e, 'cityToIndex')}
+              onWheel={numberInputOnWheelPreventChange}
             />
           </div>
         </div>
@@ -377,9 +399,13 @@ const Сalculator: React.FC<СalculatorProps> = ({
               <input
                 type='number'
                 placeholder='Укажите Страховку (руб.)'
-                {...register('insurance')}
+                {...register('insurance', {
+                  required: 'Обязательное поле'
+                })}
+                required
                 autoComplete='off'
                 onChange={changePrice}
+                onWheel={numberInputOnWheelPreventChange}
               />
             </div>
             <div className={styles.inpEl}>
@@ -389,10 +415,14 @@ const Сalculator: React.FC<СalculatorProps> = ({
               <input
                 type='number'
                 placeholder='Укажите вес(г.)'
-                {...register('Bsize')}
+                {...register('Bsize', {
+                  required: 'Обязательное поле'
+                })}
                 name='weight'
+                required
                 onChange={changeSize}
                 autoComplete='off'
+                onWheel={numberInputOnWheelPreventChange}
               />
             </div>
           </div>
@@ -406,6 +436,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 name='length'
                 onChange={(e) => changeLinght(e, 'Blenght')}
                 autoComplete='off'
+                onWheel={numberInputOnWheelPreventChange}
               />
             </div>
             <div className={styles.inpEl}>
@@ -417,6 +448,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 name='width'
                 onChange={(e) => changeLinght(e, 'Bwidth')}
                 autoComplete='off'
+                onWheel={numberInputOnWheelPreventChange}
               />
             </div>
             <div className={styles.inpEl}>
@@ -428,6 +460,8 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 name='height'
                 onChange={(e) => changeLinght(e, 'Bheight')}
                 autoComplete='off'
+                step="1"
+                onWheel={numberInputOnWheelPreventChange}
               />
             </div>
           </div>
