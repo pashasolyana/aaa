@@ -27,7 +27,7 @@ export const Form: FC<handleFormProps> = ({ allCities, vvv, handleChange, some, 
   const [cities, setCities] = useState('')
   const [cities2, setCities2] = useState('')
 
-  console.log(cities)
+  console.log(rap)
 
   const handleForm = ({ name, number }: handleFormProps) => {
     if (name === 'account') {

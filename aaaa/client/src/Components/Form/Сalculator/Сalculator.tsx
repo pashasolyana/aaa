@@ -62,19 +62,22 @@ const Сalculator: React.FC<СalculatorProps> = ({
   useEffect(() => {
     if (!resultContainer.current) return;
 
+    
     resultContainer.current.scrollIntoView({
       behavior: "auto",
-      block: "center",
+      block: 'center'
     });
+    console.log(resultContainer.current, "111111111")
   }, [focusedIndex]);
-
+  
   useEffect(() => {
     if (!resultContainer2.current) return;
-
+    
     resultContainer2.current.scrollIntoView({
       behavior: "auto",
-      block: "start",
+      block: 'center'
     });
+    console.log(resultContainer2.current, "2222222")
   }, [focusedIndex2]);
 
 
@@ -205,6 +208,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
       },
       onError(data: any) {
         console.log('errrroorrr')
+        setRap('error')
       }
     }
   )
@@ -350,24 +354,28 @@ const Сalculator: React.FC<СalculatorProps> = ({
               Город назначения<span>*</span>
             </p>
             <input
-              type='text'
-              placeholder='Укажите город назначения'
               {...register('cityTo', {
                 required: 'Обязательное поле'
               })}
-              onChange={handleChange2}
-              required
-              onKeyDown={handleKeyDown2}
-              value={city2}
+              type='text'
               autoComplete='off'
+              onKeyDown={handleKeyDown2}
+              required
+              placeholder='Укажите город отправления'
+              onChange={handleChange2}
+              value={city2}
               // styles.inpEl_mod нужен когда есть поиск
               className={clsx({
                 [styles.inpEl_mod]: view1 && city2.length !== 0
               })}
               onFocus={() => setView1(true)}
-              onBlur={() => setView1(false)}
+              onBlur={() =>
+                setTimeout(() => {
+                  setView1(false)
+                }, 10)
+              }
             />
-            {data2?.pages?.at(0)?.length < 1 && view1 === false && <p className='text-xs absolute top-20 pt-0.5' style={{ color: 'red' }}>Город введен неверно</p>}
+            {data?.pages?.at(0)?.length < 1 && view === false && <p className='text-xs absolute top-20 pt-0.5' style={{ color: 'red' }}>Город введен неверно</p>}
             <div
               id='dropdown'
               // styles.dropDown_mod нужен если нет поиска
@@ -381,20 +389,19 @@ const Сalculator: React.FC<СalculatorProps> = ({
                     <p
                       className='cursor-pointer hover:bg-black hover:bg-opacity-10'
                       onMouseDown={(event) => event.preventDefault()}
-                      key={index}
                       onClick={(e) => {
                         e.stopPropagation()
                         setIndex2(el.index)
                         setCity2(el.address)
                         setView1(false)
-                        setValue('cityTo', el.address)
-                        setValue('cityToIndex', el.index)
+                        setValue('cityFrom', el.address)
+                        setValue('cityFromIndex', el.index)
                       }}
+                      ref={index === focusedIndex2 ? resultContainer2 : null}
                       style={{
                         backgroundColor:
                           index === focusedIndex2 ? "rgba(0,0,0,0.1)" : "",
                       }}
-                      ref={index === focusedIndex ? resultContainer : null}
                     >
                       {el.address}
                     </p>
@@ -455,7 +462,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 onWheel={numberInputOnWheelPreventChange}
               />
             </div>
-            <div className={styles.inpEl}>
+            <div className={styles.inpEl} id='acc'>
               <p>
                 Вес, г.<span>*</span>
               </p>

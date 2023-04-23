@@ -22,7 +22,7 @@ const Account: FC<handleFormProps> = ({ rap, goo, cities, cities2 }) => {
   return (
     <>
       {rap?.at(0)?.priceByCurrency ? (
-        <div className={styles.cont} id='acc'>
+        <div className={styles.cont}>
           <div className={styles.info}>
             <div className={styles.city}>
               <p>{cities}</p>
@@ -36,7 +36,7 @@ const Account: FC<handleFormProps> = ({ rap, goo, cities, cities2 }) => {
             <div className={styles.info__el}>
               <p>Размер:</p>
               <p>
-                {rap?.at(0)?.goods?.at(0)?.height} {rap?.at(0)?.goods?.at(0)?.height ? 'х' : ''} {rap?.at(0)?.goods?.at(0)?.width} {rap?.goods?.width ? 'x' : ''} {rap?.at(0)?.goods?.at(0)?.length} см.
+                {rap?.at(0)?.goods?.at(0)?.height} {rap?.at(0)?.goods?.at(0)?.height ? 'х' : 'x'} {rap?.at(0)?.goods?.at(0)?.width} {rap?.goods?.width ? 'x' : 'x'} {rap?.at(0)?.goods?.at(0)?.length} см.
               </p>
             </div>
             <div className={styles.info__el}>
@@ -55,7 +55,7 @@ const Account: FC<handleFormProps> = ({ rap, goo, cities, cities2 }) => {
         </div>
       ) : (
         <div className={styles.cont}>
-          <Loader />
+          Не удалось загрузить данные
         </div>
       )}
     </>
