@@ -22,7 +22,7 @@ const Account: FC<handleFormProps> = ({ rap, goo, cities, cities2 }) => {
   return (
     <>
       {rap?.at(0)?.priceByCurrency ? (
-        <div className={styles.cont}>
+        <div className={styles.cont} id='acc'>
           <div className={styles.info}>
             <div className={styles.city}>
               <p>{cities}</p>
@@ -31,12 +31,12 @@ const Account: FC<handleFormProps> = ({ rap, goo, cities, cities2 }) => {
             </div>
             <div className={styles.info__el}>
               <p>Вес: </p>
-              <p>{goo?.weight} кг.</p>
+              <p>{rap?.goods?.weight} кг.</p>
             </div>
             <div className={styles.info__el}>
               <p>Размер:</p>
               <p>
-                {goo?.height} х {goo?.width} х {goo?.length} см.
+                {rap?.goods?.height} {rap?.goods?.height ? 'х' : ''} {rap?.goods?.width} {rap?.goods?.width ? 'x' : ''} {rap?.goods?.length} см.
               </p>
             </div>
             <div className={styles.info__el}>

@@ -10,7 +10,7 @@ import clsx from 'clsx'
 import { useMutation, useQueryClient } from 'react-query'
 import { OtherService } from '../../../../services/other/other.service'
 import useCities from './useCities'
-import { Link } from 'react-scroll'
+import { useRouter } from 'next/router'
 
 export interface formInputs {
   cityFrom: string
@@ -52,11 +52,47 @@ const Сalculator: React.FC<СalculatorProps> = ({
   const [view, setView] = useState(false)
   const [view1, setView1] = useState(false)
   const [focusedIndex, setFocusedIndex] = useState(-1);
+  const [focusedIndex2, setFocusedIndex2] = useState(-1);
   const resultContainer = useRef<HTMLDivElement>(null);
+  const resultContainer2 = useRef<HTMLDivElement>(null);
 
-  console.log(focusedIndex)
-
+  const router = useRouter()
   const queryClient = useQueryClient()
+
+  useEffect(() => {
+    if (!resultContainer.current) return;
+
+    resultContainer.current.scrollIntoView({
+      block: "center",
+    });
+  }, [focusedIndex]);
+
+  useEffect(() => {
+    if (!resultContainer2.current) return;
+
+    resultContainer2.current.scrollIntoView({
+      block: "center",
+    });
+  }, [focusedIndex2]);
+
+
+  const handleSelection = (selectedIndex: number) => {
+    const selectedItem = data?.pages?.at(0)[selectedIndex];
+    setIndex(selectedItem.index)
+    setCity(selectedItem.address)
+    setView(false)
+    setValue('cityFrom', selectedItem.address)
+    setValue('cityFromIndex', selectedItem.index)
+  };
+
+  const handleSelectionTo = (selectedIndex: number) => {
+    const selectedItem = data2?.pages?.at(0)[selectedIndex];
+    setIndex2(selectedItem.index)
+    setCity2(selectedItem.address)
+    setView1(false)
+    setValue('cityTo', selectedItem.address)
+    setValue('cityToIndex', selectedItem.index)
+  };
 
   const numberInputOnWheelPreventChange = (e: any) => {
     e.target.blur()
@@ -75,30 +111,36 @@ const Сalculator: React.FC<СalculatorProps> = ({
   })
   console.log(data)
 
-  const handleKeyDown: React.KeyboardEventHandler<HTMLElement> = (e) => {
+  const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
     const { key } = e;
     let nextIndexCount = 0;
-
-    // move down
     if (key === "ArrowDown")
       nextIndexCount = (focusedIndex + 1) % data?.pages?.at(0)?.length;
-
-    // move up
     if (key === "ArrowUp")
-      nextIndexCount = (focusedIndex + data?.pages?.at(0)?.length - 1) % data?.pages?.at(0)?.length;
-
-    // hide search results
-    if (key === "Escape") {
-      // resetSearchComplete();
-    }
-
-    // select the current item
+      nextIndexCount = (focusedIndex - 1) % data?.pages?.at(0)?.length;
     if (key === "Enter") {
       e.preventDefault();
-      // handleSelection(focusedIndex);
+      handleSelection(focusedIndex);
     }
-
+    if (key === "Escape")
+      setView(false)
     setFocusedIndex(nextIndexCount);
+  };
+
+  const handleKeyDown2: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
+    const { key } = e;
+    let nextIndexCount = 0;
+    if (key === "ArrowDown")
+      nextIndexCount = (focusedIndex2 + 1) % data2?.pages?.at(0)?.length;
+    if (key === "ArrowUp")
+      nextIndexCount = (focusedIndex2 - 1) % data2?.pages?.at(0)?.length;
+    if (key === "Enter") {
+      e.preventDefault();
+      handleSelectionTo(focusedIndex2);
+    }
+    if (key === "Escape")
+      setView1(false)
+    setFocusedIndex2(nextIndexCount);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -112,16 +154,6 @@ const Сalculator: React.FC<СalculatorProps> = ({
   const viewFirst = () => {
     return setView(true)
   }
-
-  useEffect(() => {
-    if (!resultContainer.current) return;
-
-    resultContainer.current.scrollIntoView({
-      block: "center",
-    });
-  }, [focusedIndex]);
-
-  console.log(data, data2)
 
 
   const {
@@ -176,7 +208,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
   )
 
   const Submit = (data: any) => {
-      mutate(data)
+    mutate(data)
   }
 
   const swapFun = () => {
@@ -257,6 +289,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
               })}
               type='text'
               autoComplete='off'
+              onKeyDown={handleKeyDown}
               required
               placeholder='Укажите город отправления'
               onChange={handleChange}
@@ -272,7 +305,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 }, 10)
               }
             />
-            {data?.pages?.at(0)?.length < 1 && view === false && <p className='text-xs absolute top-20' style={{color: 'red'}}>Город введен неверно</p>}
+            {data?.pages?.at(0)?.length < 1 && view === false && <p className='text-xs absolute top-20' style={{ color: 'red' }}>Город введен неверно</p>}
             <div
               id='dropdown'
               // styles.dropDown_mod нужен если нет поиска
@@ -280,10 +313,9 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 [styles.dropDown_mod]: !view || city.length < 1
               })}
             >
-              <div tabIndex={1} onKeyDown={handleKeyDown} className={styles.dropDown__wrap}>
-                {data?.pages?.at(0)?.map((el: any) => (
-                  <div key={el.a}
-                    ref={el.a === focusedIndex ? resultContainer : null}>
+              <div className={styles.dropDown__wrap}>
+                {data?.pages?.at(0)?.map((el: any, index: number) => (
+                  <div key={el.a}>
                     <p
                       className='cursor-pointer hover:bg-black hover:bg-opacity-10'
                       onMouseDown={(event) => event.preventDefault()}
@@ -294,6 +326,11 @@ const Сalculator: React.FC<СalculatorProps> = ({
                         setView(false)
                         setValue('cityFrom', el.address)
                         setValue('cityFromIndex', el.index)
+                      }}
+                      ref={index === focusedIndex ? resultContainer : null}
+                      style={{
+                        backgroundColor:
+                          index === focusedIndex ? "rgba(0,0,0,0.1)" : "",
                       }}
                     >
                       {el.address}
@@ -318,6 +355,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
               })}
               onChange={handleChange2}
               required
+              onKeyDown={handleKeyDown2}
               value={city2}
               autoComplete='off'
               // styles.inpEl_mod нужен когда есть поиск
@@ -327,7 +365,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
               onFocus={() => setView1(true)}
               onBlur={() => setView1(false)}
             />
-            {data2?.pages?.at(0)?.length < 1 && view1 === false && <p className='text-xs absolute top-20' style={{color: 'red'}}>Город введен неверно</p>}
+            {data2?.pages?.at(0)?.length < 1 && view1 === false && <p className='text-xs absolute top-20' style={{ color: 'red' }}>Город введен неверно</p>}
             <div
               id='dropdown'
               // styles.dropDown_mod нужен если нет поиска
@@ -336,22 +374,29 @@ const Сalculator: React.FC<СalculatorProps> = ({
               })}
             >
               <div className={styles.dropDown__wrap}>
-                {data2?.pages?.at(0)?.map((el: any) => (
-                  <p
-                    className='cursor-pointer hover:bg-black hover:bg-opacity-10'
-                    key={index}
-                    onMouseDown={(event) => event.preventDefault()}
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      setIndex2(el.index)
-                      setCity2(el.address)
-                      setView1(false)
-                      setValue('cityTo', el.address)
-                      setValue('cityToIndex', el.index)
-                    }}
-                  >
-                    {el.address}
-                  </p>
+                {data2?.pages?.at(0)?.map((el: any, index: number) => (
+                  <div key={el.a}>
+                    <p
+                      className='cursor-pointer hover:bg-black hover:bg-opacity-10'
+                      onMouseDown={(event) => event.preventDefault()}
+                      key={index}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setIndex2(el.index)
+                        setCity2(el.address)
+                        setView1(false)
+                        setValue('cityTo', el.address)
+                        setValue('cityToIndex', el.index)
+                      }}
+                      style={{
+                        backgroundColor:
+                          index === focusedIndex2 ? "rgba(0,0,0,0.1)" : "",
+                      }}
+                      ref={index === focusedIndex ? resultContainer : null}
+                    >
+                      {el.address}
+                    </p>
+                  </div>
                 ))}
               </div>
             </div>
@@ -469,7 +514,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
         <div className={styles.lastLine}>
           <div className={styles.buttons}>
             <button type='button'>Оформить</button>
-            <button type='submit'>Рассчитать</button>
+            <button type='submit' onClick={() => { router.push('#acc') }}>Рассчитать</button>
           </div>
         </div>
       </form>
