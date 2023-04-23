@@ -63,6 +63,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
     if (!resultContainer.current) return;
 
     resultContainer.current.scrollIntoView({
+      behavior: "auto",
       block: "center",
     });
   }, [focusedIndex]);
@@ -71,7 +72,8 @@ const Сalculator: React.FC<СalculatorProps> = ({
     if (!resultContainer2.current) return;
 
     resultContainer2.current.scrollIntoView({
-      block: "center",
+      behavior: "auto",
+      block: "start",
     });
   }, [focusedIndex2]);
 
@@ -305,7 +307,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 }, 10)
               }
             />
-            {data?.pages?.at(0)?.length < 1 && view === false && <p className='text-xs absolute top-20' style={{ color: 'red' }}>Город введен неверно</p>}
+            {data?.pages?.at(0)?.length < 1 && view === false && <p className='text-xs absolute top-20 pt-0.5' style={{ color: 'red' }}>Город введен неверно</p>}
             <div
               id='dropdown'
               // styles.dropDown_mod нужен если нет поиска
@@ -365,7 +367,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
               onFocus={() => setView1(true)}
               onBlur={() => setView1(false)}
             />
-            {data2?.pages?.at(0)?.length < 1 && view1 === false && <p className='text-xs absolute top-20' style={{ color: 'red' }}>Город введен неверно</p>}
+            {data2?.pages?.at(0)?.length < 1 && view1 === false && <p className='text-xs absolute top-20 pt-0.5' style={{ color: 'red' }}>Город введен неверно</p>}
             <div
               id='dropdown'
               // styles.dropDown_mod нужен если нет поиска

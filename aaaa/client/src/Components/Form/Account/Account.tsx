@@ -17,7 +17,7 @@ const Account: FC<handleFormProps> = ({ rap, goo, cities, cities2 }) => {
     return diffDays
   }
 
-  console.log(rap)
+  console.log(rap?.at(0)?.goods?.at(0)?.weight)
 
   return (
     <>
@@ -31,12 +31,12 @@ const Account: FC<handleFormProps> = ({ rap, goo, cities, cities2 }) => {
             </div>
             <div className={styles.info__el}>
               <p>Вес: </p>
-              <p>{rap?.goods?.weight} кг.</p>
+              <p>{rap?.at(0)?.goods?.at(0)?.weight} кг.</p>
             </div>
             <div className={styles.info__el}>
               <p>Размер:</p>
               <p>
-                {rap?.goods?.height} {rap?.goods?.height ? 'х' : ''} {rap?.goods?.width} {rap?.goods?.width ? 'x' : ''} {rap?.goods?.length} см.
+                {rap?.at(0)?.goods?.at(0)?.height} {rap?.at(0)?.goods?.at(0)?.height ? 'х' : ''} {rap?.at(0)?.goods?.at(0)?.width} {rap?.goods?.width ? 'x' : ''} {rap?.at(0)?.goods?.at(0)?.length} см.
               </p>
             </div>
             <div className={styles.info__el}>

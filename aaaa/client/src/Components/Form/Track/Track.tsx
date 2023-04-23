@@ -38,7 +38,7 @@ const Track: FC<Tracker> = ({ vvv, handleChange, isSearch, some, number, setPath
           </button>
         </form>
             {some?.join('')?.length < 1 && (
-            <div>Ошибка при введении номера заказа</div>
+            <div style={{color: 'red'}}>Ошибка при введении номера заказа</div>
     )}
       </div>
       {some?.join('')?.length > 0 && (
