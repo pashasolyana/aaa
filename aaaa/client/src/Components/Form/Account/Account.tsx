@@ -17,7 +17,7 @@ const Account: FC<handleFormProps> = ({ rap, goo, cities, cities2 }) => {
     return diffDays
   }
 
-  console.log(rap?.at(0)?.goods?.at(0)?.weight)
+  console.log(rap, '5555555')
 
   return (
     <>
@@ -54,9 +54,15 @@ const Account: FC<handleFormProps> = ({ rap, goo, cities, cities2 }) => {
           </p>
         </div>
       ) : (
+        <>
+        {rap === 'error' ? (
         <div className={styles.cont}>
           Не удалось загрузить данные
         </div>
+        ):(
+          <Loader />
+        )}
+        </>
       )}
     </>
   )
