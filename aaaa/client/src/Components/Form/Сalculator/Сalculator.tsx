@@ -232,25 +232,25 @@ const Сalculator: React.FC<СalculatorProps> = ({
 
   const changeInd = (ind: any, name: 'cityFromIndex' | 'cityToIndex') => {
     if (ind.target.value.length < 6) {
-      setValue(name, ind.target.value)
+      setValue(name, ind.target.value.replace(/[\W_]/g, ''))
       if (name == 'cityFromIndex') {
-        setIndex(ind.target.value)
+        setIndex(ind.target.value.replace(/[\W_]/g, ''))
       } else {
-        setIndex2(ind.target.value)
+        setIndex2(ind.target.value.replace(/[\W_]/g, ''))
       }
     } else {
       setValue(name, ind.target.value.slice(0, 6))
       if (name == 'cityFromIndex') {
-        setIndex(ind.target.value.slice(0, 6))
+        setIndex(ind.target.value.slice(0, 6).replace(/[\W_]/g, ''))
       } else {
-        setIndex2(ind.target.value.slice(0, 6))
+        setIndex2(ind.target.value.slice(0, 6).replace(/[\W_]/g, ''))
       }
     }
   }
 
   const changeSize = (size: any) => {
     if (size.target.value < 500000) {
-      setValue('Bsize', size.target.value)
+      setValue('Bsize', size.target.value.replace(/[\W_]/g, ''))
       changeHandler(size)
     } else {
       setValue('Bsize', 500000)
@@ -259,8 +259,8 @@ const Сalculator: React.FC<СalculatorProps> = ({
   }
 
   const changeLinght = (ind: any, name: 'Bheight' | 'Bwidth' | 'Blenght') => {
-    if (ind.target.value < 200) {
-      setValue(name, ind.target.value)
+    if (ind.target.value < 200 && ind.target.value >= 0) {
+      setValue(name, ind.target.value.replace(/[\W_]/g, ''))
       changeHandler(ind)
     } else {
       setValue(name, 200)
@@ -270,10 +270,10 @@ const Сalculator: React.FC<СalculatorProps> = ({
 
   const changePrice = (price: any) => {
     if (price.target.value < 1000000) {
-      setValue('insurance', price.target.value)
+      setValue('insurance', price.target.value.replace(/[\W_]/g, ''))
       changeHandler(price)
     } else {
-      setValue('insurance', '1000000')
+      setValue('insurance', '')
       changeHandler(price)
     }
   }
@@ -418,7 +418,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
             </p>
             <input
               value={index}
-              type='number'
+              type='text'
               placeholder='Укажите индекс отправления'
               {...register('cityFromIndex')}
               autoComplete='off'
@@ -431,7 +431,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
               Индекс назначения<span></span>
             </p>
             <input
-              type='number'
+              type='text'
               placeholder='Укажите индекс назначения'
               {...register('cityToIndex')}
               autoComplete='off'
@@ -451,7 +451,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 Страховка, руб.<span>*</span>
               </p>
               <input
-                type='number'
+                type='text'
                 placeholder='Укажите Страховку (руб.)'
                 {...register('insurance', {
                   required: 'Обязательное поле'
@@ -467,7 +467,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 Вес, г.<span>*</span>
               </p>
               <input
-                type='number'
+                type='text'
                 placeholder='Укажите вес(г.)'
                 {...register('Bsize', {
                   required: 'Обязательное поле'
@@ -484,7 +484,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
             <div className={styles.inpEl}>
               <p>Длина, см.</p>
               <input
-                type='number'
+                type='text'
                 placeholder='Укажите длину(см)'
                 {...register('Blenght')}
                 name='length'
@@ -496,7 +496,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
             <div className={styles.inpEl}>
               <p>Ширина, см.</p>
               <input
-                type='number'
+                type='text'
                 placeholder='Укажите ширину(см)'
                 {...register('Bwidth')}
                 name='width'
@@ -508,7 +508,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
             <div className={styles.inpEl}>
               <p>Высота, см.</p>
               <input
-                type='number'
+                type='text'
                 placeholder='Укажите высоту(см)'
                 {...register('Bheight')}
                 name='height'
