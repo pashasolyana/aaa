@@ -125,10 +125,15 @@ module.exports = {
             data : req.body
           };
         const result = await axios(config)
+        console.log(result.data)
+        if(result.data.length == 0){
+          return res.status(404).send({message : "We cant count this"})
+        }
         result.data[0].goods = req.body.goods
         result.data[0].estimatedCost =  req.body.estimatedCost
         result.data[0].receiverAddress =  req.body.receiverAddress
         result.data[0].senderAddress = req.body.senderAddress
+        console.log(result.data)
         return res.status(200).send(result.data)
         }catch(e){
             console.log(e)
