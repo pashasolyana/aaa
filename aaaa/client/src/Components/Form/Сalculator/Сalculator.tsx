@@ -67,7 +67,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
       behavior: "auto",
       block: 'center'
     });
-    console.log(resultContainer.current, "111111111")
+    console.log(resultContainer.current, "апаплапл")
   }, [focusedIndex]);
   
   useEffect(() => {
@@ -82,7 +82,9 @@ const Сalculator: React.FC<СalculatorProps> = ({
 
 
   const handleSelection = (selectedIndex: number) => {
+    console.log(selectedIndex, 'index')
     const selectedItem = data?.pages?.at(0)[selectedIndex];
+    console.log(selectedItem.address, 'handle')
     setIndex(selectedItem.index)
     setCity(selectedItem.address)
     setView(false)
@@ -92,6 +94,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
 
   const handleSelectionTo = (selectedIndex: number) => {
     const selectedItem = data2?.pages?.at(0)[selectedIndex];
+    console.log(selectedItem.address, 'handle')
     setIndex2(selectedItem.index)
     setCity2(selectedItem.address)
     setView1(false)
@@ -153,6 +156,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
   }
 
   const handleChange2 = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value, 'city')
     setCity2(e.target.value)
   }
 
@@ -222,12 +226,23 @@ const Сalculator: React.FC<СalculatorProps> = ({
     let to = getValues('cityTo')
     let indFrom = getValues('cityFromIndex')
     let indTo = getValues('cityToIndex')
+    /*
     reset({
       cityFrom: to,
       cityTo: from,
       cityFromIndex: indTo,
       cityToIndex: indFrom
     })
+    */
+    console.log(from, to, 'fun')
+    setCity(to)
+    setCity2(from)
+    setIndex(indTo)
+    setIndex2(indFrom)
+    setValue('cityFrom', to)
+    setValue('cityFromIndex', indTo)
+    setValue('cityTo', from)
+    setValue('cityToIndex', indFrom)
   }
 
   const changeInd = (ind: any, name: 'cityFromIndex' | 'cityToIndex') => {
@@ -250,6 +265,9 @@ const Сalculator: React.FC<СalculatorProps> = ({
 
   const changeSize = (size: any) => {
     if (size.target.value < 500000) {
+      if(size.target.value[0] == 0){
+        size.target.value = ''
+      }
       setValue('Bsize', size.target.value.replace(/[\W_]/g, ''))
       changeHandler(size)
     } else {
@@ -260,6 +278,9 @@ const Сalculator: React.FC<СalculatorProps> = ({
 
   const changeLinght = (ind: any, name: 'Bheight' | 'Bwidth' | 'Blenght') => {
     if (ind.target.value < 200 && ind.target.value >= 0) {
+      if(ind.target.value[0] == 0){
+        ind.target.value = ''
+      }
       setValue(name, ind.target.value.replace(/[\W_]/g, ''))
       changeHandler(ind)
     } else {
@@ -270,6 +291,9 @@ const Сalculator: React.FC<СalculatorProps> = ({
 
   const changePrice = (price: any) => {
     if (price.target.value < 1000000) {
+      if(price.target.value[0] == 0){
+        price.target.value = ''
+      }
       setValue('insurance', price.target.value.replace(/[\W_]/g, ''))
       changeHandler(price)
     } else {
@@ -394,8 +418,8 @@ const Сalculator: React.FC<СalculatorProps> = ({
                         setIndex2(el.index)
                         setCity2(el.address)
                         setView1(false)
-                        setValue('cityFrom', el.address)
-                        setValue('cityFromIndex', el.index)
+                        setValue('cityTo', el.address)
+                        setValue('cityToIndex', el.index)
                       }}
                       ref={index === focusedIndex2 ? resultContainer2 : null}
                       style={{

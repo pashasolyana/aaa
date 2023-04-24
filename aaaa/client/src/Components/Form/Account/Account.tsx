@@ -31,7 +31,7 @@ const Account: FC<handleFormProps> = ({ rap, goo, cities, cities2 }) => {
             </div>
             <div className={styles.info__el}>
               <p>Вес: </p>
-              <p>{rap?.at(0)?.goods?.at(0)?.weight} кг.</p>
+              <p>{rap?.at(0)?.goods?.at(0)?.weight} г.</p>
             </div>
             <div className={styles.info__el}>
               <p>Размер:</p>
