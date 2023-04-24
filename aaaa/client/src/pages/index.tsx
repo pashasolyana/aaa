@@ -37,6 +37,7 @@ export default function Home() {
       <Header setPath={setPath}/>
       <FirstScreen vvv={vvv} some={some} handleChange={handleChange} number={number} setPath={setPath}/>
       <div id='form'></div>
+      <div className='absolute' id='track'></div>
       <Form allCities={allCities} vvv={vvv} handleChange={handleChange} some={some} number={number} path={path} setPath={setPath}/>
       <MapScreen />
       <Footer />

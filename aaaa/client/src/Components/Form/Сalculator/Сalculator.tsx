@@ -62,6 +62,8 @@ const Сalculator: React.FC<СalculatorProps> = ({
   const resultContainer = useRef<HTMLDivElement>(null)
   const resultContainer2 = useRef<HTMLDivElement>(null)
 
+  console.log(city, city2)
+
   const router = useRouter()
   const queryClient = useQueryClient()
 
@@ -86,16 +88,21 @@ const Сalculator: React.FC<СalculatorProps> = ({
   }, [focusedIndex2])
 
   const handleSelection = (selectedIndex: number) => {
-    console.log(selectedIndex, 'index')
-    const selectedItem = data?.pages?.at(0)[selectedIndex]
-    setIndex(selectedItem?.index)
-    setCity(selectedItem?.address)
-    setView(false)
-    setValue('cityFrom', selectedItem?.address)
-    setValue('cityFromIndex', selectedItem?.index)
+    if(selectedIndex !== 0){
+      const selectedItem = data?.pages?.at(0)[selectedIndex]
+      setIndex(selectedItem?.index)
+      setCity(selectedItem?.address)
+      setView(false)
+      setValue('cityFrom', selectedItem?.address)
+      setValue('cityFromIndex', selectedItem?.index)
+    } else {
+      setIndex(index)
+      setCity(city)
+    }
   }
 
   const handleSelectionTo = (selectedIndex: number) => {
+    if(selectedIndex !== 0){
     const selectedItem = data2?.pages?.at(0)[selectedIndex]
 
     setIndex2(selectedItem?.index)
@@ -103,6 +110,10 @@ const Сalculator: React.FC<СalculatorProps> = ({
     setView1(false)
     setValue('cityTo', selectedItem?.address)
     setValue('cityToIndex', selectedItem?.index)
+    } else {
+      setIndex2(index2)
+      setCity2(city2)
+    }
   }
 
   const numberInputOnWheelPreventChange = (e: any) => {
@@ -120,7 +131,8 @@ const Сalculator: React.FC<СalculatorProps> = ({
   const { data: data2 } = useCities({
     search: city2
   })
-  console.log(data)
+
+  console.log(data2, '1111111')
 
   const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
     const { key } = e
@@ -157,7 +169,6 @@ const Сalculator: React.FC<СalculatorProps> = ({
   }
 
   const handleChange2 = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value, 'city')
     setCity2(e.target.value)
   }
 
@@ -343,7 +354,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 }, 10)
               }
             />
-            {data?.pages?.at(0)?.length < 1 && view === false && (
+            {data?.pages?.at(0)?.length == 0 && (
               <p
                 className='text-xs absolute top-20 pt-0.5'
                 style={{ color: 'red' }}
@@ -414,7 +425,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 }, 10)
               }
             />
-            {data?.pages?.at(0)?.length < 1 && view === false && (
+            {data?.pages?.at(0)?.length == 0 && (
               <p
                 className='text-xs absolute top-20 pt-0.5'
                 style={{ color: 'red' }}
