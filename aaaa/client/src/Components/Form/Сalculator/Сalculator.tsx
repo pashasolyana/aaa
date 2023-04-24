@@ -24,10 +24,10 @@ export interface formInputs {
   cityFromIndex: string
   cityToIndex: string
   insurance: string
-  Bheight: number
-  Bwidth: number
-  Blenght: number
-  Bsize: number
+  Bheight: string
+  Bwidth: string
+  Blenght: string
+  Bsize: string
 }
 
 interface СalculatorProps {
@@ -88,7 +88,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
   }, [focusedIndex2])
 
   const handleSelection = (selectedIndex: number) => {
-    if(selectedIndex !== 0){
+    if (selectedIndex !== 0) {
       const selectedItem = data?.pages?.at(0)[selectedIndex]
       setIndex(selectedItem?.index)
       setCity(selectedItem?.address)
@@ -102,14 +102,14 @@ const Сalculator: React.FC<СalculatorProps> = ({
   }
 
   const handleSelectionTo = (selectedIndex: number) => {
-    if(selectedIndex !== 0){
-    const selectedItem = data2?.pages?.at(0)[selectedIndex]
+    if (selectedIndex !== 0) {
+      const selectedItem = data2?.pages?.at(0)[selectedIndex]
 
-    setIndex2(selectedItem?.index)
-    setCity2(selectedItem?.address)
-    setView1(false)
-    setValue('cityTo', selectedItem?.address)
-    setValue('cityToIndex', selectedItem?.index)
+      setIndex2(selectedItem?.index)
+      setCity2(selectedItem?.address)
+      setView1(false)
+      setValue('cityTo', selectedItem?.address)
+      setValue('cityToIndex', selectedItem?.index)
     } else {
       setIndex2(index2)
       setCity2(city2)
@@ -256,7 +256,14 @@ const Сalculator: React.FC<СalculatorProps> = ({
   }
 
   const changeInd = (ind: any, name: 'cityFromIndex' | 'cityToIndex') => {
-    if (ind.target.value < 1) {
+    if (ind.target.value === '') {
+      setValue(name, '')
+      if (name == 'cityFromIndex') {
+        setIndex('')
+      } else {
+        setIndex2('')
+      }
+    } else if (ind.target.value < 1) {
       setValue(name, '0')
       if (name == 'cityFromIndex') {
         setIndex('0')
@@ -282,34 +289,42 @@ const Сalculator: React.FC<СalculatorProps> = ({
   }
 
   const changeSize = (size: any) => {
-    if (size.target.value < 1) {
-      setValue('Bsize', 0)
+    if (size.target.value === '') {
+      setValue('Bsize', '')
+      changeHandler(size)
+    } else if (size.target.value < 1) {
+      setValue('Bsize', '0')
       changeHandler(size)
     } else if (size.target.value < 500000) {
       setValue('Bsize', size.target.value.replace(/[\W_]/g, ''))
       changeHandler(size)
     } else {
-      setValue('Bsize', 500000)
+      setValue('Bsize', '500000')
       changeHandler(size)
     }
   }
 
   const changeLinght = (ind: any, name: 'Bheight' | 'Bwidth' | 'Blenght') => {
-    if (ind.target.value < 1) {
-      setValue(name, 0)
+    if (ind.target.value === '') {
+      setValue(name, '')
+      changeHandler(ind)
+    } else if (ind.target.value < 1) {
+      setValue(name, '0')
       changeHandler(ind)
     } else if (ind.target.value < 200 && ind.target.value >= 0) {
       setValue(name, ind.target.value.replace(/[\W_]/g, ''))
       changeHandler(ind)
     } else {
-      setValue(name, 200)
+      setValue(name, '200')
       changeHandler(ind)
     }
   }
 
   const changePrice = (price: any) => {
-    console.log(price.target.value < 1)
-    if (price.target.value < 1) {
+    if (price.target.value === '') {
+      setValue('insurance', '')
+      changeHandler(price)
+    } else if (price.target.value < 1) {
       setValue('insurance', '0')
       changeHandler(price)
     } else if (price.target.value < 1000000) {
