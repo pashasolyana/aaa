@@ -24,7 +24,7 @@ export const OtherService = {
   },
   async postCalcone(DataQuery = {}) {
     const response = await instance.post(
-      'http://localhost:5000/api/base/calcone', DataQuery
+      'http://81.200.152.89/api/base/calcone', DataQuery
     )
 
     return response.data
@@ -35,7 +35,7 @@ export const OtherService = {
       search: nullify(search)
     })
     const response = await instance.get(
-      'http://localhost:5000/api/base/findCities' + query
+      'http://81.200.152.89/api/base/findCities' + query
     )
 
     console.log(response.data, '111111')
