@@ -247,18 +247,19 @@ const Сalculator: React.FC<СalculatorProps> = ({
 
   const changeInd = (ind: any, name: 'cityFromIndex' | 'cityToIndex') => {
     if (ind.target.value.length < 6) {
-      setValue(name, ind.target.value.replace(/[\W_]/g, ''))
+      let index = ind.target.value.replace(/[^\d]/g,'')
+      setValue(name, index.replace(/[\W_]/g, ''))
       if (name == 'cityFromIndex') {
-        setIndex(ind.target.value.replace(/[\W_]/g, ''))
+        setIndex(index.replace(/[\W_]/g, ''))
       } else {
-        setIndex2(ind.target.value.replace(/[\W_]/g, ''))
+        setIndex2(index.replace(/[\W_]/g, ''))
       }
     } else {
-      setValue(name, ind.target.value.slice(0, 6))
+      setValue(name, index.slice(0, 6))
       if (name == 'cityFromIndex') {
-        setIndex(ind.target.value.slice(0, 6).replace(/[\W_]/g, ''))
+        setIndex(index.slice(0, 6).replace(/[\W_]/g, ''))
       } else {
-        setIndex2(ind.target.value.slice(0, 6).replace(/[\W_]/g, ''))
+        setIndex2(index.slice(0, 6).replace(/[\W_]/g, ''))
       }
     }
   }
