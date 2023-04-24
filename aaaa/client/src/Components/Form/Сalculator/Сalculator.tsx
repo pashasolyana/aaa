@@ -271,19 +271,19 @@ const Сalculator: React.FC<СalculatorProps> = ({
         setIndex2('0')
       }
     } else if (ind.target.value.length < 6) {
-      let index = ind.target.value.replace(/[^\d]/g, '')
+      let index = ind.target.value
       setValue(name, index.replace(/[\W_]/g, ''))
       if (name == 'cityFromIndex') {
         setIndex(index.replace(/[\W_]/g, ''))
       } else {
         setIndex2(index.replace(/[\W_]/g, ''))
-      }
+      } 
     } else {
-      setValue(name, index.slice(0, 6))
+      setValue(name, ind.target.value.slice(0, 6).replace(/[\W_]/g, ''))
       if (name == 'cityFromIndex') {
-        setIndex(index.slice(0, 6).replace(/[\W_]/g, ''))
+        setIndex(ind.target.value.slice(0, 6).replace(/[\W_]/g, ''))
       } else {
-        setIndex2(index.slice(0, 6).replace(/[\W_]/g, ''))
+        setIndex2(ind.target.value.slice(0, 6).replace(/[\W_]/g, ''))
       }
     }
   }
@@ -496,6 +496,11 @@ const Сalculator: React.FC<СalculatorProps> = ({
               autoComplete='off'
               onChange={(e) => changeInd(e, 'cityFromIndex')}
               onWheel={numberInputOnWheelPreventChange}
+              onKeyDown={(e) => {
+                if (["e", "E", "+", "-"].includes(e.key)) {
+                  e.preventDefault();
+                }
+              }}
             />
           </div>
           <div className={styles.inpEl}>
@@ -510,6 +515,11 @@ const Сalculator: React.FC<СalculatorProps> = ({
               value={index2}
               onChange={(e) => changeInd(e, 'cityToIndex')}
               onWheel={numberInputOnWheelPreventChange}
+              onKeyDown={(e) => {
+                if (["e", "E", "+", "-"].includes(e.key)) {
+                  e.preventDefault();
+                }
+              }}
             />
           </div>
         </div>
@@ -532,6 +542,11 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 autoComplete='off'
                 onChange={changePrice}
                 onWheel={numberInputOnWheelPreventChange}
+                onKeyDown={(e) => {
+                  if (["e", "E", "+", "-"].includes(e.key)) {
+                    e.preventDefault();
+                  }
+                }}
               />
             </div>
             <div className={styles.inpEl} id='acc'>
@@ -549,6 +564,11 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 onChange={changeSize}
                 autoComplete='off'
                 onWheel={numberInputOnWheelPreventChange}
+                onKeyDown={(e) => {
+                  if (["e", "E", "+", "-"].includes(e.key)) {
+                    e.preventDefault();
+                  }
+                }}
               />
             </div>
           </div>
@@ -563,6 +583,11 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 onChange={(e) => changeLinght(e, 'Blenght')}
                 autoComplete='off'
                 onWheel={numberInputOnWheelPreventChange}
+                onKeyDown={(e) => {
+                  if (["e", "E", "+", "-"].includes(e.key)) {
+                    e.preventDefault();
+                  }
+                }}
               />
             </div>
             <div className={styles.inpEl}>
@@ -575,6 +600,11 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 onChange={(e) => changeLinght(e, 'Bwidth')}
                 autoComplete='off'
                 onWheel={numberInputOnWheelPreventChange}
+                onKeyDown={(e) => {
+                  if (["e", "E", "+", "-"].includes(e.key)) {
+                    e.preventDefault();
+                  }
+                }}
               />
             </div>
             <div className={styles.inpEl}>
@@ -588,6 +618,11 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 autoComplete='off'
                 step='1'
                 onWheel={numberInputOnWheelPreventChange}
+                onKeyDown={(e) => {
+                  if (["e", "E", "+", "-"].includes(e.key)) {
+                    e.preventDefault();
+                  }
+                }}
               />
             </div>
           </div>
