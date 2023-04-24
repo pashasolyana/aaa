@@ -84,22 +84,21 @@ const Сalculator: React.FC<СalculatorProps> = ({
   const handleSelection = (selectedIndex: number) => {
     console.log(selectedIndex, 'index')
     const selectedItem = data?.pages?.at(0)[selectedIndex];
-    console.log(selectedItem.address, 'handle')
-    setIndex(selectedItem.index)
-    setCity(selectedItem.address)
+    setIndex(selectedItem?.index)
+    setCity(selectedItem?.address)
     setView(false)
-    setValue('cityFrom', selectedItem.address)
-    setValue('cityFromIndex', selectedItem.index)
+    setValue('cityFrom', selectedItem?.address)
+    setValue('cityFromIndex', selectedItem?.index)
   };
 
   const handleSelectionTo = (selectedIndex: number) => {
     const selectedItem = data2?.pages?.at(0)[selectedIndex];
-    console.log(selectedItem.address, 'handle')
-    setIndex2(selectedItem.index)
-    setCity2(selectedItem.address)
+   
+    setIndex2(selectedItem?.index)
+    setCity2(selectedItem?.address)
     setView1(false)
-    setValue('cityTo', selectedItem.address)
-    setValue('cityToIndex', selectedItem.index)
+    setValue('cityTo', selectedItem?.address)
+    setValue('cityToIndex', selectedItem?.index)
   };
 
   const numberInputOnWheelPreventChange = (e: any) => {
