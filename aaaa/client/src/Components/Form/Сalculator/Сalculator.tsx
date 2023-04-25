@@ -494,7 +494,6 @@ const Сalculator: React.FC<СalculatorProps> = ({
             </p>
             <input
               value={index}
-              style={ error == true && getValues('cityFromIndex') == '' ? {border: '2px solid red'} : {}}
               type='number'
               placeholder='Укажите индекс отправления'
               {...register('cityFromIndex')}
@@ -515,7 +514,6 @@ const Сalculator: React.FC<СalculatorProps> = ({
             <input
               type='number'
               placeholder='Укажите индекс назначения'
-              style={ error == true && getValues('cityToIndex') == '' ? {border: '2px solid red'} : {}}
               {...register('cityToIndex')}
               autoComplete='off'
               value={index2}
