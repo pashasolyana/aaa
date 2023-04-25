@@ -28,6 +28,7 @@ export interface formInputs {
   Bwidth: string
   Blenght: string
   Bsize: string
+  goo: []
 }
 
 interface СalculatorProps {
@@ -57,12 +58,13 @@ const Сalculator: React.FC<СalculatorProps> = ({
   const [index2, setIndex2] = useState('')
   const [view, setView] = useState(false)
   const [view1, setView1] = useState(false)
+  const [error, setError] = useState(false)
   const [focusedIndex, setFocusedIndex] = useState(-1)
   const [focusedIndex2, setFocusedIndex2] = useState(-1)
   const resultContainer = useRef<HTMLDivElement>(null)
   const resultContainer2 = useRef<HTMLDivElement>(null)
 
-  console.log(city, city2)
+  console.log(error)
 
   const router = useRouter()
   const queryClient = useQueryClient()
@@ -229,7 +231,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
   )
 
   const Submit = (data: any) => {
-    mutate(data)
+      mutate(data)
   }
 
   const swapFun = () => {
@@ -277,7 +279,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
         setIndex(index.replace(/[\W_]/g, ''))
       } else {
         setIndex2(index.replace(/[\W_]/g, ''))
-      } 
+      }
     } else {
       setValue(name, ind.target.value.slice(0, 6).replace(/[\W_]/g, ''))
       if (name == 'cityFromIndex') {
@@ -352,6 +354,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 required: 'Обязательное поле'
               })}
               type='text'
+              style={ error == true && getValues('cityFrom') == '' ? {border: '2px solid red'} : {}}
               autoComplete='off'
               onKeyDown={handleKeyDown}
               required
@@ -422,6 +425,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
               {...register('cityTo', {
                 required: 'Обязательное поле'
               })}
+              style={ error == true && getValues('cityTo') == '' ? {border: '2px solid red'} : {}}
               type='text'
               autoComplete='off'
               onKeyDown={handleKeyDown2}
@@ -490,6 +494,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
             </p>
             <input
               value={index}
+              style={ error == true && getValues('cityFromIndex') == '' ? {border: '2px solid red'} : {}}
               type='number'
               placeholder='Укажите индекс отправления'
               {...register('cityFromIndex')}
@@ -510,6 +515,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
             <input
               type='number'
               placeholder='Укажите индекс назначения'
+              style={ error == true && getValues('cityToIndex') == '' ? {border: '2px solid red'} : {}}
               {...register('cityToIndex')}
               autoComplete='off'
               value={index2}
@@ -539,6 +545,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                   required: 'Обязательное поле'
                 })}
                 required
+                style={ error == true && getValues('insurance') == '' ? {border: '2px solid red'} : {}}
                 autoComplete='off'
                 onChange={changePrice}
                 onWheel={numberInputOnWheelPreventChange}
@@ -560,6 +567,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                   required: 'Обязательное поле'
                 })}
                 name='weight'
+                style={ error == true && goo.weight == 0 ? {border: '2px solid red'} : {}}
                 required
                 onChange={changeSize}
                 autoComplete='off'
@@ -630,14 +638,27 @@ const Сalculator: React.FC<СalculatorProps> = ({
         <div className={styles.lastLine}>
           <div className={styles.buttons}>
             <button type='button'>Оформить</button>
-            <button
-              type='submit'
-              onClick={() => {
-                router.push('#acc')
-              }}
-            >
-              Рассчитать
-            </button>
+            {getValues('cityFrom') == '' || getValues('cityTo') == '' || getValues('cityFromIndex') == '' || getValues('cityToIndex') == '' || getValues('cityFrom') == '' || getValues('insurance') == '' || goo.weight == 0 ? (
+              <>
+                <button
+                  type='submit'
+                  onClick={() => setError(true)}
+                >
+                  Рассчитать
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  type='submit'
+                  onClick={() => {
+                    router.push('#acc')
+                  }}
+                >
+                  Рассчитать
+                </button>
+              </>
+            )}
           </div>
         </div>
       </form>
