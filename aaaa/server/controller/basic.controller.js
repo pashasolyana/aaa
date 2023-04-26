@@ -26,11 +26,11 @@ module.exports = {
     auth: async(req,res) => {
         try{
             const body = {
-              "userName": "web_site_user",
-              "password": "5f7ZJzNW7K",
-              "companyCode": "LUB",
-               "marketPvz": 15,
-              "clientVersion": "MOBILE"
+              "userName": process.env.USER_NAME,
+              "password": process.env.PASSWORD,
+              "companyCode": process.env.COMPANY_CODE,
+               "marketPvz": Number(process.env.MARKET_PVZ),
+              "clientVersion": process.env.CLIENT_VERSION
               }
             const result = await axios.post('https://api.l4y.ru/v2/api/gen/login',body)
             if(result.status !== 200){
