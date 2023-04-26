@@ -7,9 +7,7 @@ import React, {
 } from 'react'
 import Image from 'next/image'
 import { useForm } from 'react-hook-form'
-//css
 import styles from './Сalculator.module.scss'
-//img
 import swap from '../../../assets/svg/swap.svg'
 import { handleFormProps } from '../Form'
 import clsx from 'clsx'
@@ -122,22 +120,25 @@ const Сalculator: React.FC<СalculatorProps> = ({
     }, 0)
   }
 
+  
   const { data } = useCities({
     search: city
   })
-
+  
   const { data: data2 } = useCities({
     search: city2
   })
 
-
+  
+  
+  
   const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
     const { key } = e
     let nextIndexCount = 0
     if (key === 'ArrowDown')
-      nextIndexCount = (focusedIndex + 1) % data?.pages?.at(0)?.length
+    nextIndexCount = (focusedIndex + 1) % data?.pages?.at(0)?.length
     if (key === 'ArrowUp')
-      nextIndexCount = (focusedIndex - 1) % data?.pages?.at(0)?.length
+    nextIndexCount = (focusedIndex - 1) % data?.pages?.at(0)?.length
     if (key === 'Enter') {
       e.preventDefault()
       handleSelection(focusedIndex)
@@ -145,14 +146,14 @@ const Сalculator: React.FC<СalculatorProps> = ({
     if (key === 'Escape') setView(false)
     setFocusedIndex(nextIndexCount)
   }
-
+  
   const handleKeyDown2: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
     const { key } = e
     let nextIndexCount = 0
     if (key === 'ArrowDown')
-      nextIndexCount = (focusedIndex2 + 1) % data2?.pages?.at(0)?.length
+    nextIndexCount = (focusedIndex2 + 1) % data2?.pages?.at(0)?.length
     if (key === 'ArrowUp')
-      nextIndexCount = (focusedIndex2 - 1) % data2?.pages?.at(0)?.length
+    nextIndexCount = (focusedIndex2 - 1) % data2?.pages?.at(0)?.length
     if (key === 'Enter') {
       e.preventDefault()
       handleSelectionTo(focusedIndex2)
@@ -160,19 +161,19 @@ const Сalculator: React.FC<СalculatorProps> = ({
     if (key === 'Escape') setView1(false)
     setFocusedIndex2(nextIndexCount)
   }
-
+  
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCity(e.target.value)
   }
-
+  
   const handleChange2 = (e: ChangeEvent<HTMLInputElement>) => {
     setCity2(e.target.value)
   }
-
+  
   const viewFirst = () => {
     return setView(true)
   }
-
+  
   const {
     register,
     handleSubmit,
@@ -181,7 +182,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
     getValues,
     setValue
   } = useForm<formInputs>()
-
+  
   const changeHandler = useCallback(
     (e: any) => {
       setGoo((prev: any) => ({
@@ -431,7 +432,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 }, 10)
               }
             />
-            {data?.pages?.at(0)?.length == 0 && (
+            {data2?.pages?.at(0)?.length == 0 && (
               <p
                 className='text-xs absolute top-20 pt-0.5'
                 style={{ color: 'red' }}
