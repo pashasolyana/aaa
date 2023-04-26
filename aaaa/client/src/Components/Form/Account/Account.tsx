@@ -10,14 +10,12 @@ export interface handleFormProps {
 }
 
 const Account: FC<handleFormProps> = ({ rap, goo, cities, cities2 }) => {
-  const zzz = () => {
+  const daysCount = () => {
     const timeDiff =
       new Date(rap?.at(0)?.deliveryDateMin).getTime() - new Date().getTime()
     const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24))
     return diffDays
   }
-
-  console.log(rap, '5555555')
 
   return (
     <>
@@ -45,7 +43,7 @@ const Account: FC<handleFormProps> = ({ rap, goo, cities, cities2 }) => {
             </div>
             <div className={styles.info__el}>
               <p>Срок доставки:</p>
-              <p>{zzz()} дней</p>
+              <p>{daysCount()} дней</p>
             </div>
           </div>
           <p className={styles.text}>

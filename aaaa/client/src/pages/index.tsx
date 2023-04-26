@@ -30,8 +30,6 @@ export default function Home() {
   const { data } = getAllCities()
 
   const allCities = data?.pages?.at(0);
-
-  console.log(allCities)
   return (
     <div>
       <Header setPath={setPath}/>

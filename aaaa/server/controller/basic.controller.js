@@ -15,8 +15,6 @@ async function getIndex(address){
          }
       })
         .on('end', function (){
-          console.log("data")
-          console.log(data)
           return(data)
         })
     }catch(e){
@@ -46,7 +44,6 @@ module.exports = {
     tariflsit : async (req,res) => {
         try{
             const data = await module.exports.auth(req,res)
-            console.log(data)
             var config = {
                 method: 'post',
                 url: 'https://api.l4y.ru/v2/api/gen/tarifflist',
@@ -57,7 +54,6 @@ module.exports = {
                 data : data
               };
             const result = await axios(config)
-            console.log(result)
             return res.status(200).send(result.data)
         }catch(e){
             console.log(e)
@@ -105,7 +101,6 @@ module.exports = {
             req.body.dateExecute = new Date()
             req.body.tariffId = "ПОЧТА ПОСЫЛКА ОНЛАЙН"
             req.body.estimatedCost = Number(req.body.estimatedCost)
-            console.log(req.body.receiverIndex)
             const FiasKladrData = await module.exports.getFias(req.body.receiverIndex)
             if(!FiasKladrData){
               return res.status(404).send({message : "Fias not found"})
@@ -125,7 +120,6 @@ module.exports = {
             data : req.body
           };
         const result = await axios(config)
-        console.log(result.data)
         if(result.data.length == 0){
           return res.status(404).send({message : "We cant count this"})
         }
@@ -133,7 +127,6 @@ module.exports = {
         result.data[0].estimatedCost =  req.body.estimatedCost
         result.data[0].receiverAddress =  req.body.receiverAddress
         result.data[0].senderAddress = req.body.senderAddress
-        console.log(result.data)
         return res.status(200).send(result.data)
         }catch(e){
             console.log(e)
@@ -223,7 +216,6 @@ module.exports = {
                 data : req.body
               };
             const result = await axios(config)
-            console.log(result)
             return res.status(200).send(result.data)
         }catch(e){
             console.log(e)
@@ -243,7 +235,6 @@ module.exports = {
                 data : req.body
               };
             const result = await axios(config)
-            console.log(result)
             return res.status(200).send(result.data)
         }catch(e){
             console.log(e)
@@ -263,7 +254,6 @@ module.exports = {
                 data : req.body
               };
             const result = await axios(config)
-            console.log(result)
             return res.status(200).send(result.data)
         }catch(e){
             console.log(e)
@@ -283,7 +273,6 @@ module.exports = {
                 data : req.body
               };
             const result = await axios(config)
-            console.log(result)
             return res.status(200).send(result.data)
         }catch(e){
             console.log(e)
@@ -303,7 +292,6 @@ module.exports = {
                 data : req.body
               };
             const result = await axios(config)
-            console.log(result)
             return res.status(200).send(result.data)
         }catch(e){
             console.log(e)
@@ -323,7 +311,6 @@ module.exports = {
                 data : req.body
               };
             const result = await axios(config)
-            console.log(result)
             return res.status(200).send(result.data)
         }catch(e){
             console.log(e)
@@ -343,7 +330,7 @@ module.exports = {
                 data : req.body
               };
             const result = await axios(config)
-            console.log(result)
+
             return res.status(200).send(result.data)
         }catch(e){
             console.log(e)
@@ -363,7 +350,6 @@ module.exports = {
                 data : req.body
               };
             const result = await axios(config)
-            console.log(result)
             return res.status(200).send(result.data)
         }catch(e){
             console.log(e)
@@ -383,7 +369,6 @@ module.exports = {
                 data : req.body
               };
             const result = await axios(config)
-            console.log(result)
             return res.status(200).send(result.data)
         }catch(e){
             console.log(e)
@@ -403,7 +388,6 @@ module.exports = {
                 data : req.body
               };
             const result = await axios(config)
-            console.log(result)
             return res.status(200).send(result.data)
         }catch(e){
             console.log(e)
@@ -423,7 +407,6 @@ module.exports = {
                 data : req.body
               };
             const result = await axios(config)
-            console.log(result)
             return res.status(200).send(result.data)
         }catch(e){
             console.log(e)
@@ -444,7 +427,6 @@ module.exports = {
           data : req.body
         };
         const result = await axios(config)
-        console.log(result)
         return res.status(200).send(result.data)
       }catch(e){
         console.log(e)
@@ -479,7 +461,6 @@ module.exports = {
         let search1 = str.replaceAll('е', 'ё')
         let data = []
         let i = 0
-        console.log(str,search,search1 )
         fs.createReadStream("./city.csv")
         .pipe(parse({columns: true}))
         .on("data", function (row) {

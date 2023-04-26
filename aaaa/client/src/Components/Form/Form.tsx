@@ -27,8 +27,6 @@ export const Form: FC<handleFormProps> = ({ allCities, vvv, handleChange, some, 
   const [cities, setCities] = useState('')
   const [cities2, setCities2] = useState('')
 
-  console.log(rap)
-
   const handleForm = ({ name, number }: handleFormProps) => {
     if (name === 'account') {
       setIsSearch(false)
@@ -36,17 +34,12 @@ export const Form: FC<handleFormProps> = ({ allCities, vvv, handleChange, some, 
     } else {
       setIsAccount(false)
       setIsSearch(true)
-      if (number) {
-        console.log(number)
-      }
     }
   }
 
-  console.log(rap)
 
   const getSubContent = () => {
     if (isAccount && path === 0 && rap) {
-        console.log(goo)
       return <Account rap={rap} goo={goo} cities={cities} cities2={cities2}/>
     } else if (isSearch && path === 1) {
       return <TrackList some={some} />

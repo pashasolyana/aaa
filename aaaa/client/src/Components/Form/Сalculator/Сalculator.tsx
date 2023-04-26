@@ -64,8 +64,6 @@ const Сalculator: React.FC<СalculatorProps> = ({
   const resultContainer = useRef<HTMLDivElement>(null)
   const resultContainer2 = useRef<HTMLDivElement>(null)
 
-  console.log(error)
-
   const router = useRouter()
   const queryClient = useQueryClient()
 
@@ -76,7 +74,6 @@ const Сalculator: React.FC<СalculatorProps> = ({
       behavior: 'auto',
       block: 'center'
     })
-    console.log(resultContainer.current, 'апаплапл')
   }, [focusedIndex])
 
   useEffect(() => {
@@ -86,7 +83,6 @@ const Сalculator: React.FC<СalculatorProps> = ({
       behavior: 'auto',
       block: 'center'
     })
-    console.log(resultContainer2.current, '2222222')
   }, [focusedIndex2])
 
   const handleSelection = (selectedIndex: number) => {
@@ -134,7 +130,6 @@ const Сalculator: React.FC<СalculatorProps> = ({
     search: city2
   })
 
-  console.log(data2, '1111111')
 
   const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
     const { key } = e
@@ -239,14 +234,6 @@ const Сalculator: React.FC<СalculatorProps> = ({
     let to = getValues('cityTo')
     let indFrom = getValues('cityFromIndex')
     let indTo = getValues('cityToIndex')
-    /*
-    reset({
-      cityFrom: to,
-      cityTo: from,
-      cityFromIndex: indTo,
-      cityToIndex: indFrom
-    })
-    */
     setCity(to)
     setCity2(from)
     setIndex(indTo)

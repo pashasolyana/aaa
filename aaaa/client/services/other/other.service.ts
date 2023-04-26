@@ -30,16 +30,12 @@ export const OtherService = {
     return response.data
   },
   async getCities(search?: string) {
-    console.log(search,'1111111')
     let query = makeQuery({
       search: nullify(search)
     })
     const response = await instance.get(
       'http://81.200.152.89/api/base/findCities' + query
     )
-
-    console.log(response.data, '111111')
-
     return response.data
   },
 
