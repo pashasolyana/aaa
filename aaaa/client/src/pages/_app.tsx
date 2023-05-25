@@ -7,9 +7,9 @@ import { queryClient } from '../../utils/react-query'
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </QueryClientProvider>
   )
 }

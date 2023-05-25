@@ -1,39 +1,25 @@
 import { Link } from 'react-scroll'
 import styles from './Header.module.scss'
 import Image from 'next/image'
-import info from '../../assets/png/info.png'
 
-//@ts-ignore
-
-export const Header = ({ setPath }) => {
+export const Header = ({ setPath }: any) => {
   return (
     <div className={styles.container}>
-      <div className={styles.topHeader}>
-        <Image
-          src='/logo.svg'
-          alt='Logo'
-          width={327}
-          height={98}
-          priority
-          className={styles.logo}
-          onClick={() => location.reload()}
-        />
-        <Image
-          src={info.src}
-          width={287}
-          height={82}
-          alt='info'
-          className={styles.info}
-        />
+      <div className={styles.burger}>
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
-      <div className={styles.lowHeader}>
-        <a
-          href={'/'}
-          onClick={() => location.reload()}
-          className={styles.lowHeaderText}
-        >
-          Главная
-        </a>
+      <Image
+        src='/logo.svg'
+        alt='Logo'
+        width={327}
+        height={98}
+        priority
+        className={styles.logo}
+        onClick={() => location.reload()}
+      />
+      <div className={styles.link}>
         <Link
           activeClass='active'
           to='form'
@@ -42,7 +28,6 @@ export const Header = ({ setPath }) => {
           offset={50}
           duration={500}
           onClick={() => setPath(0)}
-          className={styles.lowHeaderText}
         >
           Калькулятор
         </Link>
@@ -54,9 +39,19 @@ export const Header = ({ setPath }) => {
           offset={50}
           duration={500}
           onClick={() => setPath(1)}
-          className={styles.lowHeaderText}
         >
-          Отследить посылку
+          Отслеживание
+        </Link>
+        <Link
+          activeClass='active'
+          to='form'
+          spy={true}
+          smooth={true}
+          offset={50}
+          duration={500}
+          onClick={() => setPath(1)}
+        >
+          О компании
         </Link>
         <Link
           activeClass='active'
@@ -65,10 +60,29 @@ export const Header = ({ setPath }) => {
           smooth={true}
           offset={50}
           duration={500}
-          className={styles.lowHeaderText}
         >
           Документы
         </Link>
+        <Link
+          activeClass='active'
+          to='documents'
+          spy={true}
+          smooth={true}
+          offset={50}
+          duration={500}
+        >
+          Задать вопрос
+        </Link>
+      </div>
+      <div className={styles.info}>
+        <p>Пишите нам</p>
+        <Image src={'/vk.svg'} alt='vk' width={40} height={40} className={styles.info__img}/>
+        <Image src={'/telegram.svg'} alt='telegram' width={40} height={40} className={styles.info__img}/>
+        <Image src={'/whatsApp.svg'} alt='whatsApp' width={40} height={40} className={styles.info__img}/>
+        <button>
+          <p>Войти</p>
+          <Image src={'/people.svg'} alt='vk' width={15} height={20} />
+        </button>
       </div>
     </div>
   )

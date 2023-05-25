@@ -80,7 +80,7 @@ module.exports = {
         DEFAULT: '350ms'
       },
       fontFamily: {
-        sans: ['Montserrat', ...defaultTheme.fontFamily.sans]
+        sans: ['Raleway', ...defaultTheme.fontFamily.sans]
       }
     }
   },

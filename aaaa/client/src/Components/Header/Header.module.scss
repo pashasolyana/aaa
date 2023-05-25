@@ -1,108 +1,137 @@
 .container {
-  @apply w-full bg-white;
-}
-
-.topHeader {
-  @apply flex justify-between items-end;
+  @apply w-full bg-white flex items-center;
+  margin-bottom: 132px;
 }
 
 .logo {
-  @apply max-xl:w-[199px] max-xl:h-[60px] cursor-pointer;
+  @apply max-xl:w-[199px] max-xl:h-[60px] cursor-pointer max-w-[188px] max-h-[47px];
+}
+
+.link {
+  @apply flex items-center gap-x-4 ml-5;
+  a {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+  }
+}
+
+.burger {
+  @apply hidden justify-between cursor-pointer;
+  width: 25px;
+  height: 20px;
+  span {
+    width: 100%;
+    background: #3622f5;
+    border-radius: 1.3px;
+    height: 4px;
+  }
 }
 
 .info {
-  @apply max-xl:w-[231px] max-xl:h-[66px];
-}
+  @apply flex items-center gap-x-4 ml-auto;
 
-.rightcont {
-  @apply flex;
-}
+  p {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    color: #6d6d6d;
+  }
 
-.contacts {
-  @apply flex-col text-right;
-}
-
-.conttext1 {
-  @apply text-lg flex gap-x-3;
-
-  h2 {
-    font-weight: 500;
-    font-size: 44px;
-    line-height: 29px;
+  button {
+    @apply flex-center;
+    width: 104px;
+    height: 51px;
+    color: #3622f5;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    background: #f3f3f3;
+    backdrop-filter: blur(4px);
+    border-radius: 6px;
+    img {
+      @apply hidden;
+    }
   }
 }
 
-.btn {
-  @apply ml-10 py-4 px-6 rounded-2xl border-0 tracking-wide text-base;
-  background-color: #a7a7a7;
-}
-
-.lowHeader {
-  @apply pl-[76px] max-2xl:pl-9 mt-6 py-5 flex justify-start gap-8 max-xl:mt-4 cursor-pointer;
-  background-color: red;
-  color: white;
-}
-
-.lowHeaderText {
-  @apply text-xl font-medium;
-}
-
-.line {
-  @apply h-[2px] my-[8px] w-full;
-  background-color: black;
-}
-
-@media screen and (max-width: 895px) {
+@media screen and (max-width: 1232px) {
+  .container {
+    margin-bottom: 80px;
+  }
   .info {
-    @apply w-[201px] h-[57px];
+    @apply gap-x-1.5;
+    p {
+      @apply hidden;
+    }
+
+    img {
+      width: 30px;
+      height: 30px;
+    }
+
+    button {
+      margin-left: 7px;
+      width: 40px;
+      height: 40px;
+
+      p {
+        @apply hidden;
+      }
+
+      img {
+        @apply block;
+      }
+    }
   }
+  .link a {
+    font-size: 15px;
+    line-height: 18px;
+  }
+
   .logo {
-    @apply w-[145px] h-[44px];
-  }
-  .lowHeaderText {
-    @apply text-base;
-  }
-  .lowHeader {
-    @apply pl-[23px];
+    width: 160px;
+    height: 40px;
   }
 }
 
-@media screen and (max-width: 621px) {
+@media screen and (max-width: 950px) {
+  .link {
+    @apply hidden;
+  }
+  .burger {
+    @apply flex flex-col;
+  }
+  .container {
+    @apply justify-between;
+  }
   .info {
-    @apply w-[166px] h-[47px];
+    margin: 0;
+    button {
+      margin: 0;
+    }
+
+    &__img {
+      @apply hidden;
+    }
   }
+}
+
+@media screen and (max-width: 420px) {
   .logo {
-    @apply w-[120px] h-[36px];
+    width: 144px;
+    height: 36px;
   }
-  .lowHeaderText {
-    @apply text-xs;
-  }
-  .lowHeader {
-    @apply mt-2 gap-x-2;
-  }
-}
 
-@media screen and (max-width: 430px) {
-  .lowHeaderText {
-    @apply text-[11px] leading-[13px];
-  }
-  .lowHeader {
-    @apply gap-x-[7px] pl-[7px] py-4 mt-3;
-  }
-}
-
-@media screen and (max-width: 380px) {
   .info {
-    @apply w-[120px] h-[34px];
-  }
-  .logo {
-    @apply w-[97px] h-[29px];
-  }
-  .lowHeaderText {
-    @apply text-[10px] leading-[12px] w-fit;
-  }
-  .lowHeader {
-    @apply gap-x-[7px] px-[14px] py-[14px] text-center items-center;
+    buttton {
+      width: 36px;
+      height: 36px;
+      img {
+        width: 14px;
+        height: 20px;
+      }
+    }
   }
 }
-
