@@ -1,26 +1,90 @@
 .cont {
-  @apply w-full flex justify-start gap-x-3;
+  @apply w-full grid grid-rows-1 grid-cols-2 gap-x-2;
 }
 
-.tab {
-  @apply h-[53px] w-[224px] bg-[#C2C2C2] max-lg:w-[198px] max-lg:h-[48px] max-lg:text-lg text-xl flex-center font-medium cursor-pointer;
+.tab1 {
+  @apply h-[39px] w-full bg-transparent flex-center cursor-pointer relative;
   border-radius: 8px 8px 0px 0px;
-  color: #353535;
-}
-
-.active {
-  background-color: #a7a7a7 !important;
-  color: #ffffff !important;
-}
-
-@media screen and (max-width: 500px) {
-  .tab{
-    @apply w-[171px] h-[44px] text-base;
+  border: 1px solid #3622f5;
+  border-bottom: 0px;
+  color: #3622f5;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  &::after {
+    @apply absolute right-[-2px] top-1 z-20;
+    content: '';
+    height: 11px;
+    width: 1px;
+    background: #3622f5;
+    rotate: -15deg;
+  }
+  &::before {
+    @apply absolute bottom-0 left-[-1px];
+    content: '';
+    height: 5px;
+    width: 4px;
+    background: #ffffff;
   }
 }
 
-@media screen and (max-width: 416px) {
-  .tab{
-    @apply w-[134px] h-[33px] max-sm:w-[120px] max-sm:h-[31px] max-sm:text-xs text-base;
+.active1 {
+  background: #3622f5;
+  color: #ffffff !important;
+  border: 0;
+  &::after {
+    @apply absolute right-[-9px] bottom-0 left-[100%] z-10 top-auto;
+    content: '';
+    border-top: 33px solid white;
+    border-left: 9px solid #3622f5;
+    border-bottom: 0;
+    border-right: 0;
+    rotate: 0deg;
+  }
+  &::before {
+    @apply hidden;
+  }
+}
+
+.tab2 {
+  @apply h-[39px] w-full bg-transparent flex-center cursor-pointer relative;
+  border-radius: 8px 8px 0px 0px;
+  border: 1px solid #3622f5;
+  border-bottom: 0px;
+  color: #3622f5;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  &::after {
+    @apply absolute left-[-2px] top-1 z-20;
+    content: '';
+    height: 11px;
+    width: 1px;
+    background: #3622f5;
+    rotate: 15deg;
+  }
+  &::before {
+    @apply absolute bottom-0 right-[-1px];
+    content: '';
+    height: 5px;
+    width: 4px;
+    background: #ffffff;
+  }
+}
+
+.active2 {
+  background: #3622f5;
+  color: #ffffff !important;
+  border: 0;
+  &::after {
+    @apply absolute left-[-9px] bottom-0 z-10 top-auto;
+    content: '';
+    border-top: 33px solid white;
+    border-right: 9px solid #3622f5;
+    border-bottom: 0;
+    rotate: 0deg;
+  }
+  &::before {
+    @apply hidden;
   }
 }
