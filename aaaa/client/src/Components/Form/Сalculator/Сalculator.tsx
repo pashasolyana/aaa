@@ -337,38 +337,36 @@ const Сalculator: React.FC<СalculatorProps> = ({
   }
 
   return (
-    <>
-      <form
-        className={clsx(styles.cont, { [styles.cont_mod]: isAccount })}
-        onSubmit={handleSubmit(Submit)}
-      >
-        <div className={styles.firstLine}>
+    <form className={styles.cont} onSubmit={handleSubmit(Submit)}>
+      <div className={styles.leftBlock}>
+        <h1 className={styles.title}>Города отправления и назначения</h1>
+        <div className={styles.fromTo}>
           <div className={styles.inpEl}>
-            <p>
-              Город отправления<span>*</span>
-            </p>
-            <input
-              {...register('cityFrom', {
-                required: 'Обязательное поле'
-              })}
-              type='text'
-              autoComplete='off'
-              onKeyDown={handleKeyDown}
-              required
-              placeholder='Укажите город отправления'
-              onChange={handleChange}
-              value={city}
-              // styles.inpEl_mod нужен когда есть поиск
-              className={clsx({
-                [styles.inpEl_mod]: view && city.length !== 0
-              })}
-              onFocus={() => setView(true)}
-              onBlur={() =>
-                setTimeout(() => {
-                  setView(false)
-                }, 10)
-              }
-            />
+            <div className={styles.leftBlock__input}>
+              <Image width={6} height={16} src={'./fromCity.svg'} alt='from' />
+              <input
+                {...register('cityFrom', {
+                  required: 'Обязательное поле'
+                })}
+                type='text'
+                autoComplete='off'
+                onKeyDown={handleKeyDown}
+                required
+                placeholder='Укажите город отправления'
+                onChange={handleChange}
+                value={city}
+                // styles.inpEl_mod нужен когда есть поиск
+                className={clsx({
+                  [styles.inpEl_mod]: view && city.length !== 0
+                })}
+                onFocus={() => setView(true)}
+                onBlur={() =>
+                  setTimeout(() => {
+                    setView(false)
+                  }, 10)
+                }
+              />
+            </div>
             {data?.pages?.at(0)?.length == 0 && (
               <p
                 className='text-xs absolute top-20 pt-0.5'
@@ -411,35 +409,40 @@ const Сalculator: React.FC<СalculatorProps> = ({
               </div>
             </div>
           </div>
-          <div className={styles.swap} onClick={swapFun}>
-            <Image width={40} height={40} src={swap.src} alt='swap' />
-          </div>
+          <Image
+            width={17}
+            height={15}
+            src={swap.src}
+            alt='swap'
+            className={styles.swap}
+            onClick={swapFun}
+          />
           <div className={styles.inpEl}>
-            <p>
-              Город назначения<span>*</span>
-            </p>
-            <input
-              {...register('cityTo', {
-                required: 'Обязательное поле'
-              })}
-              type='text'
-              autoComplete='off'
-              onKeyDown={handleKeyDown2}
-              required
-              placeholder='Укажите город отправления'
-              onChange={handleChange2}
-              value={city2}
-              // styles.inpEl_mod нужен когда есть поиск
-              className={clsx({
-                [styles.inpEl_mod]: view1 && city2.length !== 0
-              })}
-              onFocus={() => setView1(true)}
-              onBlur={() =>
-                setTimeout(() => {
-                  setView1(false)
-                }, 10)
-              }
-            />
+            <div className={styles.leftBlock__input}>
+              <Image width={6} height={16} src={'./toCity.svg'} alt='from' />
+              <input
+                {...register('cityTo', {
+                  required: 'Обязательное поле'
+                })}
+                type='text'
+                autoComplete='off'
+                onKeyDown={handleKeyDown2}
+                required
+                placeholder='Укажите город отправления'
+                onChange={handleChange2}
+                value={city2}
+                // styles.inpEl_mod нужен когда есть поиск
+                className={clsx({
+                  [styles.inpEl_mod]: view1 && city2.length !== 0
+                })}
+                onFocus={() => setView1(true)}
+                onBlur={() =>
+                  setTimeout(() => {
+                    setView1(false)
+                  }, 10)
+                }
+              />
+            </div>
             {data?.pages?.at(0)?.length == 0 && (
               <p
                 className='text-xs absolute top-20 pt-0.5'
@@ -483,130 +486,82 @@ const Сalculator: React.FC<СalculatorProps> = ({
             </div>
           </div>
         </div>
-        <div className={styles.line}>
-          <div className={styles.inpEl}>
-            <p>
-              Индекс отправления<span></span>
-            </p>
-            <input
-              value={index}
-              type='number'
-              placeholder='Укажите индекс отправления'
-              {...register('cityFromIndex')}
-              autoComplete='off'
-              onChange={(e) => changeInd(e, 'cityFromIndex')}
-              onWheel={numberInputOnWheelPreventChange}
-            />
-          </div>
-          <div className={styles.inpEl}>
-            <p>
-              Индекс назначения<span></span>
-            </p>
-            <input
-              type='number'
-              placeholder='Укажите индекс назначения'
-              {...register('cityToIndex')}
-              autoComplete='off'
-              value={index2}
-              onChange={(e) => changeInd(e, 'cityToIndex')}
-              onWheel={numberInputOnWheelPreventChange}
-            />
-          </div>
+        <h1 className={styles.title}>
+          Стоимость страховки (оцените вашу посылку)
+        </h1>
+        <div className={styles.leftBlock__input}>
+          <Image width={13} height={18} src={'./price.svg'} alt='from' />
+          <input
+            type='number'
+            placeholder='Укажите Страховку (руб.)'
+            {...register('insurance', {
+              required: 'Обязательное поле'
+            })}
+            required
+            autoComplete='off'
+            onChange={changePrice}
+            onWheel={numberInputOnWheelPreventChange}
+          />
         </div>
-        {
-          //
-        }
-        <div className={styles.lineRev}>
-          <div className={styles.lineRev__el}>
-            <div className={styles.inpEl}>
-              <p>
-                Страховка, руб.<span>*</span>
-              </p>
-              <input
-                type='number'
-                placeholder='Укажите Страховку (руб.)'
-                {...register('insurance', {
-                  required: 'Обязательное поле'
-                })}
-                required
-                autoComplete='off'
-                onChange={changePrice}
-                onWheel={numberInputOnWheelPreventChange}
-              />
-            </div>
-            <div className={styles.inpEl} id='acc'>
-              <p>
-                Вес, г.<span>*</span>
-              </p>
-              <input
-                type='number'
-                placeholder='Укажите вес(г.)'
-                {...register('Bsize', {
-                  required: 'Обязательное поле'
-                })}
-                name='weight'
-                required
-                onChange={changeSize}
-                autoComplete='off'
-                onWheel={numberInputOnWheelPreventChange}
-              />
-            </div>
-          </div>
-          <div className={styles.lineRev__el}>
-            <div className={styles.inpEl}>
-              <p>Длина, см.</p>
-              <input
-                type='number'
-                placeholder='Укажите длину(см)'
-                {...register('Blenght')}
-                name='length'
-                onChange={(e) => changeLinght(e, 'Blenght')}
-                autoComplete='off'
-                onWheel={numberInputOnWheelPreventChange}
-              />
-            </div>
-            <div className={styles.inpEl}>
-              <p>Ширина, см.</p>
-              <input
-                type='number'
-                placeholder='Укажите ширину(см)'
-                {...register('Bwidth')}
-                name='width'
-                onChange={(e) => changeLinght(e, 'Bwidth')}
-                autoComplete='off'
-                onWheel={numberInputOnWheelPreventChange}
-              />
-            </div>
-            <div className={styles.inpEl}>
-              <p>Высота, см.</p>
-              <input
-                type='number'
-                placeholder='Укажите высоту(см)'
-                {...register('Bheight')}
-                name='height'
-                onChange={(e) => changeLinght(e, 'Bheight')}
-                autoComplete='off'
-                step='1'
-                onWheel={numberInputOnWheelPreventChange}
-              />
-            </div>
-          </div>
+        <button type='button' className={styles.calculateBtn}>
+          Рассчитать
+        </button>
+      </div>
+      <div className={styles.rightBlock}>
+        <h1 className={styles.title}>
+          Укажите размеры в <span>миллиметрах</span> и вес в{' '}
+          <span>граммах</span>
+        </h1>
+        <div className={styles.rightBlock__box}>
+          <Image src={'./boxCalc.svg'} width={367} height={323} alt='box' />
+          <input
+            type='number'
+            placeholder='Вес'
+            {...register('Bsize', {
+              required: 'Обязательное поле'
+            })}
+            name='weight'
+            required
+            onChange={changeSize}
+            autoComplete='off'
+            onWheel={numberInputOnWheelPreventChange}
+            className={styles.rightBlock__weight}
+          />
+          <input
+            type='number'
+            placeholder='Длина'
+            {...register('Blenght')}
+            name='length'
+            onChange={(e) => changeLinght(e, 'Blenght')}
+            autoComplete='off'
+            onWheel={numberInputOnWheelPreventChange}
+            className={styles.rightBlock__length}
+          />
+          <input
+            type='number'
+            placeholder='Ширина'
+            {...register('Bwidth')}
+            name='width'
+            onChange={(e) => changeLinght(e, 'Bwidth')}
+            autoComplete='off'
+            onWheel={numberInputOnWheelPreventChange}
+            className={styles.rightBlock__width}
+          />
+          <input
+            type='number'
+            placeholder='Высота'
+            {...register('Bheight')}
+            name='height'
+            onChange={(e) => changeLinght(e, 'Bheight')}
+            autoComplete='off'
+            step='1'
+            onWheel={numberInputOnWheelPreventChange}
+            className={styles.rightBlock__height}
+          />
         </div>
-        <div className={styles.lastLine}>
-          <div className={styles.buttons}>
-            <button type='button'>Оформить</button>
-            <button
-              type='submit'
-              onClick={() => {
-                router.push('#acc')
-              }}
-            >
-              Рассчитать
-            </button>
-          </div>
-        </div>
-      </form>
-    </>
+        <div></div>
+      </div>
+    </form>
   )
 }
 
