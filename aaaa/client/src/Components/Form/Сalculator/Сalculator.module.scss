@@ -109,6 +109,10 @@
   line-height: 19px;
   display: flex;
   color: #a7a7a7;
+
+  &_mod {
+    @apply hidden;
+  }
 }
 
 .fromTo {
@@ -190,5 +194,151 @@
     height: 1px;
     transform: translate(-50%, 0);
     background: #c2c2c2;
+  }
+}
+
+@media screen and (max-width: 1162px) {
+  .cont {
+    @apply flex flex-col gap-y-7 items-center;
+  }
+  .calculateBtn {
+    @apply hidden;
+
+    &_mod {
+      @apply w-full flex-center mt-14;
+      max-width: 580px;
+      height: 60px;
+      background: #ececec;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 19px;
+      display: flex;
+      color: #a7a7a7;
+    }
+  }
+
+  .leftBlock {
+    @apply w-full;
+  }
+}
+
+@media screen and (max-width: 668px) {
+  .cont {
+    @apply px-4 py-5 gap-y-5;
+  }
+
+  .leftBlock {
+    @apply gap-y-5;
+  }
+
+  .title {
+    font-size: 16px;
+    line-height: 19px;
+  }
+
+  .rightBlock {
+    input {
+      font-size: 16.015px;
+      line-height: 19px;
+    }
+    &__box {
+      width: 267px;
+      height: 235px;
+    }
+
+    &__weight {
+      width: 90px;
+      right: 33px;
+      top: 136px;
+      transform: rotate(-18.85deg);
+    }
+
+    &__length {
+      padding-top: 10px;
+      width: 171px;
+      right: -13px;
+      top: 218px;
+      transform: rotate(-18.85deg);
+      border-top: 1.5px solid #d2d2d2 !important;
+    }
+    &__width {
+      padding-top: 10px;
+      width: 115px;
+      right: 173px;
+      top: 217px;
+      transform: rotate(26.55deg);
+      border-top: 1.5px solid #d2d2d2 !important;
+    }
+    &__height {
+      height: 128px;
+      right: -104px;
+      padding-left: 10px;
+      top: 49px;
+      width: 91.04px;
+      border-left: 1.5px solid #d2d2d2 !important;
+    }
+  }
+}
+
+@media screen and (max-width: 492px) {
+  .cont {
+    @apply items-start;
+  }
+  .rightBlock {
+    @apply items-start;
+  }
+}
+
+@media screen and (max-width: 432px) {
+  .cont {
+    @apply px-2.5;
+  }
+  .leftBlock {
+    &__input:last-of-type {
+      width: 100% !important;
+    }
+  }
+
+  .rightBlock {
+    input {
+      font-size: 11.878px;
+      line-height: 14px;
+    }
+    &__box {
+      width: 198px;
+      height: 174px;
+    }
+    &__weight {
+      width: 90px;
+      right: 15px;
+      top: 104px;
+      transform: rotate(-18.85deg);
+    }
+
+    &__length {
+      padding-top: 5px;
+      width: 127px;
+      right: -10px;
+      top: 160px;
+      transform: rotate(-18.85deg);
+      border-top: 1px solid #d2d2d2 !important;
+    }
+    &__width {
+      padding-top: 5px;
+      width: 85px;
+      right: 127px;
+      top: 161px;
+      transform: rotate(26.55deg);
+      border-top: 1px solid #d2d2d2 !important;
+    }
+    &__height {
+      height: 95px;
+      right: -67px;
+      padding-left: 5px;
+      top: 35px;
+      width: 57px;
+      border-left: 1px solid #d2d2d2 !important;
+    }
   }
 }

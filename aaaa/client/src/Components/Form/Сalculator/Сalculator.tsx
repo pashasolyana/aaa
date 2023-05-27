@@ -352,7 +352,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 autoComplete='off'
                 onKeyDown={handleKeyDown}
                 required
-                placeholder='Укажите город отправления'
+                placeholder='Откуда'
                 onChange={handleChange}
                 value={city}
                 // styles.inpEl_mod нужен когда есть поиск
@@ -423,7 +423,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 autoComplete='off'
                 onKeyDown={handleKeyDown2}
                 required
-                placeholder='Укажите город отправления'
+                placeholder='Куда'
                 onChange={handleChange2}
                 value={city2}
                 // styles.inpEl_mod нужен когда есть поиск
@@ -483,7 +483,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
           <Image width={13} height={18} src={'./price.svg'} alt='from' />
           <input
             type='number'
-            placeholder='Укажите Страховку (руб.)'
+            placeholder='Цена в рублях'
             {...register('insurance', {
               required: 'Обязательное поле'
             })}
@@ -549,8 +549,10 @@ const Сalculator: React.FC<СalculatorProps> = ({
             className={styles.rightBlock__height}
           />
         </div>
-        <div></div>
       </div>
+      <button type='button' className={styles.calculateBtn_mod}>
+        Рассчитать
+      </button>
     </form>
   )
 }
