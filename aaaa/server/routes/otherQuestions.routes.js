@@ -1,5 +1,5 @@
 module.exports = app => {
-    controller = require('../controller/other.questions.contoller')
+    const controller = require('../controller/other.questions.contoller')
     const router = require('express').Router()
     
     router.post('/', (req,res) => {

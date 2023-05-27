@@ -1,5 +1,5 @@
 module.exports = app => {
-    controller = require('../controller/basic.controller')
+    const controller = require('../controller/basic.controller')
     const router = require('express').Router()
     router.post('/auth', (req,res) => {
         controller.auth(req,res)
@@ -51,6 +51,7 @@ module.exports = app => {
         controller.getCities(req,res)
     })
     router.get('/findCities',(req,res) => {
+    
         controller.findCities(req,res)
     })
     router.get('/normalAddress', (req,res) => {
