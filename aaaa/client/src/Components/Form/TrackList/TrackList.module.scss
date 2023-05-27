@@ -1,17 +1,51 @@
 .cont {
-  @apply py-[58px] px-[106px] gap-y-[18px] max-xl:py-10 max-xl:px-12 max-lg:py-6 max-lg:px-2.5
-  w-full flex flex-col;
-  background: #ededed;
-  border-radius: 0px 0px 8px 8px;
+  @apply w-full grid gap-x-11;
+  grid-template-columns: 20% auto auto;
+  max-width: 630px;
+
+  span {
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 18px;
+    text-transform: uppercase;
+    color: #3622f5;
+  }
 
   p {
-    @apply max-md:text-[10px] max-md:leading-[12px] text-base font-medium max-lg:text-xs;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    color: #2e2e2e;
     overflow-wrap: anywhere;
   }
 }
 
 .el {
-  @apply pb-[18px] pl-[26px] max-xl:pl-2.5 max-lg:pb-2.5 w-full grid max-lg:gap-x-2 grid-cols-3 grid-rows-1 items-center;
-  border-bottom: 1px solid #c2c2c2;
+  @apply flex flex-col gap-y-3 w-full;
   word-wrap: break-word;
+
+  &_mod{
+    span,p{
+      text-align: end;
+    }
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .el {
+    @apply gap-y-2;
+    span {
+      font-size: 13px;
+      line-height: 15px;
+    }
+    p {
+      white-space: pre;
+      font-size: 13px;
+      line-height: 16px;
+    }
+  }
+  .cont {
+    @apply overflow-auto gap-x-5;
+    grid-template-columns: 1fr auto auto;
+  }
 }

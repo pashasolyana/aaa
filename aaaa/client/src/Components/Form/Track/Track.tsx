@@ -23,13 +23,13 @@ const Track: FC<Tracker> = ({
   setPath
 }) => {
   const getList = () => {
-    if (some?.join('')?.length < 1) {
-      return (
-        <div style={{ color: 'red' }}>Ошибка при введении номера заказа</div>
-      )
-    } else if (some?.join('')?.length > 0) {
-      return <TrackList some={some} />
-    }
+    // if (some?.join('')?.length < 1) {
+    //   return (
+    //     <div style={{ color: 'red' }}>Ошибка при введении номера заказа</div>
+    //   )
+    // } else if (some?.join('')?.length > 0) {
+    // }
+    return <TrackList some={some} />
   }
 
   return (
@@ -61,7 +61,7 @@ const Track: FC<Tracker> = ({
           Отследить
         </Link>
       </div>
-      {some ? (
+      {'some' ? (
         getList()
       ) : (
         <div className={styles.info}>
