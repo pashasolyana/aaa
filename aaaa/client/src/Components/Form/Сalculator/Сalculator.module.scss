@@ -15,6 +15,36 @@
   }
 }
 
+.calc {
+  @apply w-full flex flex-col gap-y-4;
+  max-width: 574px;
+
+  &__line {
+    @apply flex justify-between w-full;
+    font-size: 15px;
+    line-height: 18px;
+    font-weight: 600;
+    span {
+      @apply uppercase;
+      color: #3622f5;
+    }
+    p {
+      color: #2e2e2e;
+    }
+  }
+
+  &__text {
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    color: #a7a7a7;
+  }
+
+  &_mod {
+    @apply hidden;
+  }
+}
+
 .leftBlock {
   @apply flex flex-col gap-y-7;
   &__input {
@@ -221,6 +251,15 @@
   .leftBlock {
     @apply w-full;
   }
+
+  .calc {
+    @apply hidden;
+
+    &_mod {
+      @apply w-full flex flex-col gap-y-4;
+      max-width: 574px;
+    }
+  }
 }
 
 @media screen and (max-width: 668px) {
@@ -339,6 +378,18 @@
       top: 35px;
       width: 57px;
       border-left: 1px solid #d2d2d2 !important;
+    }
+  }
+
+  .calc {
+    &__line {
+      font-size: 13px;
+      line-height: 15px;
+    }
+
+    &__text {
+      font-size: 13px;
+      line-height: 16px;
     }
   }
 }
