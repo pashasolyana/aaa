@@ -135,11 +135,13 @@
 }
 
 .dropDown {
-  @apply absolute left-0 w-full bg-white p-4 font-semibold text-lg z-30;
-  box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  @apply absolute left-0 w-full bg-white px-2.5 py-4 font-semibold text-lg z-30;
+  top: 89%;
   color: #353535;
-  top: 100%;
   border-radius: 0px 0px 8px 8px;
+  border-bottom: 1px solid #c2c2c2;
+  border-right: 1px solid #c2c2c2;
+  border-left: 1px solid #c2c2c2;
   height: 212px;
 
   &_mod {
@@ -150,9 +152,20 @@
     @apply w-full h-full overflow-auto;
   }
 
-  p {
-    @apply pb-2 pl-1 mb-4 mr-1;
-    border-bottom: 1px solid #e4e4e4;
+  &__el {
+    @apply w-full py-2 px-2.5 cursor-pointer;
+    border-radius: 6px;
+
+    &:hover {
+      background: #f0f0f0;
+    }
+
+    p {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 19px;
+      color: #595959;
+    }
   }
 
   *::-webkit-scrollbar {
@@ -168,5 +181,14 @@
   *::-webkit-scrollbar-thumb {
     background-color: #a7a7a7 !important;
     border-radius: 8px !important;
+  }
+
+  &::after {
+    @apply absolute top-0 left-1/2;
+    content: '';
+    width: 90%;
+    height: 1px;
+    transform: translate(-50%, 0);
+    background: #c2c2c2;
   }
 }

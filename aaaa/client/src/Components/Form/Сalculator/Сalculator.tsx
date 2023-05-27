@@ -384,26 +384,21 @@ const Сalculator: React.FC<СalculatorProps> = ({
             >
               <div className={styles.dropDown__wrap}>
                 {data?.pages?.at(0)?.map((el: any, index: number) => (
-                  <div key={el.a}>
-                    <p
-                      className='cursor-pointer hover:bg-black hover:bg-opacity-10'
-                      onMouseDown={(event) => event.preventDefault()}
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        setIndex(el.index)
-                        setCity(el.address)
-                        setView(false)
-                        setValue('cityFrom', el.address)
-                        setValue('cityFromIndex', el.index)
-                      }}
-                      ref={index === focusedIndex ? resultContainer : null}
-                      style={{
-                        backgroundColor:
-                          index === focusedIndex ? 'rgba(0,0,0,0.1)' : ''
-                      }}
-                    >
-                      {el.address}
-                    </p>
+                  <div
+                    key={el.a}
+                    className={styles.dropDown__el}
+                    onMouseDown={(event) => event.preventDefault()}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setIndex(el.index)
+                      setCity(el.address)
+                      setView(false)
+                      setValue('cityFrom', el.address)
+                      setValue('cityFromIndex', el.index)
+                    }}
+                    ref={index === focusedIndex ? resultContainer : null}
+                  >
+                    <p>{el.address}</p>
                   </div>
                 ))}
               </div>
@@ -460,26 +455,21 @@ const Сalculator: React.FC<СalculatorProps> = ({
             >
               <div className={styles.dropDown__wrap}>
                 {data2?.pages?.at(0)?.map((el: any, index: number) => (
-                  <div key={el.a}>
-                    <p
-                      className='cursor-pointer hover:bg-black hover:bg-opacity-10'
-                      onMouseDown={(event) => event.preventDefault()}
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        setIndex2(el.index)
-                        setCity2(el.address)
-                        setView1(false)
-                        setValue('cityTo', el.address)
-                        setValue('cityToIndex', el.index)
-                      }}
-                      ref={index === focusedIndex2 ? resultContainer2 : null}
-                      style={{
-                        backgroundColor:
-                          index === focusedIndex2 ? 'rgba(0,0,0,0.1)' : ''
-                      }}
-                    >
-                      {el.address}
-                    </p>
+                  <div
+                    key={el.a}
+                    className={styles.dropDown__el}
+                    onMouseDown={(event) => event.preventDefault()}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setIndex2(el.index)
+                      setCity2(el.address)
+                      setView1(false)
+                      setValue('cityTo', el.address)
+                      setValue('cityToIndex', el.index)
+                    }}
+                    ref={index === focusedIndex2 ? resultContainer2 : null}
+                  >
+                    <p>{el.address}</p>
                   </div>
                 ))}
               </div>
