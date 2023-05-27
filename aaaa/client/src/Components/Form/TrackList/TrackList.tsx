@@ -9,30 +9,23 @@ interface СalculatorProps {
 const TrackList: React.FC<СalculatorProps> = ({ some }) => {
   return (
     <div className={styles.cont} id='mather'>
-      {some?.map((el: any) => (
-        <div className={styles.el}>
-          <p>{el.statusDate.split('T')[0]}</p>
-          <p>{el.statusName}</p>
-          <p>{el.cityName}</p>
-        </div>
-      ))}
       <div className={styles.el}>
         <span>Дата</span>
-        <p>28.04.2023 22:33</p>
-        <p>28.04.2023 22:33</p>
-        <p>28.04.2023 22:33</p>
+        {some?.map((el: any) => (
+          <p>{el.statusDate.split('T')[0]}</p>
+        ))}
       </div>
       <div className={styles.el}>
         <span>Статус</span>
-        <p>Отправлен в город назначения</p>
-        <p>Отправлен в город назначения</p>
-        <p>Отправлен в город назначения</p>
+        {some?.map((el: any) => (
+          <p>{el.statusName}</p>
+        ))}
       </div>
       <div className={clsx(styles.el, styles.el_mod)}>
         <span>Город</span>
-        <p>Санкт-Петербург</p>
-        <p>Санкт-Петербург</p>
-        <p>Санкт-Петербург</p>
+        {some?.map((el: any) => (
+          <p>{el.cityName}</p>
+        ))}
       </div>
     </div>
   )
