@@ -1,10 +1,9 @@
-import React, { ChangeEvent, FC, useState } from 'react'
+import React, { FC } from 'react'
 import styles from './Track.module.scss'
 import search from '../../../assets/svg/search.svg'
-import { handleFormProps } from '../Form'
-import clsx from 'clsx'
 import TrackList from '../TrackList/TrackList'
 import { Link } from 'react-scroll'
+import Image from 'next/image'
 
 interface Tracker {
   vvv?: () => void
@@ -23,48 +22,60 @@ const Track: FC<Tracker> = ({
   number,
   setPath
 }) => {
+  const getList = () => {
+    if (some?.join('')?.length < 1) {
+      return (
+        <div style={{ color: 'red' }}>Ошибка при введении номера заказа</div>
+      )
+    } else if (some?.join('')?.length > 0) {
+      return <TrackList some={some} />
+    }
+  }
+
   return (
-    <div>
-      <div className={clsx(styles.cont, { [styles.cont_mod]: isSearch })}>
-        <p className={styles.title}>
-          Укажите номер заказа<span>*</span>
-        </p>
-        <form className={styles.search}>
-          <div className={styles.search__input}>
-            <img src={search.src} alt='search' />
-            <input
-              type='text'
-              value={number}
-              placeholder='Введите номер заказа'
-              onChange={handleChange}
-            />
-          </div>
-          <Link
-            activeClass='active'
-            to='track'
-            spy={true}
-            smooth={true}
-            offset={50}
-            duration={500}
-            className={styles.search__button}
-          >
-            <button
-              className={styles.search__button}
-              type='button'
-              onClick={() =>
-                //@ts-ignore
-                number && number.length > 0 ? vvv() : null
-              }
-            >
-              Отследить
-            </button>
-          </Link>
-        </form>
-        {some?.join('')?.length < 1 && (
-          <div style={{ color: 'red' }}>Ошибка при введении номера заказа</div>
-        )}
+    <div className={styles.cont}>
+      <div className={styles.search}>
+        <h1 className={styles.title}>Введите номер заказа чтобы отследить</h1>
+        <div className={styles.search__input}>
+          <img src={search.src} alt='search' />
+          <input
+            type='text'
+            value={number}
+            placeholder='Введите номер заказа'
+            onChange={handleChange}
+          />
+        </div>
+        <Link
+          activeClass='active'
+          to='track'
+          spy={true}
+          smooth={true}
+          offset={50}
+          duration={500}
+          className={styles.search__button}
+          onClick={() =>
+            //@ts-ignore
+            number && number.length > 0 ? vvv() : null
+          }
+        >
+          Отследить
+        </Link>
       </div>
-      {some?.join('')?.length > 0 && <TrackList some={some} />}
+      {some ? (
+        getList()
+      ) : (
+        <div className={styles.info}>
+          <p>
+            Номер для отслеживания — это номер, который присваивается каждой
+            посылке непосредственно перед отправкой.
+          </p>
+          <div className={styles.info__img}>
+            <Image src='fromCityB.svg' width={19} height={50} alt='' />
+            <Image src='/arrow.svg' width={70} height={95} alt='' />
+            <Image src='toCityB.svg' width={19} height={50} alt='' />
+          </div>
+        </div>
+      )}
     </div>
   )
 }
