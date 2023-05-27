@@ -27,7 +27,7 @@ export const Form: FC<handleFormProps> = ({ allCities, vvv, handleChange, some, 
   const [cities, setCities] = useState('')
   const [cities2, setCities2] = useState('')
 
-  console.log(rap)
+  console.log(rap, goo, '111111', )
 
   const handleForm = ({ name, number }: handleFormProps) => {
     if (name === 'account') {
@@ -47,9 +47,9 @@ export const Form: FC<handleFormProps> = ({ allCities, vvv, handleChange, some, 
   const getSubContent = () => {
     if (isAccount && path === 0 && rap) {
         console.log(goo)
-      return <Account rap={rap} goo={goo} cities={cities} cities2={cities2}/>
+      return null
     } else if (isSearch && path === 1) {
-      return <TrackList some={some} />
+      return null
     }
   }
 
@@ -57,7 +57,7 @@ export const Form: FC<handleFormProps> = ({ allCities, vvv, handleChange, some, 
     <div className={styles.cont}>
       <Tabs setPath={setPath} path={path} />
       {path === 0 ? (
-        <Сalculator allCities={allCities} handleForm={handleForm} isAccount={isAccount} setRap={setRap} goo={goo} setGoo={setGoo} setCities={setCities} setCities2={setCities2}/>
+        <Сalculator allCities={allCities} handleForm={handleForm} isAccount={isAccount} setRap={setRap} rap={rap} goo={goo} setGoo={setGoo} setCities={setCities} setCities2={setCities2}/>
       ) : (
         <Track vvv={vvv} handleChange={handleChange} isSearch={isSearch} some={some} number={number} setPath={setPath}/>
       )}

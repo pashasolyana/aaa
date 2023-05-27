@@ -35,6 +35,7 @@ interface СalculatorProps {
   isAccount: boolean
   setRap: (x: any) => void
   goo: any
+  rap: any
   setGoo: any
   setCities: (x: any) => void
   setCities2: (x: any) => void
@@ -45,6 +46,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
   handleForm,
   isAccount,
   setRap,
+  rap,
   goo,
   setGoo,
   setCities,
@@ -62,10 +64,17 @@ const Сalculator: React.FC<СalculatorProps> = ({
   const resultContainer = useRef<HTMLDivElement>(null)
   const resultContainer2 = useRef<HTMLDivElement>(null)
 
-  console.log(city, city2)
+  const zzz = () => {
+    const timeDiff =
+      new Date(rap?.at(0)?.deliveryDateMin).getTime() - new Date().getTime()
+    const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24))
+    return diffDays
+  }
 
   const router = useRouter()
   const queryClient = useQueryClient()
+
+  console.log(rap?.at(0), 'RAPRAPRAP')
 
   useEffect(() => {
     if (!resultContainer.current) return
@@ -228,10 +237,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
     }
   )
 
-  const Submit = (data: any) => {
-    mutate(data)
-  }
-
+  
   const swapFun = () => {
     let from = getValues('cityFrom')
     let to = getValues('cityTo')
@@ -245,16 +251,16 @@ const Сalculator: React.FC<СalculatorProps> = ({
       cityToIndex: indFrom
     })
     */
-    setCity(to)
-    setCity2(from)
-    setIndex(indTo)
-    setIndex2(indFrom)
-    setValue('cityFrom', to)
-    setValue('cityFromIndex', indTo)
-    setValue('cityTo', from)
-    setValue('cityToIndex', indFrom)
+   setCity(to)
+   setCity2(from)
+   setIndex(indTo)
+   setIndex2(indFrom)
+   setValue('cityFrom', to)
+   setValue('cityFromIndex', indTo)
+   setValue('cityTo', from)
+   setValue('cityToIndex', indFrom)
   }
-
+  
   const changeInd = (ind: any, name: 'cityFromIndex' | 'cityToIndex') => {
     if (ind.target.value === '') {
       setValue(name, '')
@@ -287,7 +293,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
       }
     }
   }
-
+  
   const changeSize = (size: any) => {
     if (size.target.value === '') {
       setValue('Bsize', '')
@@ -303,7 +309,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
       changeHandler(size)
     }
   }
-
+  
   const changeLinght = (ind: any, name: 'Bheight' | 'Bwidth' | 'Blenght') => {
     if (ind.target.value === '') {
       setValue(name, '')
@@ -320,6 +326,11 @@ const Сalculator: React.FC<СalculatorProps> = ({
     }
   }
 
+  const Submit = (data: any) => {
+    console.log(data)
+    mutate(data)
+  }
+  
   const changePrice = (price: any) => {
     if (price.target.value === '') {
       setValue('insurance', '')
@@ -335,7 +346,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
       changeHandler(price)
     }
   }
-
+  
   return (
     <form className={styles.cont} onSubmit={handleSubmit(Submit)}>
       <div className={styles.leftBlock}>
@@ -576,35 +587,37 @@ const Сalculator: React.FC<СalculatorProps> = ({
           />
         </div>
       </div>
-      <button type='button' className={styles.calculateBtn_mod}>
+      <button type='submit' className={styles.calculateBtn_mod}>
         Рассчитать
       </button>
+      {rap && (
       <div className={styles.calc_mod}>
         <div className={styles.calc__line}>
           <span>ГОрод</span>
-          <p>Санкт-Петербург - Москва</p>
+          <p>{!rap ? 'Санкт-Петербург' : rap?.at(0)?.senderAddress} - {!rap ? 'Москва' : rap?.at(0)?.receiverAddress}</p>
         </div>
         <div className={styles.calc__line}>
           <span>Вес</span>
-          <p>1640 грамм</p>
+          <p>{!rap ? '1640 грамм' : rap?.at(0)?.goods?.at(0)?.weight}</p>
         </div>
         <div className={styles.calc__line}>
           <span>Размер</span>
-          <p>100 х 450 х 320 мм</p>
+          <p>{!rap ? '100' : rap?.at(0)?.goods?.at(0)?.height} х {!rap ? '450' : rap?.at(0)?.goods?.at(0)?.width} х {!rap ? '320' : rap?.at(0)?.goods?.at(0)?.length} мм</p>
         </div>
         <div className={styles.calc__line}>
           <span>Стоимость</span>
-          <p>1800 ₽</p>
+          <p>{!rap ? '1800' : rap?.at(0)?.estimatedCost} ₽</p>
         </div>
         <div className={styles.calc__line}>
           <span>Срок доставки</span>
-          <p>14 дней</p>
+          <p>{!rap ? '14' : zzz()} дней</p>
         </div>
         <p className={styles.calc__text}>
           Стоимость является ориентировочной. Точная стоимость будет рассчитана
           при физической сдаче заказа
         </p>
       </div>
+      )}
     </form>
   )
 }
