@@ -1,5 +1,6 @@
 .cont {
   @apply flex gap-x-24 w-full justify-center;
+  margin-top: 140px;
 }
 
 .leftB {
@@ -53,6 +54,7 @@
 @media screen and (max-width: 420px) {
   .cont {
     @apply flex-col-reverse gap-y-10 items-center;
+    margin-top: 100px;
   }
 
   .rightB {

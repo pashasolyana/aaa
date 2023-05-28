@@ -8,6 +8,7 @@ import { Form } from '../Components/Form/Form'
 import Loader from '@/Components/Loader/Loader'
 import getAllCities from '@/Components/FirstScreen/getAllCities'
 import Documents from '@/Components/Documents/Documents'
+import BitrixForm from '@/Components/BitrixForm/BitrixForm'
 
 export default function Home() {
   const [path, setPath] = useState(0)
@@ -55,7 +56,8 @@ export default function Home() {
         setPath={setPath}
       />
       <Delivery />
-      <Documents/>
+      <Documents />
+      <BitrixForm />
       <Footer />
     </>
   )
