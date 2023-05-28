@@ -1,7 +1,7 @@
 import Image from 'next/image'
-import styles from './MapScreen.module.scss'
+import styles from './Delivery.module.scss'
 
-export const MapScreen = () => {
+export const Delivery = () => {
   return (
     <>
       <div className={styles.container}>

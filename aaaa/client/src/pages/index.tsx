@@ -1,6 +1,6 @@
 import { Header } from '../Components/Header/Header'
 import { FirstScreen } from '../Components/FirstScreen/FirstScreen'
-import { MapScreen } from '../Components/MapScreen/MapScreen'
+import { Delivery } from '../Components/Delivery/Delivery'
 import Footer from '../Components/Footer/Footer'
 import { ChangeEvent, useState } from 'react'
 import getStatusGET from '../Components/FirstScreen/getStatusGET'
@@ -53,7 +53,7 @@ export default function Home() {
         path={path}
         setPath={setPath}
       />
-      <MapScreen />
+      <Delivery />
       <Footer />
     </>
   )
