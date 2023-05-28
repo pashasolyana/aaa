@@ -7,6 +7,7 @@ import getStatusGET from '../Components/FirstScreen/getStatusGET'
 import { Form } from '../Components/Form/Form'
 import Loader from '@/Components/Loader/Loader'
 import getAllCities from '@/Components/FirstScreen/getAllCities'
+import Documents from '@/Components/Documents/Documents'
 
 export default function Home() {
   const [path, setPath] = useState(0)
@@ -54,6 +55,7 @@ export default function Home() {
         setPath={setPath}
       />
       <Delivery />
+      <Documents/>
       <Footer />
     </>
   )
