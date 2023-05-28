@@ -293,7 +293,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
       }
     }
   }
-  
+
   const changeSize = (size: any) => {
     if (size.target.value === '') {
       setValue('Bsize', '')
@@ -309,7 +309,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
       changeHandler(size)
     }
   }
-  
+
   const changeLinght = (ind: any, name: 'Bheight' | 'Bwidth' | 'Blenght') => {
     if (ind.target.value === '') {
       setValue(name, '')
@@ -330,7 +330,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
     console.log(data)
     mutate(data)
   }
-  
+
   const changePrice = (price: any) => {
     if (price.target.value === '') {
       setValue('insurance', '')
@@ -346,7 +346,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
       changeHandler(price)
     }
   }
-  
+
   return (
     <form className={styles.cont} onSubmit={handleSubmit(Submit)}>
       <div className={styles.leftBlock}>
@@ -379,12 +379,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
               />
             </div>
             {data?.pages?.at(0)?.length == 0 && (
-              <p
-                className='text-xs absolute top-20 pt-0.5'
-                style={{ color: 'red' }}
-              >
-                Город введен неверно
-              </p>
+              <p className={styles.err}>Город введен неверно</p>
             )}
             <div
               id='dropdown'
@@ -450,12 +445,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
               />
             </div>
             {data?.pages?.at(0)?.length == 0 && (
-              <p
-                className='text-xs absolute top-20 pt-0.5'
-                style={{ color: 'red' }}
-              >
-                Город введен неверно
-              </p>
+              <p className={styles.err}>Город введен неверно</p>
             )}
             <div
               id='dropdown'
@@ -591,32 +581,39 @@ const Сalculator: React.FC<СalculatorProps> = ({
         Рассчитать
       </button>
       {rap && (
-      <div className={styles.calc_mod}>
-        <div className={styles.calc__line}>
-          <span>ГОрод</span>
-          <p>{!rap ? 'Санкт-Петербург' : rap?.at(0)?.senderAddress} - {!rap ? 'Москва' : rap?.at(0)?.receiverAddress}</p>
+        <div className={styles.calc_mod}>
+          <div className={styles.calc__line}>
+            <span>ГОрод</span>
+            <p>
+              {!rap ? 'Санкт-Петербург' : rap?.at(0)?.senderAddress} -{' '}
+              {!rap ? 'Москва' : rap?.at(0)?.receiverAddress}
+            </p>
+          </div>
+          <div className={styles.calc__line}>
+            <span>Вес</span>
+            <p>{!rap ? '1640 грамм' : rap?.at(0)?.goods?.at(0)?.weight}</p>
+          </div>
+          <div className={styles.calc__line}>
+            <span>Размер</span>
+            <p>
+              {!rap ? '100' : rap?.at(0)?.goods?.at(0)?.height} х{' '}
+              {!rap ? '450' : rap?.at(0)?.goods?.at(0)?.width} х{' '}
+              {!rap ? '320' : rap?.at(0)?.goods?.at(0)?.length} мм
+            </p>
+          </div>
+          <div className={styles.calc__line}>
+            <span>Стоимость</span>
+            <p>{!rap ? '1800' : rap?.at(0)?.estimatedCost} ₽</p>
+          </div>
+          <div className={styles.calc__line}>
+            <span>Срок доставки</span>
+            <p>{!rap ? '14' : zzz()} дней</p>
+          </div>
+          <p className={styles.calc__text}>
+            Стоимость является ориентировочной. Точная стоимость будет
+            рассчитана при физической сдаче заказа
+          </p>
         </div>
-        <div className={styles.calc__line}>
-          <span>Вес</span>
-          <p>{!rap ? '1640 грамм' : rap?.at(0)?.goods?.at(0)?.weight}</p>
-        </div>
-        <div className={styles.calc__line}>
-          <span>Размер</span>
-          <p>{!rap ? '100' : rap?.at(0)?.goods?.at(0)?.height} х {!rap ? '450' : rap?.at(0)?.goods?.at(0)?.width} х {!rap ? '320' : rap?.at(0)?.goods?.at(0)?.length} мм</p>
-        </div>
-        <div className={styles.calc__line}>
-          <span>Стоимость</span>
-          <p>{!rap ? '1800' : rap?.at(0)?.estimatedCost} ₽</p>
-        </div>
-        <div className={styles.calc__line}>
-          <span>Срок доставки</span>
-          <p>{!rap ? '14' : zzz()} дней</p>
-        </div>
-        <p className={styles.calc__text}>
-          Стоимость является ориентировочной. Точная стоимость будет рассчитана
-          при физической сдаче заказа
-        </p>
-      </div>
       )}
     </form>
   )

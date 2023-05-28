@@ -168,6 +168,10 @@
   @apply cursor-pointer;
 }
 
+.err {
+  @apply text-red-600 text-xs absolute -bottom-5 pt-0.5;
+}
+
 .dropDown {
   @apply absolute left-0 w-full bg-white px-2.5 py-4 font-semibold text-lg z-30;
   top: 89%;
@@ -326,6 +330,10 @@
   }
   .rightBlock {
     @apply items-start;
+  }
+  .err {
+    font-size: 10px !important;
+    line-height: 15px !important;
   }
 }
 
