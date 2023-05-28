@@ -1,23 +1,11 @@
-.container {
-  @apply max-xl:h-[593px] max-lg:h-[538px] max-sm:h-[347px] max-3xl:pl-[45px] max-3xl:pt-[90px] h-[713px] max-md:h-[406px] max-md:pl-7 max-lg:pt-10 
-  max-xl:pr-9 max-xl:pb-12 max-md:px-6 max-md:pb-12 max-sm:pt-8 max-sm:pb-10 max-md:mt-4 max-sm:mt-3
-  max-xl:mt-12 max-lg:mt-9 max-xl:pt-12 max-xl:pl-12 pt-20 pl-44 flex justify-between relative mt-20 flex-col;
-  background-color: #d9d9d9;
+.cont {
+  
 }
 
 .bg {
   @apply max-w-[865px] right-[196px] bottom-[67px] max-xl:w-[637px] max-xl:h-[359px] max-lg:max-w-[564px] max-lg:h-auto 
   max-lg:w-full 
   absolute z-10 object-contain;
-}
-
-@media screen and (max-width: 1130px) {
-  .bg {
-    position: relative;
-    margin-left: auto;
-    right: 0;
-    bottom: 0;
-  }
 }
 
 .title {
