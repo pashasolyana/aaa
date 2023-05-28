@@ -45,13 +45,7 @@ const Track: FC<Tracker> = ({
             onChange={handleChange}
           />
         </div>
-        <Link
-          activeClass='active'
-          to='track'
-          spy={true}
-          smooth={true}
-          offset={50}
-          duration={500}
+        <button
           className={styles.search__button}
           onClick={() =>
             //@ts-ignore
@@ -59,7 +53,7 @@ const Track: FC<Tracker> = ({
           }
         >
           Отследить
-        </Link>
+        </button>
       </div>
       {some ? (
         getList()

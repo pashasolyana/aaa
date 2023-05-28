@@ -237,7 +237,6 @@ const Сalculator: React.FC<СalculatorProps> = ({
     }
   )
 
-  
   const swapFun = () => {
     let from = getValues('cityFrom')
     let to = getValues('cityTo')
@@ -251,16 +250,16 @@ const Сalculator: React.FC<СalculatorProps> = ({
       cityToIndex: indFrom
     })
     */
-   setCity(to)
-   setCity2(from)
-   setIndex(indTo)
-   setIndex2(indFrom)
-   setValue('cityFrom', to)
-   setValue('cityFromIndex', indTo)
-   setValue('cityTo', from)
-   setValue('cityToIndex', indFrom)
+    setCity(to)
+    setCity2(from)
+    setIndex(indTo)
+    setIndex2(indFrom)
+    setValue('cityFrom', to)
+    setValue('cityFromIndex', indTo)
+    setValue('cityTo', from)
+    setValue('cityToIndex', indFrom)
   }
-  
+
   const changeInd = (ind: any, name: 'cityFromIndex' | 'cityToIndex') => {
     if (ind.target.value === '') {
       setValue(name, '')
@@ -497,32 +496,41 @@ const Сalculator: React.FC<СalculatorProps> = ({
         <button type='button' className={styles.calculateBtn}>
           Рассчитать
         </button>
-        <div className={styles.calc}>
-          <div className={styles.calc__line}>
-            <span>ГОрод</span>
-            <p>Санкт-Петербург - Москва</p>
+        {rap && (
+          <div className={styles.calc}>
+            <div className={styles.calc__line}>
+              <span>ГОрод</span>
+              <p>
+                {!rap ? 'Санкт-Петербург' : rap?.at(0)?.senderAddress} -{' '}
+                {!rap ? 'Москва' : rap?.at(0)?.receiverAddress}
+              </p>
+            </div>
+            <div className={styles.calc__line}>
+              <span>Вес</span>
+              <p>{!rap ? '1640 грамм' : rap?.at(0)?.goods?.at(0)?.weight}</p>
+            </div>
+            <div className={styles.calc__line}>
+              <span>Размер</span>
+              <p>
+                {!rap ? '100' : rap?.at(0)?.goods?.at(0)?.height} х{' '}
+                {!rap ? '450' : rap?.at(0)?.goods?.at(0)?.width} х{' '}
+                {!rap ? '320' : rap?.at(0)?.goods?.at(0)?.length} мм
+              </p>
+            </div>
+            <div className={styles.calc__line}>
+              <span>Стоимость</span>
+              <p>{!rap ? '1800' : rap?.at(0)?.estimatedCost} ₽</p>
+            </div>
+            <div className={styles.calc__line}>
+              <span>Срок доставки</span>
+              <p>{!rap ? '14' : zzz()} дней</p>
+            </div>
+            <p className={styles.calc__text}>
+              Стоимость является ориентировочной. Точная стоимость будет
+              рассчитана при физической сдаче заказа
+            </p>
           </div>
-          <div className={styles.calc__line}>
-            <span>Вес</span>
-            <p>1640 грамм</p>
-          </div>
-          <div className={styles.calc__line}>
-            <span>Размер</span>
-            <p>100 х 450 х 320 мм</p>
-          </div>
-          <div className={styles.calc__line}>
-            <span>Стоимость</span>
-            <p>1800 ₽</p>
-          </div>
-          <div className={styles.calc__line}>
-            <span>Срок доставки</span>
-            <p>14 дней</p>
-          </div>
-          <p className={styles.calc__text}>
-            Стоимость является ориентировочной. Точная стоимость будет
-            рассчитана при физической сдаче заказа
-          </p>
-        </div>
+        )}
       </div>
       <div className={styles.rightBlock}>
         <h1 className={styles.title}>
