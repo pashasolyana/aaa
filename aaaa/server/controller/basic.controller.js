@@ -131,8 +131,10 @@ module.exports = {
         }
         result.data[0].goods = req.body.goods
         result.data[0].estimatedCost =  req.body.estimatedCost
-        result.data[0].receiverAddress =  req.body.receiverAddress
-        result.data[0].senderAddress = req.body.senderAddress
+        let adressReceiver = req.body.receiverAddress.split('г')
+        result.data[0].receiverAddress = `г. ${adressReceiver[1].slice(1)}`
+        let addressSender = req.body.receiverAddress.split('г')
+        result.data[0].senderAddress = `г. ${addressSender[1].slice(1)}`
         console.log(result.data)
         return res.status(200).send(result.data)
         }catch(e){
