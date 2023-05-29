@@ -145,6 +145,23 @@
   }
 }
 
+.calculateBtnDone {
+  @apply w-full flex-center;
+  height: 60px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  display: flex;
+  background-color: #3622f5;
+  color: #a7a7a7;
+  margin-top: 3.5rem;
+
+  &_mod {
+    @apply hidden;
+  }
+}
+
 .fromTo {
   @apply flex gap-x-2.5 items-center;
 }

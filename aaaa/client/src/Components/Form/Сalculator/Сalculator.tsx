@@ -260,6 +260,16 @@ const Сalculator: React.FC<СalculatorProps> = ({
     setValue('cityToIndex', indFrom)
   }
 
+  const handleCheckFormData = () => {
+    if (getValues('cityFrom') == '' || getValues('cityTo') == '' || getValues('insurance') == '' || +goo.weight < 1) {
+      return false
+    } else {
+      return true
+    }
+  }
+
+  console.log(handleCheckFormData(), '11111111')
+
   const changeInd = (ind: any, name: 'cityFromIndex' | 'cityToIndex') => {
     if (ind.target.value === '') {
       setValue(name, '')
@@ -585,7 +595,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
           />
         </div>
       </div>
-      <button type='submit' className={styles.calculateBtn_mod}>
+      <button type='submit' className={handleCheckFormData() ? styles.calculateBtnDone : styles.calculateBtn_mod}>
         Рассчитать
       </button>
       {rap && (

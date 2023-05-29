@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 const Footer = () => {
   return (
-    <div className={s.cont} id='documents'>
+    <div className={s.cont}>
       <div className={s.leftB}>
         <span className={s.write}>Пишите нам</span>
         <div className={s.ico}>

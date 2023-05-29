@@ -44,7 +44,6 @@ export default function Home() {
         number={number}
         setPath={setPath}
       />
-      <div id='form'></div>
       <div className='absolute' id='track'></div>
       <Form
         allCities={allCities}

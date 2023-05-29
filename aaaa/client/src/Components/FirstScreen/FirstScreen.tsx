@@ -72,6 +72,7 @@ export const FirstScreen: FC<Tracker> = ({
       </div>
       <div className={styles.leftBorder}></div>
       <div className={styles.rigthBorder}></div>
+        <div id='form'></div>
     </div>
   )
 }
