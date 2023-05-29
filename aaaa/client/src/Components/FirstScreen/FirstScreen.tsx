@@ -59,7 +59,7 @@ export const FirstScreen: FC<Tracker> = ({
           </div>
           <Link
             activeClass='active'
-            to='track'
+            to='form'
             spy={true}
             smooth={true}
             offset={50}

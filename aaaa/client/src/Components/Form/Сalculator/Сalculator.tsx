@@ -503,7 +503,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
             onWheel={numberInputOnWheelPreventChange}
           />
         </div>
-        <button type='submit' className={styles.calculateBtn}>
+        <button type='submit' className={handleCheckFormData() ? styles.calculateBtnDone : styles.calculateBtn}>
           Рассчитать
         </button>
         {rap && (
@@ -517,7 +517,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
             </div>
             <div className={styles.calc__line}>
               <span>Вес</span>
-              <p>{!rap ? '1640 грамм' : rap?.at(0)?.goods?.at(0)?.weight}</p>
+              <p>{!rap ? '1640 грамм' : `${rap?.at(0)?.goods?.at(0)?.weight} грамм`}</p>
             </div>
             <div className={styles.calc__line}>
               <span>Размер</span>
@@ -595,9 +595,6 @@ const Сalculator: React.FC<СalculatorProps> = ({
           />
         </div>
       </div>
-      <button type='submit' className={handleCheckFormData() ? styles.calculateBtnDone : styles.calculateBtn_mod}>
-        Рассчитать
-      </button>
       {rap && (
         <div className={styles.calc_mod}>
           <div className={styles.calc__line}>
