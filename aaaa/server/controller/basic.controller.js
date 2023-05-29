@@ -133,10 +133,10 @@ module.exports = {
         result.data[0].estimatedCost =  req.body.estimatedCost
         let adressReceiver = req.body.receiverAddress.split(' г ')
         console.log(adressReceiver)
-        result.data[0].receiverAddress = `г. ${adressReceiver[1]}`
+        result.data[0].receiverAddress = adressReceiver.length == 1 ? `${adressReceiver[0]}` : `г. ${adressReceiver[1]}`
         let addressSender = req.body.receiverAddress.split(' г ')
         console.log(addressSender)
-        result.data[0].senderAddress = `г. ${addressSender[1]}`
+        result.data[0].senderAddress = addressSender.length == 1 ? `${addressSender[0]}` : `г. ${addressSender[1]}`
         console.log(result.data)
         return res.status(200).send(result.data)
         }catch(e){
