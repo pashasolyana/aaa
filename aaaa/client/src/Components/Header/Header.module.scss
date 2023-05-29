@@ -56,6 +56,32 @@
   }
 }
 
+.modalCont {
+  @apply fixed w-full hidden top-0 left-0 z-10;
+  height: 100vh;
+
+  &_mod {
+    display: none !important;
+  }
+}
+
+.modal {
+  @apply hidden flex-col items-center gap-y-5 fixed top-0 left-0 z-30;
+  width: 100%;
+  height: 281px;
+  background: #6d5ef6;
+  padding: 48px 0;
+
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 21px;
+  color: #ffffff;
+
+  &_mod {
+    display: none !important;
+  }
+}
+
 @media screen and (max-width: 1232px) {
   .container {
     margin-bottom: 80px;
@@ -96,6 +122,12 @@
   }
 }
 
+.close {
+  @apply absolute cursor-pointer;
+  top: 48px;
+  left: 24px;
+}
+
 @media screen and (max-width: 950px) {
   .link {
     @apply hidden;
@@ -115,6 +147,13 @@
     &__img {
       @apply hidden;
     }
+  }
+  .modal {
+    display: flex;
+  }
+
+  .modalCont {
+    display: block;
   }
 }
 

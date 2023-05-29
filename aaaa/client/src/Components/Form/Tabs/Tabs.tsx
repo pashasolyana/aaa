@@ -11,13 +11,13 @@ const Tabs: FC<TabsProps> = ({ path, setPath }) => {
   return (
     <div className={styles.cont}>
       <div
-        className={clsx(styles.tab1, { [styles.active1]: path === 0 })}
+        className={clsx(styles.tab, { [styles.active]: path === 0 })}
         onClick={() => setPath(0)}
       >
         Калькулятор
       </div>
       <div
-        className={clsx(styles.tab2, { [styles.active2]: path === 1 })}
+        className={clsx(styles.tab, { [styles.active]: path === 1 })}
         onClick={() => setPath(1)}
       >
         Отслеживание
