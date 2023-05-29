@@ -493,7 +493,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
             onWheel={numberInputOnWheelPreventChange}
           />
         </div>
-        <button type='button' className={styles.calculateBtn}>
+        <button type='submit' className={styles.calculateBtn}>
           Рассчитать
         </button>
         {rap && (
