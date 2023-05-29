@@ -529,7 +529,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
             </div>
             <div className={styles.calc__line}>
               <span>Стоимость</span>
-              <p>{!rap ? '1800' : rap?.at(0)?.estimatedCost} ₽</p>
+              <p>{!rap ? '1800' : rap?.at(0)?.priceByCurrency} ₽</p>
             </div>
             <div className={styles.calc__line}>
               <span>Срок доставки</span>
@@ -618,7 +618,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
           </div>
           <div className={styles.calc__line}>
             <span>Стоимость</span>
-            <p>{!rap ? '1800' : rap?.at(0)?.estimatedCost} ₽</p>
+            <p>{!rap ? '1800' : rap?.at(0)?.priceByCurrency} ₽</p>
           </div>
           <div className={styles.calc__line}>
             <span>Срок доставки</span>
