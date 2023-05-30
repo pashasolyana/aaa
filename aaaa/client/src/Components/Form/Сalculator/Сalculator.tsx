@@ -669,10 +669,50 @@ const Сalculator: React.FC<СalculatorProps> = ({
       <div className={styles.rightBlock}>
         <div className={styles.rightBlock__box}>
           <Image src={'./boxCalc.svg'} width={367} height={323} alt='box' />
-          <p className={styles.rightBlock__weight}>Вес</p>
-          <p className={styles.rightBlock__length}>Длина</p>
-          <p className={styles.rightBlock__width}>Ширина</p>
-          <p className={styles.rightBlock__height}>Высота</p>
+          <input
+            type='number'
+            placeholder='Вес'
+            {...register('Bsize', {
+              required: 'Обязательное поле'
+            })}
+            name='weight'
+            required
+            onChange={changeSize}
+            autoComplete='off'
+            onWheel={numberInputOnWheelPreventChange}
+            className={styles.rightBlock__weight}
+          />
+          <input
+            type='number'
+            placeholder='Длина'
+            {...register('Blenght')}
+            name='length'
+            onChange={(e) => changeLinght(e, 'Blenght')}
+            autoComplete='off'
+            onWheel={numberInputOnWheelPreventChange}
+            className={styles.rightBlock__length}
+          />
+          <input
+            type='number'
+            placeholder='Ширина'
+            {...register('Bwidth')}
+            name='width'
+            onChange={(e) => changeLinght(e, 'Bwidth')}
+            autoComplete='off'
+            onWheel={numberInputOnWheelPreventChange}
+            className={styles.rightBlock__width}
+          />
+          <input
+            type='number'
+            placeholder='Высота'
+            {...register('Bheight')}
+            name='height'
+            onChange={(e) => changeLinght(e, 'Bheight')}
+            autoComplete='off'
+            step='1'
+            onWheel={numberInputOnWheelPreventChange}
+            className={styles.rightBlock__height}
+          />
         </div>
       </div>
       {rap && (
