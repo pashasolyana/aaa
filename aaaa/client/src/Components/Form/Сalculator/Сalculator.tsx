@@ -64,6 +64,8 @@ const Сalculator: React.FC<СalculatorProps> = ({
   const resultContainer = useRef<HTMLDivElement>(null)
   const resultContainer2 = useRef<HTMLDivElement>(null)
 
+  const [isViewVolume, setIsViewVolume] = useState(false)
+
   const zzz = () => {
     const timeDiff =
       new Date(rap?.at(0)?.deliveryDateMin).getTime() - new Date().getTime()
@@ -261,7 +263,12 @@ const Сalculator: React.FC<СalculatorProps> = ({
   }
 
   const handleCheckFormData = () => {
-    if (getValues('cityFrom') == '' || getValues('cityTo') == '' || getValues('insurance') == '' || +goo.weight < 1) {
+    if (
+      getValues('cityFrom') == '' ||
+      getValues('cityTo') == '' ||
+      getValues('insurance') == '' ||
+      +goo.weight < 1
+    ) {
       return false
     } else {
       return true
@@ -353,6 +360,21 @@ const Сalculator: React.FC<СalculatorProps> = ({
     } else {
       setValue('insurance', '1000000')
       changeHandler(price)
+    }
+  }
+
+  const toggleVolume = () => {
+    if (isViewVolume) {
+      reset({ Bheight: undefined, Bwidth: undefined, Blenght: undefined })
+      setGoo((prev: any) => ({
+        ...prev,
+        height: 0,
+        length: 0,
+        width: 0
+      }))
+      setIsViewVolume(false)
+    } else {
+      setIsViewVolume(true)
     }
   }
 
@@ -486,24 +508,112 @@ const Сalculator: React.FC<СalculatorProps> = ({
             </div>
           </div>
         </div>
-        <h1 className={styles.title}>
-          Стоимость страховки (оцените вашу посылку)
-        </h1>
-        <div className={styles.leftBlock__input}>
-          <Image width={13} height={18} src={'./price.svg'} alt='from' />
-          <input
-            type='number'
-            placeholder='Цена в рублях'
-            {...register('insurance', {
-              required: 'Обязательное поле'
-            })}
-            required
-            autoComplete='off'
-            onChange={changePrice}
-            onWheel={numberInputOnWheelPreventChange}
-          />
+        <div className={styles.line}>
+          <div className={styles.line__el}>
+            <h1 className={styles.title}>Стоимость страховки</h1>
+            <div className={styles.leftBlock__input}>
+              <Image width={13} height={18} src={'./price.svg'} alt='from' />
+              <input
+                type='number'
+                placeholder='Цена в рублях'
+                {...register('insurance', {
+                  required: 'Обязательное поле'
+                })}
+                required
+                autoComplete='off'
+                onChange={changePrice}
+                onWheel={numberInputOnWheelPreventChange}
+              />
+            </div>
+          </div>
+          <div className={styles.line__el}>
+            <h1 className={styles.title}>Вес</h1>
+            <div className={styles.leftBlock__input}>
+              <Image width={13} height={18} src={'./price.svg'} alt='from' />
+              <input
+                type='number'
+                placeholder='Вес в граммах'
+                {...register('Bsize', {
+                  required: 'Обязательное поле'
+                })}
+                name='weight'
+                required
+                onChange={changeSize}
+                autoComplete='off'
+                onWheel={numberInputOnWheelPreventChange}
+              />
+            </div>
+          </div>
         </div>
-        <button type='submit' className={handleCheckFormData() ? styles.calculateBtnDone : styles.calculateBtn}>
+        <div
+          className={clsx(styles.volumeBtn, {
+            [styles.volumeBtn_mod]: isViewVolume
+          })}
+          onClick={toggleVolume}
+        >
+          <p>Указать размеры</p>
+          <Image width={12} height={12} src={'./closeB.svg'} alt='close' />
+        </div>
+        {isViewVolume ? (
+          <div className={styles.volume}>
+            <div className={styles.line__el}>
+              <h1 className={styles.title}>Длина</h1>
+              <div className={styles.leftBlock__input}>
+                <Image width={13} height={18} src={'./price.svg'} alt='from' />
+                <input
+                  type='number'
+                  placeholder='Длина в мм'
+                  {...register('Blenght')}
+                  name='length'
+                  onChange={(e) => changeLinght(e, 'Blenght')}
+                  autoComplete='off'
+                  onWheel={numberInputOnWheelPreventChange}
+                />
+              </div>
+            </div>
+            <div className={styles.line__el}>
+              <h1 className={styles.title}>Ширина</h1>
+              <div className={styles.leftBlock__input}>
+                <Image width={13} height={18} src={'./price.svg'} alt='from' />
+                <input
+                  type='number'
+                  placeholder='Ширина в мм'
+                  {...register('Bwidth')}
+                  name='width'
+                  onChange={(e) => changeLinght(e, 'Bwidth')}
+                  autoComplete='off'
+                  onWheel={numberInputOnWheelPreventChange}
+                />
+              </div>
+            </div>
+            <div className={styles.line__el}>
+              <h1 className={styles.title}>Высота</h1>
+              <div className={styles.leftBlock__input}>
+                <Image width={13} height={18} src={'./price.svg'} alt='from' />
+                <input
+                  type='number'
+                  placeholder='Высота в мм'
+                  {...register('Bheight')}
+                  name='height'
+                  onChange={(e) => changeLinght(e, 'Bheight')}
+                  autoComplete='off'
+                  step='1'
+                  onWheel={numberInputOnWheelPreventChange}
+                />
+              </div>
+            </div>
+          </div>
+        ) : (
+          <></>
+        )}
+        <button
+          type='submit'
+          className={
+            handleCheckFormData()
+              ? styles.calculateBtnDone
+              : styles.calculateBtn
+          }
+        >
           Рассчитать
         </button>
         {rap && (
@@ -517,7 +627,11 @@ const Сalculator: React.FC<СalculatorProps> = ({
             </div>
             <div className={styles.calc__line}>
               <span>Вес</span>
-              <p>{!rap ? '1640 грамм' : `${rap?.at(0)?.goods?.at(0)?.weight} грамм`}</p>
+              <p>
+                {!rap
+                  ? '1640 грамм'
+                  : `${rap?.at(0)?.goods?.at(0)?.weight} грамм`}
+              </p>
             </div>
             <div className={styles.calc__line}>
               <span>Размер</span>
@@ -543,56 +657,12 @@ const Сalculator: React.FC<СalculatorProps> = ({
         )}
       </div>
       <div className={styles.rightBlock}>
-        <h1 className={styles.title}>
-          Укажите размеры в <span>миллиметрах</span> и вес в{' '}
-          <span>граммах</span>
-        </h1>
         <div className={styles.rightBlock__box}>
           <Image src={'./boxCalc.svg'} width={367} height={323} alt='box' />
-          <input
-            type='number'
-            placeholder='Вес'
-            {...register('Bsize', {
-              required: 'Обязательное поле'
-            })}
-            name='weight'
-            required
-            onChange={changeSize}
-            autoComplete='off'
-            onWheel={numberInputOnWheelPreventChange}
-            className={styles.rightBlock__weight}
-          />
-          <input
-            type='number'
-            placeholder='Длина'
-            {...register('Blenght')}
-            name='length'
-            onChange={(e) => changeLinght(e, 'Blenght')}
-            autoComplete='off'
-            onWheel={numberInputOnWheelPreventChange}
-            className={styles.rightBlock__length}
-          />
-          <input
-            type='number'
-            placeholder='Ширина'
-            {...register('Bwidth')}
-            name='width'
-            onChange={(e) => changeLinght(e, 'Bwidth')}
-            autoComplete='off'
-            onWheel={numberInputOnWheelPreventChange}
-            className={styles.rightBlock__width}
-          />
-          <input
-            type='number'
-            placeholder='Высота'
-            {...register('Bheight')}
-            name='height'
-            onChange={(e) => changeLinght(e, 'Bheight')}
-            autoComplete='off'
-            step='1'
-            onWheel={numberInputOnWheelPreventChange}
-            className={styles.rightBlock__height}
-          />
+          <p className={styles.rightBlock__weight}>Вес</p>
+          <p className={styles.rightBlock__length}>Длина</p>
+          <p className={styles.rightBlock__width}>Ширина</p>
+          <p className={styles.rightBlock__height}>Высота</p>
         </div>
       </div>
       {rap && (
