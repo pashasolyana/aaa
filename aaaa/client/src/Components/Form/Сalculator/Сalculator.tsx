@@ -343,11 +343,11 @@ const Сalculator: React.FC<СalculatorProps> = ({
     } else if (ind.target.value < 1) {
       setValue(name, '0')
       changeHandler(ind)
-    } else if (ind.target.value < 200 && ind.target.value >= 0) {
+    } else if (ind.target.value < 20000 && ind.target.value >= 0) {
       setValue(name, ind.target.value.replace(/[\W_]/g, ''))
       changeHandler(ind)
     } else {
-      setValue(name, '200')
+      setValue(name, '20000')
       changeHandler(ind)
     }
   }
@@ -376,12 +376,6 @@ const Сalculator: React.FC<СalculatorProps> = ({
   const toggleVolume = () => {
     if (isViewVolume) {
       reset({ Bheight: undefined, Bwidth: undefined, Blenght: undefined })
-      setGoo((prev: any) => ({
-        ...prev,
-        height: 0,
-        length: 0,
-        width: 0
-      }))
       setIsViewVolume(false)
     } else {
       setIsViewVolume(true)
@@ -541,6 +535,9 @@ const Сalculator: React.FC<СalculatorProps> = ({
             <div className={styles.leftBlock__input}>
               <Image width={13} height={18} src={'./price.svg'} alt='from' />
               <input
+                min='0'
+                inputMode='numeric'
+                pattern='[0-9]*'
                 type='number'
                 placeholder='Вес в граммах'
                 {...register('Bsize', {
