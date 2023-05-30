@@ -53,10 +53,10 @@ export const Header = ({ setPath }: any) => {
         </Link>
         <Link
           activeClass='active'
-          to='form'
+          to='company'
           spy={true}
           smooth={true}
-          offset={50}
+          offset={-300}
           duration={500}
           onClick={() => setPath(1)}
         >
@@ -67,7 +67,7 @@ export const Header = ({ setPath }: any) => {
           to='documents'
           spy={true}
           smooth={true}
-          offset={50}
+          offset={-300}
           duration={500}
         >
           Документы
@@ -153,10 +153,10 @@ export const Header = ({ setPath }: any) => {
           </Link>
           <Link
             activeClass='active'
-            to='form'
+            to='company'
             spy={true}
             smooth={true}
-            offset={50}
+            offset={-300}
             duration={500}
             onClick={() => nav(1)}
           >
@@ -167,7 +167,7 @@ export const Header = ({ setPath }: any) => {
             to='documents'
             spy={true}
             smooth={true}
-            offset={50}
+            offset={-300}
             duration={500}
             onClick={() => nav(0)}
           >

@@ -4,7 +4,7 @@ import styles from './Delivery.module.scss'
 export const Delivery = () => {
   return (
     <>
-      <div className={styles.cont}>
+      <div className={styles.cont} id='company'>
         <h1 className={styles.title}>Доставим что угодно - куда угодно!</h1>
         <div className={styles.wrap}>
           <Image
