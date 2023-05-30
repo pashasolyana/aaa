@@ -67,10 +67,20 @@ const Сalculator: React.FC<СalculatorProps> = ({
   const [isViewVolume, setIsViewVolume] = useState(false)
 
   const zzz = () => {
+    const titles = ['День', 'Дня', 'Дней']
     const timeDiff =
       new Date(rap?.at(0)?.deliveryDateMin).getTime() - new Date().getTime()
     const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24))
-    return diffDays
+
+    const cases = [2, 0, 1, 1, 1, 2]
+    const dayTitle = `${
+      titles[
+        diffDays % 100 > 4 && diffDays % 100 < 20
+          ? 2
+          : cases[diffDays % 10 < 5 ? diffDays % 10 : 5]
+      ]
+    }`
+    return diffDays + ' ' + dayTitle
   }
 
   const router = useRouter()
@@ -647,7 +657,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
             </div>
             <div className={styles.calc__line}>
               <span>Срок доставки</span>
-              <p>{!rap ? '14' : zzz()} дней</p>
+              <p>{!rap ? '14' : zzz()}</p>
             </div>
             <p className={styles.calc__text}>
               Стоимость является ориентировочной. Точная стоимость будет
@@ -692,7 +702,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
           </div>
           <div className={styles.calc__line}>
             <span>Срок доставки</span>
-            <p>{!rap ? '14' : zzz()} дней</p>
+            <p>{!rap ? '14' : zzz()}</p>
           </div>
           <p className={styles.calc__text}>
             Стоимость является ориентировочной. Точная стоимость будет
