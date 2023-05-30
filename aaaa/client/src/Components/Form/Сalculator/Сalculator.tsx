@@ -568,6 +568,9 @@ const Сalculator: React.FC<СalculatorProps> = ({
               <div className={styles.leftBlock__input}>
                 <Image width={13} height={18} src={'./price.svg'} alt='from' />
                 <input
+                  min='0'
+                  inputMode='numeric'
+                  pattern='[0-9]*'
                   type='number'
                   placeholder='Длина в мм'
                   {...register('Blenght')}
@@ -583,6 +586,9 @@ const Сalculator: React.FC<СalculatorProps> = ({
               <div className={styles.leftBlock__input}>
                 <Image width={13} height={18} src={'./price.svg'} alt='from' />
                 <input
+                  min='0'
+                  inputMode='numeric'
+                  pattern='[0-9]*'
                   type='number'
                   placeholder='Ширина в мм'
                   {...register('Bwidth')}
@@ -598,6 +604,9 @@ const Сalculator: React.FC<СalculatorProps> = ({
               <div className={styles.leftBlock__input}>
                 <Image width={13} height={18} src={'./price.svg'} alt='from' />
                 <input
+                  min='0'
+                  inputMode='numeric'
+                  pattern='[0-9]*'
                   type='number'
                   placeholder='Высота в мм'
                   {...register('Bheight')}
@@ -667,6 +676,9 @@ const Сalculator: React.FC<СalculatorProps> = ({
         <div className={styles.rightBlock__box}>
           <Image src={'./boxCalc.svg'} width={367} height={323} alt='box' />
           <input
+            min='0'
+            inputMode='numeric'
+            pattern='[0-9]*'
             type='number'
             placeholder='Вес'
             {...register('Bsize', {
@@ -680,6 +692,9 @@ const Сalculator: React.FC<СalculatorProps> = ({
             className={styles.rightBlock__weight}
           />
           <input
+            min='0'
+            inputMode='numeric'
+            pattern='[0-9]*'
             type='number'
             placeholder='Длина'
             {...register('Blenght')}
@@ -690,6 +705,9 @@ const Сalculator: React.FC<СalculatorProps> = ({
             className={styles.rightBlock__length}
           />
           <input
+            min='0'
+            inputMode='numeric'
+            pattern='[0-9]*'
             type='number'
             placeholder='Ширина'
             {...register('Bwidth')}
@@ -700,6 +718,9 @@ const Сalculator: React.FC<СalculatorProps> = ({
             className={styles.rightBlock__width}
           />
           <input
+            min='0'
+            inputMode='numeric'
+            pattern='[0-9]*'
             type='number'
             placeholder='Высота'
             {...register('Bheight')}
