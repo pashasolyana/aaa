@@ -518,6 +518,9 @@ const Сalculator: React.FC<СalculatorProps> = ({
             <div className={styles.leftBlock__input}>
               <Image width={13} height={18} src={'./price.svg'} alt='from' />
               <input
+                min='0'
+                inputMode='numeric'
+                pattern='[0-9]*'
                 type='number'
                 placeholder='Цена в рублях'
                 {...register('insurance', {
