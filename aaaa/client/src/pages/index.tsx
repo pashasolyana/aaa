@@ -56,6 +56,7 @@ export default function Home() {
       />
       <Delivery />
       <Documents />
+      <div id='faq'></div>
       <BitrixForm />
       <Footer />
     </>

@@ -74,7 +74,7 @@ export const Header = ({ setPath }: any) => {
         </Link>
         <Link
           activeClass='active'
-          to='documents'
+          to='faq'
           spy={true}
           smooth={true}
           offset={50}

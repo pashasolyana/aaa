@@ -35,7 +35,6 @@ export const Delivery = () => {
             </p>
           </div>
         </div>
-      <div id='documents'></div>
       </div>
     </>
   )

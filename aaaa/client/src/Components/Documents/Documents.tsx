@@ -4,6 +4,7 @@ import s from './Documents.module.scss'
 const Documents = () => {
   return (
     <div className={s.cont}>
+      <div className='absolute' id='documents'></div>
       <h1 className={s.title}>Наши документы</h1>
       <div className={s.wrap}>
         <div className={s.wrap__el}>
