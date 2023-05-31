@@ -129,6 +129,9 @@ module.exports = {
         if(result.data.length == 0){
           return res.status(404).send({message : "We cant count this"})
         }
+        if(!result.data[0].estimatedCost){
+          return res.status(404).send({message : "We cant count this"})
+        }
         result.data[0].goods = req.body.goods
         result.data[0].estimatedCost =  req.body.estimatedCost
         let adressReceiver = req.body.receiverAddress.split(' г ')
