@@ -6,10 +6,20 @@ import clsx from 'clsx'
 
 export const Header = ({ setPath }: any) => {
   const [isOpenModal, setIsOpenModal] = useState(false)
+  const [isModalAuth, setIsModalAuth] = useState(false)
+  const [closeEye, setCloseEye] = useState(false)
 
   const nav = (num: number) => {
     setIsOpenModal(false)
     setPath(num)
+  }
+
+  const toggleAuthModal = (isOpen: boolean) => {
+    setIsModalAuth(isOpen)
+    setCloseEye(true)
+    document.getElementsByTagName('html')[0].style.overflow = isOpen
+      ? 'hidden'
+      : 'block'
   }
 
   return (
@@ -22,8 +32,8 @@ export const Header = ({ setPath }: any) => {
       <Image
         src='/logo.svg'
         alt='Logo'
-        width={327}
-        height={98}
+        width={213}
+        height={68}
         priority
         className={styles.logo}
         onClick={() => location.reload()}
@@ -106,7 +116,7 @@ export const Header = ({ setPath }: any) => {
           height={40}
           className={styles.info__img}
         />
-        <button>
+        <button onClick={() => toggleAuthModal(true)}>
           <p>Войти</p>
           <Image src={'/people.svg'} alt='vk' width={15} height={20} />
         </button>
@@ -186,6 +196,55 @@ export const Header = ({ setPath }: any) => {
           </Link>
         </div>
       </div>
+      {isModalAuth ? (
+        <div
+          className={styles.authModal}
+          onClick={() => toggleAuthModal(false)}
+        >
+          <div
+            className={styles.authModal__wrap}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className={styles.authModal__header}>
+              <h1>Авторизация</h1>
+              <p>Вход только для сотрудников</p>
+            </div>
+            <div className={styles.authModal__body}>
+              <div className={styles.authModal__inpEl}>
+                <p>Логин</p>
+                <input type='text' />
+              </div>
+              <div className={styles.authModal__inpEl}>
+                <p>Пароль</p>
+                <input type={closeEye ? 'password' : 'text'} />
+                {closeEye ? (
+                  <Image
+                    src={'/closeEye.svg'}
+                    width={13}
+                    height={13}
+                    alt='hidden'
+                    onClick={() => setCloseEye(false)}
+                  />
+                ) : (
+                  <Image
+                    src={'/openEye.svg'}
+                    width={13}
+                    height={13}
+                    alt='view'
+                    onClick={() => setCloseEye(true)}
+                  />
+                )}
+              </div>
+            </div>
+            <div className={styles.authModal__footer}>
+              <button>Войти</button>
+              <button onClick={() => toggleAuthModal(false)}>Отмена</button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   )
 }

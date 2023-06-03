@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-import s from './NotFound.module.scss'
+import s from './Footer.module.scss'
 
 const Footer = () => {
   return (

@@ -2,7 +2,7 @@ import React from 'react'
 import s from './NotFound.module.scss'
 import Image from 'next/image'
 import Link from 'next/link'
-import Footer from './Footer'
+import Footer from '../PCabinet/Footer/Footer'
 
 const NotFound = () => {
   return (
@@ -12,7 +12,7 @@ const NotFound = () => {
         <h1>Ошибка 404. Такой страницы нет</h1>
         <Link href={'/'}>Перейти на главную</Link>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   )
 }

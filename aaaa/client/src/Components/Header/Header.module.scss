@@ -4,7 +4,7 @@
 }
 
 .logo {
-  @apply max-xl:w-[199px] max-xl:h-[60px] cursor-pointer max-w-[188px] max-h-[47px];
+  @apply max-xl:w-[183px] max-xl:h-[59px] cursor-pointer max-w-[213px] max-h-[68px];
 }
 
 .link {
@@ -65,6 +65,96 @@
   }
 }
 
+.authModal {
+  @apply w-full flex-center absolute top-0 left-0 z-50;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.2);
+  &__wrap {
+    @apply p-10 h-fit w-full;
+    max-width: 390px;
+    background: #ffffff;
+    border-radius: 10px;
+  }
+
+  &__header {
+    @apply flex flex-col gap-y-1;
+
+    h1 {
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 23px;
+      text-transform: uppercase;
+      color: #3622f5;
+    }
+    p {
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 18px;
+      color: #6d6d6d;
+    }
+  }
+
+  &__body {
+    @apply flex flex-col gap-y-7  mt-9;
+  }
+
+  &__footer {
+    @apply w-full gap-x-2.5 flex justify-end items-center;
+    margin-top: 35px;
+
+    button {
+      padding: 10px 20px;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 19px;
+
+      &:first-child {
+        background: #3622f5;
+        color: #ffffff;
+        border: none;
+      }
+
+      &:last-child {
+        background: #ffffff;
+        border: 1px solid #a7a7a7;
+        color: #6d6d6d;
+      }
+
+      border-radius: 6px;
+    }
+  }
+
+  &__inpEl {
+    @apply flex gap-x-2 items-center w-full relative;
+    p {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 16px;
+      font-feature-settings: 'pnum' on, 'lnum' on;
+      color: #6d6d6d;
+    }
+
+    input {
+      @apply border-none outline-none w-full;
+      border-bottom: 1px solid rgba(109, 94, 246, 0.5);
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 19px;
+      font-feature-settings: 'pnum' on, 'lnum' on;
+      color: #3622f5;
+    }
+    &:last-child input {
+      padding-right: 15px;
+    }
+
+    img {
+      @apply absolute top-0.5 right-0;
+      width: 13px;
+      height: 13px;
+    }
+  }
+}
+
 .modal {
   @apply hidden flex-col items-center gap-y-5 fixed top-0 left-0 z-30;
   width: 100%;
@@ -115,11 +205,6 @@
     font-size: 15px;
     line-height: 18px;
   }
-
-  .logo {
-    width: 160px;
-    height: 40px;
-  }
 }
 
 .close {
@@ -159,8 +244,15 @@
 
 @media screen and (max-width: 420px) {
   .logo {
-    width: 144px;
-    height: 36px;
+    width: 164px;
+    height: 52px;
+  }
+
+  .authModal {
+    &__wrap {
+      @apply px-4;
+      max-width: 420px;
+    }
   }
 
   .info {

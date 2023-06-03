@@ -30,27 +30,6 @@
   }
 }
 
-.footer {
-  @apply flex flex-col gap-y-4 items-center;
-
-  p {
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 21px;
-    font-feature-settings: 'pnum' on, 'lnum' on;
-
-    color: #2e2e2e;
-  }
-
-  a {
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 21px;
-    color: #6d6d6d;
-  }
-}
-
 @media screen and (max-width: 420px) {
   .cont {
     padding-top: 30px;
