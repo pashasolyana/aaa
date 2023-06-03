@@ -1,6 +1,5 @@
 .cont {
   @apply w-full flex justify-between items-end flex-wrap;
-  margin-bottom: 30px;
 }
 
 .wrap {
@@ -60,7 +59,6 @@
 @media screen and (max-width: 505px) {
   .cont {
     @apply gap-y-5;
-    margin-bottom: 40px;
   }
 
   .wrap {
