@@ -1,0 +1,73 @@
+.cont {
+  @apply w-full flex justify-between items-end flex-wrap;
+  margin-bottom: 30px;
+}
+
+.wrap {
+  @apply flex gap-x-5 items-center;
+}
+
+.dateCont {
+  @apply flex gap-x-1;
+}
+
+.el {
+  @apply flex items-center gap-x-2.5 flex-center cursor-pointer relative;
+  min-width: 32px;
+  background: #ffffff;
+  border: 1px solid #dadada;
+  font-feature-settings: 'pnum' on, 'lnum' on;
+  border-radius: 6px;
+  padding: 8px;
+
+  input {
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    &::-webkit-calendar-picker-indicator {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &_rev {
+    img {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.exel {
+  @apply flex gap-x-2.5 p-2 w-fit flex-center cursor-pointer;
+  height: 32px;
+  background: #3622f5;
+  backdrop-filter: blur(4px);
+  border-radius: 6px;
+
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 15px;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+@media screen and (max-width: 505px) {
+  .cont {
+    @apply gap-y-5;
+    margin-bottom: 40px;
+  }
+
+  .wrap {
+    @apply justify-between w-full;
+  }
+
+  .exel {
+    @apply w-full;
+  }
+}
