@@ -1,0 +1,80 @@
+.cont {
+  @apply flex justify-center w-full;
+  min-height: calc(100vh - 250px);
+}
+
+.wrap {
+  @apply flex flex-col gap-y-7 items-end w-full;
+  max-width: 413px;
+}
+
+.line {
+  @apply grid gap-x-2.5 items-center w-full justify-between;
+  grid-template-columns: 20% 80%;
+
+  p {
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 18px;
+    text-transform: uppercase;
+    color: #3622f5;
+  }
+}
+
+.inpEl {
+  @apply flex items-center gap-x-2.5 w-full;
+  background: #ffffff;
+  border: 1px solid #dadada;
+  border-radius: 6px;
+  padding: 8px 12px;
+
+  input {
+    @apply w-full border-none outline-none;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    color: #6d6d6d;
+  }
+
+  svg,
+  img {
+    cursor: pointer;
+  }
+
+  &:first-of-type {
+    svg {
+      width: 13.7px;
+      height: 12px;
+      path {
+        fill: #a7a7a7;
+      }
+    }
+  }
+}
+
+.footer {
+  @apply grid gap-x-1.5 w-full;
+  grid-template-columns: 1fr 5fr;
+
+  button {
+    @apply flex-center p-2;
+    border-radius: 6px;
+    backdrop-filter: blur(4px);
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 15px;
+    text-transform: uppercase;
+    color: #6d5ef6;
+  }
+
+  button:first-child {
+    border: 1px solid #6d5ef6;
+  }
+
+  button:last-child {
+    @apply flex gap-x-2.5;
+    background: #3622f5;
+    color: white;
+  }
+}
