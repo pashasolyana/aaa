@@ -1,0 +1,110 @@
+.cont {
+  min-height: calc(100vh - 250px);
+}
+
+.title {
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 18px;
+  text-transform: uppercase;
+  color: #3622f5;
+}
+
+.header {
+  @apply grid grid-cols-2 gap-x-10;
+  margin-bottom: 30px;
+
+  &__el {
+    @apply flex flex-col gap-y-2.5;
+  }
+
+  &__textArea {
+    @apply relative;
+
+    textarea {
+      outline: none;
+      transition: all 0s;
+      padding: 8px 12px;
+      border: 1px solid #dadada;
+      border-radius: 6px;
+      width: 100%;
+      height: 100%;
+      min-height: 80px;
+
+      &::-webkit-scrollbar {
+        width: 7px !important;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: transparent !important;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: #a7a7a7 !important;
+        border-radius: 8px !important;
+      }
+    }
+
+    svg {
+      @apply absolute top-2.5 cursor-pointer;
+      right: 14px;
+      width: 12px;
+      height: 12px;
+
+      path {
+        fill: #a7a7a7;
+      }
+    }
+  }
+}
+
+.body {
+  @apply flex flex-col;
+
+  button {
+    @apply flex-center gap-x-2.5 w-fit;
+    background: #3622f5;
+    backdrop-filter: blur(4px);
+    border-radius: 6px;
+    padding: 8px 10px;
+
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 15px;
+    text-transform: uppercase;
+    color: #ffffff;
+  }
+}
+
+.list {
+  @apply flex flex-col gap-y-2.5;
+  margin-top: 10px;
+  margin-bottom: 30px;
+
+  &__el {
+    @apply flex gap-x-3 py-2 px-3 w-fit items-center;
+    background: #ffffff;
+    border: 1px solid #dadada;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    color: #6d6d6d;
+  }
+
+  &__add {
+    transform: rotate(45deg);
+    width: 13px;
+    height: 13px;
+    path {
+      fill: #6d6d6d;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    @apply grid-cols-1 grid-rows-2 gap-y-5;
+    margin-bottom: 20px;
+  }
+}

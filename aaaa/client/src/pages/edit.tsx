@@ -1,16 +1,16 @@
+import Edit from '@/Components/Edit/Edit'
 import Footer from '@/Components/PCabinet/Footer/Footer'
 import Header from '@/Components/PCabinet/Header/Header'
-import Profile from '@/Components/Profile/Profile'
 import React from 'react'
 
-const ProfilePage = () => {
+const EditPage = () => {
   return (
     <>
       <Header />
-      <Profile />
+      <Edit />
       <Footer />
     </>
   )
 }
 
-export default ProfilePage
+export default EditPage
