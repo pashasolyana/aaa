@@ -65,8 +65,6 @@ module.exports = {
         }
     },
     calcone : async(req,res) => {
-      // если указан город, брать по нему центральный индекс
-      // если указан индекс, считать по нему и 
         try{
             const data = await module.exports.auth()
             if(!req.body.addservice){
