@@ -124,10 +124,8 @@ module.exports = {
           };
         const result = await axios(config)
         console.log(result.data)
-        if(result.data.length == 0){
-          return res.status(404).send({message : "We cant count this"})
-        }
-        if(!result.data[0].estimatedCost){
+        console.log(result.data[0])
+        if(!result.data[0].priceByCurrency){
           return res.status(404).send({message : "We cant count this"})
         }
         result.data[0].goods = req.body.goods
