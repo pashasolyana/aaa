@@ -12,12 +12,14 @@ const BitrixForm = () => {
       const loadBitrixForm = () => {
         const script = document.createElement('script')
         script.src =
-          'https://cdn-ru.bitrix24.ru/b15858752/crm/form/loader_18.js'
+        'https://cdn-ru.bitrix24.ru/b15858752/crm/form/loader_20.js'
         script.async = true
-        script.setAttribute('data-b24-form', 'inline/18/qlwadx')
+        script.setAttribute('data-b24-form', 'inline/20/c33gao')
         script.setAttribute('data-skip-moving', 'true')
         const head = document.getElementById('bitrix-form-container')
         head?.appendChild(script)
+
+        
       }
 
       loadBitrixForm()

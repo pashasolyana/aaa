@@ -7,14 +7,8 @@ import {
 import { IRefreshToken } from '../auth/refresh-token.interface'
 
 export const AuthService = {
-  async signIn(username: string, password: string) {
-    const response = await axiosClassic.post('/gen/login', {
-        userName: "web_site_user",
-        password: "5f7ZJzNW7K",
-        marketPvz: 15,
-        companyCode: "LUB",
-        clientVersion: "MOBILE"
-    })
+  async signIn(query: any) {
+    const response = await axiosClassic.post('http://81.200.152.89/api/users/signin', query)
 
     if (response.data.accessToken && response.data.refreshToken) {
       saveTokenToStorage(response.data.accessToken, response.data.refreshToken)

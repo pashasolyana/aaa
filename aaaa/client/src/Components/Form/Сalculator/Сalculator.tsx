@@ -17,6 +17,7 @@ import { useMutation, useQueryClient } from 'react-query'
 import { OtherService } from '../../../../services/other/other.service'
 import useCities from './useCities'
 import { useRouter } from 'next/router'
+import Loader from '@/Components/Loader/Loader'
 
 export interface formInputs {
   cityFrom: string
@@ -61,8 +62,12 @@ const Сalculator: React.FC<СalculatorProps> = ({
   const [view1, setView1] = useState(false)
   const [focusedIndex, setFocusedIndex] = useState(-1)
   const [focusedIndex2, setFocusedIndex2] = useState(-1)
+  const [status, setStatus] = useState('')
+  const [loading, setLoading] = useState(false)
   const resultContainer = useRef<HTMLDivElement>(null)
   const resultContainer2 = useRef<HTMLDivElement>(null)
+
+  console.log(status)
 
   const [isViewVolume, setIsViewVolume] = useState(false)
 
@@ -241,10 +246,12 @@ const Сalculator: React.FC<СalculatorProps> = ({
         setRap(data)
         setCities(city)
         setCities2(city2)
+        setLoading(false)
+        setStatus('success')
       },
       onError(data: any) {
-        console.log('errrroorrr')
-        setRap('error')
+        setStatus('error')
+        setLoading(false)
       }
     }
   )
@@ -353,7 +360,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
   }
 
   const Submit = (data: any) => {
-    console.log(data)
+    setLoading(true)
     mutate(data)
   }
 
@@ -522,6 +529,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 inputMode='numeric'
                 pattern='[0-9]*'
                 type='number'
+                onKeyDown={(e) => {e.key !== '69'}}
                 placeholder='Цена в рублях'
                 {...register('insurance', {
                   required: 'Обязательное поле'
@@ -542,6 +550,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 inputMode='numeric'
                 pattern='[0-9]*'
                 type='number'
+                onKeyDown={(e) => {e.key !== '69'}}
                 placeholder='Вес в граммах'
                 {...register('Bsize', {
                   required: 'Обязательное поле'
@@ -575,6 +584,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                   inputMode='numeric'
                   pattern='[0-9]*'
                   type='number'
+                  onKeyDown={(e) => {e.key !== '69'}}
                   placeholder='Длина в мм'
                   {...register('Blenght')}
                   name='length'
@@ -593,6 +603,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                   inputMode='numeric'
                   pattern='[0-9]*'
                   type='number'
+                  onKeyDown={(e) => {e.key !== '69'}}
                   placeholder='Ширина в мм'
                   {...register('Bwidth')}
                   name='width'
@@ -611,6 +622,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                   inputMode='numeric'
                   pattern='[0-9]*'
                   type='number'
+                  onKeyDown={(e) => {e.key !== '69'}}
                   placeholder='Высота в мм'
                   {...register('Bheight')}
                   name='height'
@@ -625,6 +637,11 @@ const Сalculator: React.FC<СalculatorProps> = ({
         ) : (
           <></>
         )}
+        {loading ? (
+          <div className='w-full flex justify-center'>
+            <Loader />
+          </div>
+        ):(
         <button
           type='submit'
           className={
@@ -635,6 +652,14 @@ const Сalculator: React.FC<СalculatorProps> = ({
         >
           Рассчитать
         </button>
+        )}
+        {status === 'error' && (
+          <div className='w-full flex justify-center'>
+            <div style={{backgroundColor: '#FFECEC', color:'red'}}>
+              Ошибка, попробуйте позже...
+              </div>
+            </div>
+        )}
         {rap && (
           <div className={styles.calc}>
             <div className={styles.calc__line}>
@@ -683,6 +708,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
             inputMode='numeric'
             pattern='[0-9]*'
             type='number'
+            onKeyDown={(e) =>["e", "E", "+", "-"].includes(e.key) && e.preventDefault()}
             placeholder='Вес'
             {...register('Bsize', {
               required: 'Обязательное поле'
@@ -699,6 +725,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
             inputMode='numeric'
             pattern='[0-9]*'
             type='number'
+            onKeyDown={(e) =>["e", "E", "+", "-"].includes(e.key) && e.preventDefault()}
             placeholder='Длина'
             {...register('Blenght')}
             name='length'
@@ -712,6 +739,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
             inputMode='numeric'
             pattern='[0-9]*'
             type='number'
+            onKeyDown={(e) =>["e", "E", "+", "-"].includes(e.key) && e.preventDefault()}
             placeholder='Ширина'
             {...register('Bwidth')}
             name='width'
@@ -725,6 +753,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
             inputMode='numeric'
             pattern='[0-9]*'
             type='number'
+            onKeyDown={(e) =>["e", "E", "+", "-"].includes(e.key) && e.preventDefault()}
             placeholder='Высота'
             {...register('Bheight')}
             name='height'
@@ -736,7 +765,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
           />
         </div>
       </div>
-      {rap && (
+      {status !== 'error' && rap && (
         <div className={styles.calc_mod}>
           <div className={styles.calc__line}>
             <span>ГОрод</span>

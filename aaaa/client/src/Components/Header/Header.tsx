@@ -3,11 +3,25 @@ import styles from './Header.module.scss'
 import Image from 'next/image'
 import { useState } from 'react'
 import clsx from 'clsx'
+import { AuthService } from '../../../services/auth/auth.service'
+import { useMutation, useQueryClient } from 'react-query'
+import { useForm } from 'react-hook-form'
 
 export const Header = ({ setPath }: any) => {
   const [isOpenModal, setIsOpenModal] = useState(false)
   const [isModalAuth, setIsModalAuth] = useState(false)
   const [closeEye, setCloseEye] = useState(false)
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    getValues,
+    setValue
+  } = useForm()
+
+  const queryClient = useQueryClient()
 
   const nav = (num: number) => {
     setIsOpenModal(false)
@@ -20,6 +34,27 @@ export const Header = ({ setPath }: any) => {
     document.getElementsByTagName('html')[0].style.overflow = isOpen
       ? 'hidden'
       : 'block'
+  }
+
+  const { mutate } = useMutation(
+    'create-calkulator',
+    (data: any) =>
+      AuthService.signIn({
+        username: data.username,
+        password: data.password,
+      }),
+    {
+      onSuccess(data) {
+        queryClient.invalidateQueries({ queryKey: [`auth`] })
+      },
+      onError(data: any) {
+        console.log('errrroorrr')
+      }
+    }
+  )
+
+  const Submit = (data: any) => {
+    mutate(data)
   }
 
   return (
@@ -197,51 +232,61 @@ export const Header = ({ setPath }: any) => {
         </div>
       </div>
       {isModalAuth ? (
-        <div
-          className={styles.authModal}
-          onClick={() => toggleAuthModal(false)}
-        >
+        <form onSubmit={handleSubmit(Submit)}>
           <div
-            className={styles.authModal__wrap}
-            onClick={(e) => e.stopPropagation()}
+            className={styles.authModal}
+            onClick={() => toggleAuthModal(false)}
           >
-            <div className={styles.authModal__header}>
-              <h1>Авторизация</h1>
-              <p>Вход только для сотрудников</p>
-            </div>
-            <div className={styles.authModal__body}>
-              <div className={styles.authModal__inpEl}>
-                <p>Логин</p>
-                <input type='text' />
+            <div
+              className={styles.authModal__wrap}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className={styles.authModal__header}>
+                <h1>Авторизация</h1>
+                <p>Вход только для сотрудников</p>
               </div>
-              <div className={styles.authModal__inpEl}>
-                <p>Пароль</p>
-                <input type={closeEye ? 'password' : 'text'} />
-                {closeEye ? (
-                  <Image
-                    src={'/closeEye.svg'}
-                    width={13}
-                    height={13}
-                    alt='hidden'
-                    onClick={() => setCloseEye(false)}
-                  />
-                ) : (
-                  <Image
-                    src={'/openEye.svg'}
-                    width={13}
-                    height={13}
-                    alt='view'
-                    onClick={() => setCloseEye(true)}
-                  />
-                )}
+              <div className={styles.authModal__body}>
+                <div className={styles.authModal__inpEl}>
+                  <p>Логин</p>
+                  <input
+                    {...register('username', {
+                      required: 'Обязательное поле'
+                    })}
+                    type='text' />
+                </div>
+                <div className={styles.authModal__inpEl}>
+                  <p>Пароль</p>
+                  <input
+                    {...register('password', {
+                      required: 'Обязательное поле'
+                    })}
+                    type={closeEye ? 'password' : 'text'} />
+                  {closeEye ? (
+                    <Image
+                      src={'/closeEye.svg'}
+                      width={13}
+                      height={13}
+                      alt='hidden'
+                      onClick={() => setCloseEye(false)}
+                    />
+                  ) : (
+                    <Image
+                      src={'/openEye.svg'}
+                      width={13}
+                      height={13}
+                      alt='view'
+                      onClick={() => setCloseEye(true)}
+                    />
+                  )}
+                </div>
               </div>
-            </div>
-            <div className={styles.authModal__footer}>
-              <button>Войти</button>
-              <button onClick={() => toggleAuthModal(false)}>Отмена</button>
+              <div className={styles.authModal__footer}>
+                <button type='submit'>Войти</button>
+                <button onClick={() => toggleAuthModal(false)}>Отмена</button>
+              </div>
             </div>
           </div>
-        </div>
+        </form>
       ) : (
         <></>
       )}
