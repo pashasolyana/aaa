@@ -10,7 +10,7 @@
 
 .line {
   @apply grid gap-x-2.5 items-center w-full justify-between;
-  grid-template-columns: 20% 80%;
+  grid-template-columns: 64px 5fr;
 
   p {
     font-weight: 600;

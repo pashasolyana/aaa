@@ -419,7 +419,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 value={city}
                 // styles.inpEl_mod нужен когда есть поиск
                 className={clsx({
-                  [styles.inpEl_mod]: view && city.length !== 0
+                  [styles.inpEl_mod]: view && city?.length !== 0
                 })}
                 onFocus={() => setView(true)}
                 onBlur={() =>
@@ -485,7 +485,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 value={city2}
                 // styles.inpEl_mod нужен когда есть поиск
                 className={clsx({
-                  [styles.inpEl_mod]: view1 && city2.length !== 0
+                  [styles.inpEl_mod]: view1 && city2?.length !== 0
                 })}
                 onFocus={() => setView1(true)}
                 onBlur={() =>
