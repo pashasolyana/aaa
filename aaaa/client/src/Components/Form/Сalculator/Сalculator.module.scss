@@ -247,16 +247,17 @@
   &__el {
     @apply w-full py-2 px-2.5 cursor-pointer;
     border-radius: 6px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #595959;
 
     &:hover {
       background: #f0f0f0;
     }
 
-    p {
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 19px;
-      color: #595959;
+    &__active {
+      background: #f0f0f0;
     }
   }
 

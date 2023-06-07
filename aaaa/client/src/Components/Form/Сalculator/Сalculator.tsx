@@ -64,9 +64,6 @@ const Сalculator: React.FC<СalculatorProps> = ({
   const [focusedIndex2, setFocusedIndex2] = useState(-1)
   const [status, setStatus] = useState('')
   const [loading, setLoading] = useState(false)
-  const resultContainer = useRef<HTMLDivElement>(null)
-  const resultContainer2 = useRef<HTMLDivElement>(null)
-
 
   const [isViewVolume, setIsViewVolume] = useState(false)
 
@@ -90,23 +87,18 @@ const Сalculator: React.FC<СalculatorProps> = ({
   const router = useRouter()
   const queryClient = useQueryClient()
 
-
   useEffect(() => {
-    if (!resultContainer.current) return
+    if (!fromRef.current || focusedIndex <= -1) return
 
-    resultContainer.current.scrollIntoView({
-      behavior: 'auto',
-      block: 'center'
-    })
+    const activeItem = fromRef.current.children[focusedIndex]
+    activeItem?.scrollIntoView({ block: 'nearest' })
   }, [focusedIndex])
 
   useEffect(() => {
-    if (!resultContainer2.current) return
+    if (!toRef.current || focusedIndex2 <= -1) return
 
-    resultContainer2.current.scrollIntoView({
-      behavior: 'auto',
-      block: 'center'
-    })
+    const activeItem = toRef.current.children[focusedIndex2]
+    activeItem?.scrollIntoView({ block: 'nearest' })
   }, [focusedIndex2])
 
   const handleSelection = (selectedIndex: number) => {
@@ -154,35 +146,62 @@ const Сalculator: React.FC<СalculatorProps> = ({
     search: city2
   })
 
+  const fromRef = useRef<null | HTMLElement>(null) as React.MutableRefObject<
+    HTMLInputElement
+  >
 
   const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
     const { key } = e
-    let nextIndexCount = 0
-    if (key === 'ArrowDown')
-      nextIndexCount = (focusedIndex + 1) % data?.pages?.at(0)?.length
-    if (key === 'ArrowUp')
-      nextIndexCount = (focusedIndex - 1) % data?.pages?.at(0)?.length
+    if (key === 'ArrowDown') {
+      e.preventDefault()
+      setFocusedIndex((focusedIndex + 1) % data?.pages?.at(0)?.length)
+    }
+    if (key === 'Tab') {
+      e.preventDefault()
+      setFocusedIndex((focusedIndex + 1) % data?.pages?.at(0)?.length)
+    }
+    if (key === 'ArrowUp') {
+      e.preventDefault()
+      setFocusedIndex((focusedIndex - 1) % data?.pages?.at(0)?.length)
+    }
     if (key === 'Enter') {
       e.preventDefault()
       handleSelection(focusedIndex)
+      setFocusedIndex(0)
     }
-    if (key === 'Escape') setView(false)
-    setFocusedIndex(nextIndexCount)
+    if (key === 'Escape') {
+      setView(false)
+      setFocusedIndex(-1)
+    }
   }
+
+  const toRef = useRef<null | HTMLElement>(null) as React.MutableRefObject<
+    HTMLInputElement
+  >
 
   const handleKeyDown2: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
     const { key } = e
-    let nextIndexCount = 0
-    if (key === 'ArrowDown')
-      nextIndexCount = (focusedIndex2 + 1) % data2?.pages?.at(0)?.length
-    if (key === 'ArrowUp')
-      nextIndexCount = (focusedIndex2 - 1) % data2?.pages?.at(0)?.length
+    if (key === 'ArrowDown') {
+      e.preventDefault()
+      setFocusedIndex2((focusedIndex2 + 1) % data2?.pages?.at(0)?.length)
+    }
+    if (key === 'Tab') {
+      e.preventDefault()
+      setFocusedIndex2((focusedIndex2 + 1) % data2?.pages?.at(0)?.length)
+    }
+    if (key === 'ArrowUp') {
+      e.preventDefault()
+      setFocusedIndex2((focusedIndex2 - 1) % data2?.pages?.at(0)?.length)
+    }
     if (key === 'Enter') {
       e.preventDefault()
       handleSelectionTo(focusedIndex2)
+      setFocusedIndex2(0)
     }
-    if (key === 'Escape') setView1(false)
-    setFocusedIndex2(nextIndexCount)
+    if (key === 'Escape') {
+      setView1(false)
+      setFocusedIndex2(-1)
+    }
   }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -287,7 +306,6 @@ const Сalculator: React.FC<СalculatorProps> = ({
     }
   }
 
-
   const changeInd = (ind: any, name: 'cityFromIndex' | 'cityToIndex') => {
     if (ind.target.value === '') {
       setValue(name, '')
@@ -383,14 +401,14 @@ const Сalculator: React.FC<СalculatorProps> = ({
     }
   }
 
-  const keyDownHandle = (e:any) => {
+  const keyDownHandle = (e: any) => {
     let charCode = e.which || e.keyCode
     let charStr = String.fromCharCode(charCode)
     if (
       charStr.toLowerCase() === 'e' ||
       charStr.toLowerCase() === '+' ||
-      charStr.toLowerCase() === '-'||
-      charStr.toLowerCase() === '½'||
+      charStr.toLowerCase() === '-' ||
+      charStr.toLowerCase() === '½' ||
       charStr.toLowerCase() === '»'
     ) {
       e.preventDefault()
@@ -439,11 +457,13 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 [styles.dropDown_mod]: !view || city.length < 1
               })}
             >
-              <div className={styles.dropDown__wrap}>
+              <div className={styles.dropDown__wrap} ref={fromRef}>
                 {data?.pages?.at(0)?.map((el: any, index: number) => (
-                  <div
+                  <p
                     key={el.a}
-                    className={styles.dropDown__el}
+                    className={clsx(styles.dropDown__el, {
+                      [styles.dropDown__el__active]: focusedIndex === index
+                    })}
                     onMouseDown={(event) => event.preventDefault()}
                     onClick={(e) => {
                       e.stopPropagation()
@@ -453,10 +473,9 @@ const Сalculator: React.FC<СalculatorProps> = ({
                       setValue('cityFrom', el.address)
                       setValue('cityFromIndex', el.index)
                     }}
-                    ref={index === focusedIndex ? resultContainer : null}
                   >
-                    <p>{el.address}</p>
-                  </div>
+                    {el.address}
+                  </p>
                 ))}
               </div>
             </div>
@@ -505,11 +524,13 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 [styles.dropDown_mod]: !view1 || city2.length < 1
               })}
             >
-              <div className={styles.dropDown__wrap}>
+              <div className={styles.dropDown__wrap} ref={toRef}>
                 {data2?.pages?.at(0)?.map((el: any, index: number) => (
-                  <div
+                  <p
                     key={el.a}
-                    className={styles.dropDown__el}
+                    className={clsx(styles.dropDown__el, {
+                      [styles.dropDown__el__active]: focusedIndex2 === index
+                    })}
                     onMouseDown={(event) => event.preventDefault()}
                     onClick={(e) => {
                       e.stopPropagation()
@@ -519,10 +540,9 @@ const Сalculator: React.FC<СalculatorProps> = ({
                       setValue('cityTo', el.address)
                       setValue('cityToIndex', el.index)
                     }}
-                    ref={index === focusedIndex2 ? resultContainer2 : null}
                   >
-                    <p>{el.address}</p>
-                  </div>
+                    {el.address}
+                  </p>
                 ))}
               </div>
             </div>
