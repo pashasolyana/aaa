@@ -495,7 +495,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 }
               />
             </div>
-            {data?.pages?.at(0)?.length == 0 && (
+            {data2?.pages?.at(0)?.length == 0 && (
               <p className={styles.err}>Город введен неверно</p>
             )}
             <div
