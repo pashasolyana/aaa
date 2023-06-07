@@ -629,6 +629,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 <input
                   min='0'
                   inputMode='numeric'
+                  onKeyDown={keyDownHandle}
                   pattern='[0-9]*'
                   type='number'
                   placeholder='Высота в мм'
