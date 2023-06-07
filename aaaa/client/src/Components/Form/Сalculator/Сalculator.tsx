@@ -67,12 +67,11 @@ const Сalculator: React.FC<СalculatorProps> = ({
   const resultContainer = useRef<HTMLDivElement>(null)
   const resultContainer2 = useRef<HTMLDivElement>(null)
 
-  console.log(status)
 
   const [isViewVolume, setIsViewVolume] = useState(false)
 
   const zzz = () => {
-    const titles = ['День', 'Дня', 'Дней']
+    const titles = ['день', 'дня', 'дней']
     const timeDiff =
       new Date(rap?.at(0)?.deliveryDateMin).getTime() - new Date().getTime()
     const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24))
@@ -91,7 +90,6 @@ const Сalculator: React.FC<СalculatorProps> = ({
   const router = useRouter()
   const queryClient = useQueryClient()
 
-  console.log(rap?.at(0), 'RAPRAPRAP')
 
   useEffect(() => {
     if (!resultContainer.current) return
@@ -100,7 +98,6 @@ const Сalculator: React.FC<СalculatorProps> = ({
       behavior: 'auto',
       block: 'center'
     })
-    console.log(resultContainer.current, 'апаплапл')
   }, [focusedIndex])
 
   useEffect(() => {
@@ -110,7 +107,6 @@ const Сalculator: React.FC<СalculatorProps> = ({
       behavior: 'auto',
       block: 'center'
     })
-    console.log(resultContainer2.current, '2222222')
   }, [focusedIndex2])
 
   const handleSelection = (selectedIndex: number) => {
@@ -158,7 +154,6 @@ const Сalculator: React.FC<СalculatorProps> = ({
     search: city2
   })
 
-  console.log(data2, '1111111')
 
   const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
     const { key } = e
@@ -292,7 +287,6 @@ const Сalculator: React.FC<СalculatorProps> = ({
     }
   }
 
-  console.log(handleCheckFormData(), '11111111')
 
   const changeInd = (ind: any, name: 'cityFromIndex' | 'cityToIndex') => {
     if (ind.target.value === '') {
@@ -386,6 +380,21 @@ const Сalculator: React.FC<СalculatorProps> = ({
       setIsViewVolume(false)
     } else {
       setIsViewVolume(true)
+    }
+  }
+
+  const keyDownHandle = (e:any) => {
+    let charCode = e.which || e.keyCode
+    let charStr = String.fromCharCode(charCode)
+    if (
+      charStr.toLowerCase() === 'e' ||
+      charStr.toLowerCase() === '+' ||
+      charStr.toLowerCase() === '-'||
+      charStr.toLowerCase() === '½'||
+      charStr.toLowerCase() === '»'
+    ) {
+      e.preventDefault()
+      return false
     }
   }
 
@@ -529,7 +538,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 inputMode='numeric'
                 pattern='[0-9]*'
                 type='number'
-                onKeyDown={(e) => {e.key !== '69'}}
+                onKeyDown={keyDownHandle}
                 placeholder='Цена в рублях'
                 {...register('insurance', {
                   required: 'Обязательное поле'
@@ -550,7 +559,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                 inputMode='numeric'
                 pattern='[0-9]*'
                 type='number'
-                onKeyDown={(e) => {e.key !== '69'}}
+                onKeyDown={keyDownHandle}
                 placeholder='Вес в граммах'
                 {...register('Bsize', {
                   required: 'Обязательное поле'
@@ -584,7 +593,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                   inputMode='numeric'
                   pattern='[0-9]*'
                   type='number'
-                  onKeyDown={(e) => {e.key !== '69'}}
+                  onKeyDown={keyDownHandle}
                   placeholder='Длина в мм'
                   {...register('Blenght')}
                   name='length'
@@ -603,7 +612,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
                   inputMode='numeric'
                   pattern='[0-9]*'
                   type='number'
-                  onKeyDown={(e) => {e.key !== '69'}}
+                  onKeyDown={keyDownHandle}
                   placeholder='Ширина в мм'
                   {...register('Bwidth')}
                   name='width'
@@ -622,7 +631,6 @@ const Сalculator: React.FC<СalculatorProps> = ({
                   inputMode='numeric'
                   pattern='[0-9]*'
                   type='number'
-                  onKeyDown={(e) => {e.key !== '69'}}
                   placeholder='Высота в мм'
                   {...register('Bheight')}
                   name='height'
@@ -641,26 +649,26 @@ const Сalculator: React.FC<СalculatorProps> = ({
           <div className='w-full flex justify-center'>
             <Loader />
           </div>
-        ):(
-        <button
-          type='submit'
-          className={
-            handleCheckFormData()
-              ? styles.calculateBtnDone
-              : styles.calculateBtn
-          }
-        >
-          Рассчитать
-        </button>
+        ) : (
+          <button
+            type='submit'
+            className={
+              handleCheckFormData()
+                ? styles.calculateBtnDone
+                : styles.calculateBtn
+            }
+          >
+            Рассчитать
+          </button>
         )}
         {status === 'error' && (
           <div className='w-full flex justify-center'>
-            <div style={{backgroundColor: '#FFECEC', color:'red'}}>
+            <div style={{ backgroundColor: '#FFECEC', color: 'red' }}>
               Ошибка, попробуйте позже...
-              </div>
             </div>
+          </div>
         )}
-        {rap && (
+        {rap && status !== 'error' && (
           <div className={styles.calc}>
             <div className={styles.calc__line}>
               <span>ГОрод</span>
@@ -708,7 +716,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
             inputMode='numeric'
             pattern='[0-9]*'
             type='number'
-            onKeyDown={(e) =>["e", "E", "+", "-"].includes(e.key) && e.preventDefault()}
+            onKeyDown={keyDownHandle}
             placeholder='Вес'
             {...register('Bsize', {
               required: 'Обязательное поле'
@@ -725,7 +733,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
             inputMode='numeric'
             pattern='[0-9]*'
             type='number'
-            onKeyDown={(e) =>["e", "E", "+", "-"].includes(e.key) && e.preventDefault()}
+            onKeyDown={keyDownHandle}
             placeholder='Длина'
             {...register('Blenght')}
             name='length'
@@ -739,7 +747,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
             inputMode='numeric'
             pattern='[0-9]*'
             type='number'
-            onKeyDown={(e) =>["e", "E", "+", "-"].includes(e.key) && e.preventDefault()}
+            onKeyDown={keyDownHandle}
             placeholder='Ширина'
             {...register('Bwidth')}
             name='width'
@@ -753,7 +761,18 @@ const Сalculator: React.FC<СalculatorProps> = ({
             inputMode='numeric'
             pattern='[0-9]*'
             type='number'
-            onKeyDown={(e) =>["e", "E", "+", "-"].includes(e.key) && e.preventDefault()}
+            onKeyDown={(e) => {
+              let charCode = e.which || e.keyCode
+              let charStr = String.fromCharCode(charCode)
+              if (
+                charStr.toLowerCase() === 'e' ||
+                charStr.toLowerCase() === '+' ||
+                charStr.toLowerCase() === '-'
+              ) {
+                e.preventDefault()
+                return false
+              }
+            }}
             placeholder='Высота'
             {...register('Bheight')}
             name='height'

@@ -48,7 +48,7 @@ export const Header = ({ setPath }: any) => {
         queryClient.invalidateQueries({ queryKey: [`auth`] })
       },
       onError(data: any) {
-        console.log('errrroorrr')
+        console.log(data)
       }
     }
   )

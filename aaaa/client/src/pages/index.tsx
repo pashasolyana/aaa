@@ -33,7 +33,6 @@ export default function Home() {
 
   const allCities = data?.pages?.at(0)
 
-  console.log(allCities)
   return (
     <>
       <Header setPath={setPath} />

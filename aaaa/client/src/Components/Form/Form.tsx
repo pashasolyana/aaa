@@ -27,7 +27,6 @@ export const Form: FC<handleFormProps> = ({ allCities, vvv, handleChange, some, 
   const [cities, setCities] = useState('')
   const [cities2, setCities2] = useState('')
 
-  console.log(rap, goo, '111111', )
 
   const handleForm = ({ name, number }: handleFormProps) => {
     if (name === 'account') {
@@ -42,11 +41,9 @@ export const Form: FC<handleFormProps> = ({ allCities, vvv, handleChange, some, 
     }
   }
 
-  console.log(rap)
 
   const getSubContent = () => {
     if (isAccount && path === 0 && rap) {
-        console.log(goo)
       return null
     } else if (isSearch && path === 1) {
       return null

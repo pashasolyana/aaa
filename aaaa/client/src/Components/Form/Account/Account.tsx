@@ -17,7 +17,6 @@ const Account: FC<handleFormProps> = ({ rap, goo, cities, cities2 }) => {
     return diffDays
   }
 
-  console.log(rap, '5555555')
 
   return (
     <>
