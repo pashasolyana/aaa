@@ -10,6 +10,7 @@
 
   &__el {
     @apply text-lg w-full flex justify-between gap-x-2;
+    font-feature-settings: 'pnum' on, 'lnum' on;
     max-width: 50%;
     p:first-child {
       @apply font-normal;
