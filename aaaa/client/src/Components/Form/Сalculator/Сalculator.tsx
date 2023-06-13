@@ -162,7 +162,9 @@ const Сalculator: React.FC<СalculatorProps> = ({
     }
     if (key === 'ArrowUp') {
       e.preventDefault()
-      setFocusedIndex((focusedIndex - 1) % data?.pages?.at(0)?.length)
+      if (focusedIndex > 0) {
+        setFocusedIndex((focusedIndex - 1) % data?.pages?.at(0)?.length)
+      }
     }
     if (key === 'Enter') {
       e.preventDefault()
@@ -191,7 +193,9 @@ const Сalculator: React.FC<СalculatorProps> = ({
     }
     if (key === 'ArrowUp') {
       e.preventDefault()
-      setFocusedIndex2((focusedIndex2 - 1) % data2?.pages?.at(0)?.length)
+      if (focusedIndex2 > 0) {
+        setFocusedIndex2((focusedIndex2 - 1) % data2?.pages?.at(0)?.length)
+      }
     }
     if (key === 'Enter') {
       e.preventDefault()
@@ -487,6 +491,7 @@ const Сalculator: React.FC<СalculatorProps> = ({
             alt='swap'
             className={styles.swap}
             onClick={swapFun}
+            draggable={false}
           />
           <div className={styles.inpEl}>
             <div className={styles.leftBlock__input}>
