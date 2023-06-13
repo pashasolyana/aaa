@@ -54,6 +54,7 @@
     border-radius: 6px;
 
     input {
+      font-feature-settings: 'pnum' on, 'lnum' on;
       width: 100%;
       outline: none;
       border: none;
@@ -149,8 +150,7 @@
 }
 
 @media screen and (max-width: 420px) {
-
-  .cont{
+  .cont {
     @apply gap-y-7;
     margin-bottom: 80px;
   }

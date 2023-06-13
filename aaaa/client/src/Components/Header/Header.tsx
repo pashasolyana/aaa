@@ -33,7 +33,7 @@ export const Header = ({ setPath }: any) => {
     setCloseEye(true)
     document.getElementsByTagName('html')[0].style.overflow = isOpen
       ? 'hidden'
-      : 'block'
+      : 'auto'
   }
 
   const { mutate } = useMutation(
