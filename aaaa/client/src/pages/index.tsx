@@ -9,6 +9,7 @@ import Loader from '@/Components/Loader/Loader'
 import getAllCities from '@/Components/FirstScreen/getAllCities'
 import Documents from '@/Components/Documents/Documents'
 import BitrixForm from '@/Components/BitrixForm/BitrixForm'
+import Mapa from '@/Components/Mapa/Mapa'
 
 export default function Home() {
   const [path, setPath] = useState(0)
@@ -55,6 +56,7 @@ export default function Home() {
       />
       <Delivery />
       <Documents />
+      <Mapa/>
       <div id='faq'></div>
       <BitrixForm />
       <Footer />

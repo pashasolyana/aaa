@@ -1,0 +1,106 @@
+.cont {
+  @apply w-full flex flex-col gap-y-7;
+
+  margin-bottom: 180px;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 35px;
+  font-feature-settings: 'pnum' on, 'lnum' on;
+  color: #2e2e2e;
+}
+
+.wrapper {
+  @apply grid w-full gap-x-10;
+  height: 600px;
+  grid-template-columns: 7fr 3fr;
+}
+
+.map {
+  @apply w-full h-full overflow-hidden;
+  border-radius: 220px 3%;
+  * {
+    transition: none;
+  }
+}
+
+.listCont {
+  @apply w-full flex flex-col gap-y-5;
+  height: 600px;
+
+  &__title {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    color: #3622f5;
+  }
+
+  &__search {
+    @apply flex gap-x-2.5;
+    padding: 12px 10px;
+    border: 1px solid #c2c2c2;
+    border-radius: 6px;
+
+    img {
+      width: 15px;
+      height: 15px;
+    }
+
+    input {
+      @apply border-none outline-none;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 19px;
+
+      &::placeholder {
+        color: #a7a7a7;
+      }
+    }
+  }
+}
+
+.list {
+  @apply w-full h-full overflow-y-auto flex flex-col gap-y-5;
+  padding: 10px 16px;
+  background: rgba(236, 236, 236, 0.5);
+  border-radius: 6px;
+
+  &::-webkit-scrollbar {
+    width: 6px !important;
+    /* ширина scrollbar */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent !important;
+    /* цвет дорожки */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #d9d9d9 !important;
+    /* цвет плашки */
+    border-radius: 16px !important;
+  }
+
+  &__el {
+    @apply flex flex-col gap-y-1;
+
+    &__title {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 130%;
+      font-feature-settings: 'pnum' on, 'lnum' on;
+      color: #2e2e2e;
+    }
+
+    &__time {
+      font-weight: 500;
+      font-size: 15px;
+      line-height: 130%;
+      font-feature-settings: 'pnum' on, 'lnum' on;
+      color: #6d5ef6;
+    }
+  }
+}
