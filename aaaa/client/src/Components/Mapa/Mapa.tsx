@@ -1,36 +1,43 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import s from './Mapa.module.scss'
-import { YMaps, Map, Placemark,Clusterer } from '@pbe/react-yandex-maps'
 import Image from 'next/image'
+import { useGetAllCoordinat } from './hoook/useGetAllCoordinat'
 
 const Mapa = () => {
   const [pin, setPin] = useState([55.755811, 37.617617])
-  const clickOnMap = (e: any) => {
-    setPin(e.get('coords'))
-  }
+  const { data } = useGetAllCoordinat()
+
+  useEffect(() => {
+    //@ts-ignore
+    window.ymaps.ready(init)
+    function init() {
+      // Создание карты.
+      //@ts-ignore
+      new window.ymaps.Map('map', {
+        center: [55.76, 37.64],
+        zoom: 7
+      })
+    }
+    //@ts-ignore
+    new window.ymaps.LoadingObjectManager('//server.com/tile?bbox=%b', {
+      // Включаем кластеризацию.
+      clusterize: true,
+      // Зададим опции кластерам.
+      // Опции кластеров задаются с префиксом cluster.
+      clusterHasBalloon: false,
+      // Опции объектов задаются с префиксом geoObject.
+      geoObjectOpenBalloonOnClick: false
+    })
+  }, [])
+
+  // const clickOnMap = (e: any) => {
+  //   setPin(e.get('coords'))
+  // }
   return (
     <div className={s.cont}>
       <h1 className={s.title}>Пункты выдачи заказов</h1>
       <div className={s.wrapper}>
-        <YMaps query={{ apikey: process.env.MAPA_KEY }}>
-          <Map
-            className={s.map}
-            defaultState={{ center: [55.755811, 37.617617], zoom: 10 }}
-            onClick={(e: any) => clickOnMap(e)}
-            options={{ suppressMapOpenBlock: true }}
-          >
-            <Clusterer
-              options={{
-                preset: 'islands#invertedVioletClusterIcons',
-                groupByCoordinates: false
-              }}
-            >
-              {[[55.355811, 37.617617],[55.755811, 37.917617],[55.155811, 37.617617]].map((coordinates, index) => (
-                <Placemark key={index} geometry={coordinates} />
-              ))}
-            </Clusterer>
-          </Map>
-        </YMaps>
+        <div id='map' className={s.map}></div>
         <div className={s.listCont}>
           <h1 className={s.listCont__title}>Список адресов</h1>
           <div className={s.listCont__search}>

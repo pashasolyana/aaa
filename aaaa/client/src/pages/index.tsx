@@ -5,8 +5,6 @@ import Footer from '../Components/Footer/Footer'
 import { ChangeEvent, useState } from 'react'
 import getStatusGET from '../Components/FirstScreen/getStatusGET'
 import { Form } from '../Components/Form/Form'
-import Loader from '@/Components/Loader/Loader'
-import getAllCities from '@/Components/FirstScreen/getAllCities'
 import Documents from '@/Components/Documents/Documents'
 import BitrixForm from '@/Components/BitrixForm/BitrixForm'
 import Mapa from '@/Components/Mapa/Mapa'
@@ -30,10 +28,6 @@ export default function Home() {
     })
   }
 
-  const { data } = getAllCities()
-
-  const allCities = data?.pages?.at(0)
-
   return (
     <>
       <Header setPath={setPath} />
@@ -46,7 +40,6 @@ export default function Home() {
       />
       <div className='absolute' id='track'></div>
       <Form
-        allCities={allCities}
         vvv={vvv}
         handleChange={handleChange}
         some={some}
@@ -56,7 +49,7 @@ export default function Home() {
       />
       <Delivery />
       <Documents />
-      <Mapa/>
+      <Mapa />
       <div id='faq'></div>
       <BitrixForm />
       <Footer />
