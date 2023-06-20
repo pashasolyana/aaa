@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import s from './Mapa.module.scss'
 import Image from 'next/image'
+import point from '../../../public/point.svg'
 import { useGetAllCoordinat } from './hoook/useGetAllCoordinat'
 
 const Mapa = () => {
   const [pin, setPin] = useState([55.755811, 37.617617])
-  const { data } = useGetAllCoordinat()
+  // const { data } = useGetAllCoordinat()
 
   useEffect(() => {
     //@ts-ignore
@@ -13,26 +14,30 @@ const Mapa = () => {
     function init() {
       // Создание карты.
       //@ts-ignore
-      new window.ymaps.Map('map', {
+      let map = new window.ymaps.Map('map', {
         center: [55.76, 37.64],
         zoom: 7
       })
+      //@ts-ignore
+      let loadingObjectManager = new window.ymaps.LoadingObjectManager(
+        'http://81.200.152.89/api/pvz/coordinatOnly?tileNumber=%t&z=%z',
+        {
+          clusterize: true,
+          clusterHasBalloon: false,
+          geoObjectOpenBalloonOnClick: true
+        }
+      )
+      loadingObjectManager.objects.options.set({
+        preset: 'islands#blueCircleDotIcon',
+        iconLayout: 'default#image',
+        iconImageHref: point.src,
+        iconImageSize: [30, 30],
+        iconImageOffset: [-15, -15]
+      })
+      map.geoObjects.add(loadingObjectManager)
     }
-    //@ts-ignore
-    new window.ymaps.LoadingObjectManager('//server.com/tile?bbox=%b', {
-      // Включаем кластеризацию.
-      clusterize: true,
-      // Зададим опции кластерам.
-      // Опции кластеров задаются с префиксом cluster.
-      clusterHasBalloon: false,
-      // Опции объектов задаются с префиксом geoObject.
-      geoObjectOpenBalloonOnClick: false
-    })
   }, [])
 
-  // const clickOnMap = (e: any) => {
-  //   setPin(e.get('coords'))
-  // }
   return (
     <div className={s.cont}>
       <h1 className={s.title}>Пункты выдачи заказов</h1>
