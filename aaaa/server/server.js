@@ -37,6 +37,7 @@ require('./routes/basic.routes')(app);
 require('./routes/otherQuestions.routes')(app);
 require('./routes/questions.routes')(app);
 require('./routes/user.routes')(app)
+require('./routes/pvz.routes')(app)
 //require('./routes/content.routes')(app)
 
 app.post("/api/upload", [verifyToken, fileUpload({createParentPath : true})], (req,res) => {
