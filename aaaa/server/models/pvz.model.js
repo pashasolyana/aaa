@@ -27,4 +27,6 @@ const PvzSchema = new mongoose.Schema({
 });
 
 const Pvz = mongoose.model("PvzSchema", PvzSchema, "pvz");
+PvzSchema.index({"location.longitude" : 1})
+PvzSchema.index({"location.latitude" : 1})
 module.exports = Pvz

@@ -179,30 +179,53 @@ module.exports = {
     },
 
     getCoords : async(req,res) => {
-        const { page, limit } = req.query;
-        if(!page || limit){
-            const pvz = await Model.find()
-                .select({"location.longitude" : 1, "location.latitude" : 1})
-                .exec();
-
-            return res.send(pvz).status(200);
-        }
-        try {
-            const pvz = await Model.find({}, {"location.longitude" : 1, "location.latitude" : 1})
-                .limit(limit * 1)
-                .skip((page - 1) * limit)
-                .exec();
-
-            const count = await Model.count();
-            return res.send({
-                pvz,
-                totalPages: Math.ceil(count / limit),
-                currentPage: page
-            }).status(200);
-        } catch (err) {
-            console.error(err.message);
+        //http://81.200.152.89/api/pvz/coordinatOnly?tileNumber=36,18,40,21&z=6&callback=id_168737337452479622042
+          try{
+            if(!req.query.tileNumber){
+                return res.status(400).send({message : "Bad query"})
+            }
+            if(!req.query.callback){
+                return res.status(400).send({message : "Bad query"})
+            }
+            let firstX;
+            let firstY;
+            let secondX;
+            let secondY;
+            let coordsArray = (req.query.tileNumber).split(',')
+            firstX = coordsArray[0]
+            firstY = coordsArray[1]
+            secondX = coordsArray[2]
+            secondY = coordsArray[3]
+            console.log(firstX, firstY, secondX, secondY)
+            const pounkts = await Model.find({
+                $and : [
+                    {"location.longitude" : {$gte : firstX}, "location.latitude" : {$gte : firstY}},
+                    {"location.longitude" : {$lte : secondX}, "location.latitude" : {$lte : secondY}}
+                ]
+            })
+            let resultArray = []
+            pounkts.map(doc => {
+                resultArray.push(
+                    {
+                        "type": "Feature",
+                        "id" : doc._id,
+                        "geometry": {
+                          "type": "Point",
+                          "coordinates": [Number(doc.location.longitude), Number(doc.location.latitude)]
+                        },
+                        "properties": {
+                          "name": doc.name,
+                          "description": 'Пункт выдачи'
+                        }
+                      }
+                )
+            })
+            console.log(resultArray)
+            return res.jsonp(resultArray)
+          }catch(e){
+            console.log(e)
             return res.status(500).send({message : "Server error"})
-        }
+          }
     }
 
 
