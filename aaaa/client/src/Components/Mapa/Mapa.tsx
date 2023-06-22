@@ -3,6 +3,7 @@ import s from './Mapa.module.scss'
 import Image from 'next/image'
 import point from '../../../public/point.svg'
 import { useGetAllCoordinat } from './hoook/useGetAllCoordinat'
+import { coordinateObjEntity } from '../../../services/map/type'
 
 const Mapa = () => {
   const [pin, setPin] = useState([55.755811, 37.617617])
@@ -20,7 +21,7 @@ const Mapa = () => {
       })
       //@ts-ignore
       let loadingObjectManager = new window.ymaps.LoadingObjectManager(
-        'http://81.200.152.89/api/pvz/coordinatOnly?tileNumber=%t&z=%z',
+        'http://81.200.152.89/api/pvz/coordinatOnly?tileNumber=%b',
         {
           clusterize: true,
           clusterHasBalloon: false,
@@ -33,6 +34,14 @@ const Mapa = () => {
         iconImageHref: point.src,
         iconImageSize: [30, 30],
         iconImageOffset: [-15, -15]
+      })
+
+      loadingObjectManager.objects.events.add('click', function (
+        e: coordinateObjEntity
+      ) {
+        var objectId = e.get('objectId')
+        var objectData = loadingObjectManager.objects.getById(objectId)
+        console.log(objectData)
       })
       map.geoObjects.add(loadingObjectManager)
     }
