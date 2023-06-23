@@ -171,7 +171,18 @@ module.exports = {
             if(!result){
                 return res.status(404).send({message : "Not found"})
             }
-            return res.status(200).send(result)
+            return res.status(200).send( {
+                "type": "Feature",
+                "id" : result._id,
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [Number(result.location.longitude), Number(result.location.latitude)]
+                },
+                "properties": {
+                  "name": result.name,
+                  "description": 'Пункт выдачи'
+                }
+              })
         }catch(e){
             console.log(e)
             return res.status(500).send({message : "Server error"})
