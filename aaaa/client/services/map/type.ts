@@ -1,7 +1,28 @@
 export type getAllCoordinatesRes = {
-  location: { longitude: string; latitude: string }
+  pvz: coordinateObjEntitySearch[]
+  currentPage: number
+}
+
+export interface coordinateObjEntitySearch {
+  location: {
+    address: string
+    city: string
+    city_code: number
+    country_code: string
+    fiasCode: string
+    fullAddress: string
+    latitude: string
+    longitude: string
+    postal_code: string
+    region: string
+    region_code: 7
+  }
+  name: string
+  phone: string[]
+  pics: string[]
+  workedTime: string
   _id: string
-}[]
+}
 
 export interface coordinateObjEntity {
   geometry: {
@@ -14,5 +35,5 @@ export interface coordinateObjEntity {
     name: string
   }
   type: string
-  get:any
+  get: any
 }

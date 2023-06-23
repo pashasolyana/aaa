@@ -4,10 +4,25 @@ import Image from 'next/image'
 import point from '../../../public/point.svg'
 import { useGetAllCoordinat } from './hoook/useGetAllCoordinat'
 import { coordinateObjEntity } from '../../../services/map/type'
+import { throttle } from '../../../utils/throttle/throttle'
+import { useScroll } from '../../../utils/useScroll/useScroll'
+import { useDebounce } from '../../../utils/useDebounce/useDebounce'
 
 const Mapa = () => {
-  const [pin, setPin] = useState([55.755811, 37.617617])
-  // const { data } = useGetAllCoordinat()
+  const [searchText, setSearchText] = useState<string>('')
+  const { data, fetchNextPage } = useGetAllCoordinat({searchText})
+
+  const { checkScroll } = useScroll({
+    fetchNextPage
+  })
+
+  const throttleHandle = throttle(checkScroll, 1000)
+
+  const searchHandle = (data: string) => {
+    setSearchText(data)
+  }
+
+  const myDebounce = useDebounce(searchHandle, 200)
 
   useEffect(() => {
     //@ts-ignore
@@ -56,57 +71,25 @@ const Mapa = () => {
           <h1 className={s.listCont__title}>Список адресов</h1>
           <div className={s.listCont__search}>
             <Image width={15} height={15} alt='Поиск' src={'/search.svg'} />
-            <input type='text' placeholder='Ближайший адрес' />
+            <input
+              type='text'
+              placeholder='Ближайший адрес'
+              onChange={(e) => myDebounce(e.target.value)}
+            />
           </div>
-          <div className={s.list}>
-            <div className={s.list__el}>
-              <p className={s.list__el__title}>Москва, пр. Рязанский, 184</p>
-              <p className={s.list__el__time}>10:00 - 20:00</p>
-            </div>
-            <div className={s.list__el}>
-              <p className={s.list__el__title}>Москва, пр. Рязанский, 184</p>
-              <p className={s.list__el__time}>10:00 - 20:00</p>
-            </div>
-            <div className={s.list__el}>
-              <p className={s.list__el__title}>Москва, пр. Рязанский, 184</p>
-              <p className={s.list__el__time}>10:00 - 20:00</p>
-            </div>
-            <div className={s.list__el}>
-              <p className={s.list__el__title}>Москва, пр. Рязанский, 184</p>
-              <p className={s.list__el__time}>10:00 - 20:00</p>
-            </div>
-            <div className={s.list__el}>
-              <p className={s.list__el__title}>Москва, пр. Рязанский, 184</p>
-              <p className={s.list__el__time}>10:00 - 20:00</p>
-            </div>
-            <div className={s.list__el}>
-              <p className={s.list__el__title}>Москва, пр. Рязанский, 184</p>
-              <p className={s.list__el__time}>10:00 - 20:00</p>
-            </div>
-            <div className={s.list__el}>
-              <p className={s.list__el__title}>Москва, пр. Рязанский, 184</p>
-              <p className={s.list__el__time}>10:00 - 20:00</p>
-            </div>
-            <div className={s.list__el}>
-              <p className={s.list__el__title}>Москва, пр. Рязанский, 184</p>
-              <p className={s.list__el__time}>10:00 - 20:00</p>
-            </div>
-            <div className={s.list__el}>
-              <p className={s.list__el__title}>Москва, пр. Рязанский, 184</p>
-              <p className={s.list__el__time}>10:00 - 20:00</p>
-            </div>
-            <div className={s.list__el}>
-              <p className={s.list__el__title}>Москва, пр. Рязанский, 184</p>
-              <p className={s.list__el__time}>10:00 - 20:00</p>
-            </div>
-            <div className={s.list__el}>
-              <p className={s.list__el__title}>Москва, пр. Рязанский, 184</p>
-              <p className={s.list__el__time}>10:00 - 20:00</p>
-            </div>
-            <div className={s.list__el}>
-              <p className={s.list__el__title}>Москва, пр. Рязанский, 184</p>
-              <p className={s.list__el__time}>10:00 - 20:00</p>
-            </div>
+          <div className={s.list} onScroll={throttleHandle}>
+            {data?.pages.map((elem) =>
+              elem.pvz.map((el) => (
+                <div className={s.list__el} key={el._id}>
+                  <p className={s.list__el__title}>{el.location.address}</p>
+                  {el.workedTime.split(',').map((time, ind) => (
+                    <p className={s.list__el__time} key={el._id + ind}>
+                      {time}
+                    </p>
+                  ))}
+                </div>
+              ))
+            )}
           </div>
         </div>
       </div>
