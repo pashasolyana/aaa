@@ -144,9 +144,18 @@ module.exports = {
 
     getAllPvz: async (req, res) => {
         const { page = 1, limit = 10 } = req.query;
+        let filter = {}
+        if(req.query.search){
+            filter.$or = [
+                {name : {$regex: new RegExp(req.query.search.split(' ').join('|'), 'i')}},
+                {"location.fullAddress" : {$regex: new RegExp(req.query.search.split(' ').join('|'), 'i')}},
+                {"location.city" : {$regex: new RegExp(req.query.search.split(' ').join('|'), 'i')}},
+                {"location.address" : {$regex: new RegExp(req.query.search.split(' ').join('|'), 'i')}},
+            ]
+        }
 
         try {
-            const pvz = await Model.find()
+            const pvz = await Model.find(filter)
                 .limit(limit * 1)
                 .skip((page - 1) * limit)
                 .exec();
