@@ -85,7 +85,7 @@
   }
 
   &__el {
-    @apply flex flex-col gap-y-1;
+    @apply flex flex-col gap-y-1 cursor-pointer;
 
     &__title {
       font-weight: 600;

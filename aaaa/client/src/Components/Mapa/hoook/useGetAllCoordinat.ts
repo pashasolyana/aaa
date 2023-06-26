@@ -12,7 +12,8 @@ export const useGetAllCoordinat = ({searchText}:{searchText:string}) => {
           return (page.currentPage + 1) as number
         }
       },
-      keepPreviousData: true
+      keepPreviousData: true,
+      cacheTime:0
     }
   )
 }

@@ -7,10 +7,12 @@ import { coordinateObjEntity } from '../../../services/map/type'
 import { throttle } from '../../../utils/throttle/throttle'
 import { useScroll } from '../../../utils/useScroll/useScroll'
 import { useDebounce } from '../../../utils/useDebounce/useDebounce'
+import Punkt from './Punkt/Punkt'
 
 const Mapa = () => {
   const [searchText, setSearchText] = useState<string>('')
-  const { data, fetchNextPage } = useGetAllCoordinat({searchText})
+  const { data, fetchNextPage } = useGetAllCoordinat({ searchText })
+  const [idPunkt, setIdPunkt] = useState<null | string>(null)
 
   const { checkScroll } = useScroll({
     fetchNextPage
@@ -23,6 +25,11 @@ const Mapa = () => {
   }
 
   const myDebounce = useDebounce(searchHandle, 200)
+
+  const setPunkt = (id: string) => {
+    console.log(id)
+    setIdPunkt(id)
+  }
 
   useEffect(() => {
     //@ts-ignore
@@ -56,7 +63,7 @@ const Mapa = () => {
       ) {
         var objectId = e.get('objectId')
         var objectData = loadingObjectManager.objects.getById(objectId)
-        console.log(objectData)
+        setPunkt(objectData.id)
       })
       map.geoObjects.add(loadingObjectManager)
     }
@@ -80,7 +87,11 @@ const Mapa = () => {
           <div className={s.list} onScroll={throttleHandle}>
             {data?.pages.map((elem) =>
               elem.pvz.map((el) => (
-                <div className={s.list__el} key={el._id}>
+                <div
+                  className={s.list__el}
+                  key={el._id}
+                  onClick={() => setIdPunkt(el._id)}
+                >
                   <p className={s.list__el__title}>{el.location.address}</p>
                   {el.workedTime.split(',').map((time, ind) => (
                     <p className={s.list__el__time} key={el._id + ind}>
@@ -91,6 +102,7 @@ const Mapa = () => {
               ))
             )}
           </div>
+          {idPunkt ? <Punkt id={idPunkt} setIdPunkt={setIdPunkt} /> : <></>}
         </div>
       </div>
     </div>
